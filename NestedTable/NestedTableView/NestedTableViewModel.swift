@@ -203,6 +203,22 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
+    func itemsDropped(_ items: [Data], into groupId: UUID) {
+        Task {
+            let ids = items.map {
+                let uuidString = String(data: $0, encoding: .utf8)!
+                return UUID(uuidString: uuidString)!
+            }
+            await move(Set(ids), to: groupId)
+        }
+    }
+
+    func itemProvider(for item: BaseRow) -> NSItemProvider {
+        let provider = NSItemProvider()
+        provider.register(item.uuidAsData())
+        return provider
+    }
+
     private func async_fetch(shouldAnimate: Bool = true) async throws {
         let items = try await dm
             .fetch()

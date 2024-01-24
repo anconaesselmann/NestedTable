@@ -60,25 +60,15 @@ struct NestedTableView: View {
                     if item.isFolder {
                         TableRow(item)
                             .itemProvider {
-                                let provider = NSItemProvider()
-                                provider.register(item.uuidAsData())
-                                return provider
+                                vm.itemProvider(for: item)
                             }
-                            .dropDestination(for: Data.self) { items in
-                                Task {
-                                    let ids = items.map {
-                                        let uuidString = String(data: $0, encoding: .utf8)!
-                                        return UUID(uuidString: uuidString)!
-                                    }
-                                    await vm.move(Set(ids), to: item.id)
-                                }
+                            .dropDestination(for: Data.self) {
+                                vm.itemsDropped($0, into: item.id)
                             }
                     } else {
                         TableRow(item)
                             .itemProvider {
-                                let provider = NSItemProvider()
-                                provider.register(item.uuidAsData())
-                                return provider
+                                vm.itemProvider(for: item)
                             }
                     }
 
