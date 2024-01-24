@@ -113,6 +113,13 @@ struct NestedTableView: View {
     @ViewBuilder
     func contextMenu(for ids: Set<UUID>) -> some View {
         if ids.count == 1, let id = ids.first {
+            #if os(macOS)
+
+            #else
+            Button("Select") {
+                vm.selection.insert(id)
+            }
+            #endif
             Button("Rename") {
                 vm.rename(id)
                 isNameFocused = true
