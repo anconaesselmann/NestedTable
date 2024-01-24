@@ -6,6 +6,12 @@ import SwiftUI
 struct ContentView: View {
 
     var body: some View {
+        #if os(macOS)
+        NestedTableView(
+            dataManager: MockDataManager(),
+            delegate: MockNestedTableManager()
+        )
+        #else
         NavigationView {
             NestedTableView(
                 dataManager: MockDataManager(),
@@ -13,9 +19,12 @@ struct ContentView: View {
             )
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
+
+
                     EditButton()
                 }
             }
         }
+        #endif
     }
 }
