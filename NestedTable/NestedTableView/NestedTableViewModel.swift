@@ -158,6 +158,7 @@ class NestedTableViewModel: ObservableObject {
 
     func move(_ ids: Set<UUID>, to newParent: UUID) async {
         do {
+            let ids = ids.filter { $0 != newParent }
             for id in ids {
                 try await dm.move(itemWithId: id, toGroupWithId: newParent)
             }
