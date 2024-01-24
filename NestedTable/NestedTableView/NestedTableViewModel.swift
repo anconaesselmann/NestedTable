@@ -9,7 +9,28 @@ class NestedTableViewModel: ObservableObject {
     var items: [BaseRow] = []
 
     @Published
-    var selection = Set<UUID>()
+    var selection = Set<UUID>() {
+        didSet {
+            if renaming != nil {
+                renaming = nil
+            }
+        }
+    }
+
+    var renaming: UUID? {
+        didSet {
+            guard
+                let newValue = renaming,
+                let item = items.first(where: { $0.id == newValue})
+            else {
+                return
+            }
+            newName = item.text
+        }
+    }
+
+    @Published
+    var newName: String = ""
 
     private let dm = DataManager()
 
@@ -20,27 +41,7 @@ class NestedTableViewModel: ObservableObject {
             do {
                 try await async_fetch()
             } catch {
-
-            }
-        }
-    }
-
-    private func async_fetch(shouldAnimate: Bool = true) async throws {
-        let items = try await dm
-            .fetch()
-            .map { BaseRow($0) }
-        if shouldAnimate {
-            withAnimation {
-                self.items = items
-                self.objectWillChange.send()
-            }
-        } else {
-            self.items = items
-//            self.objectWillChange.send()
-        }
-        for item in items {
-            if let folder = item.folder, expanded.contains(item.id) {
-                await expand(folder, shouldAnimate: shouldAnimate)
+                print(error)
             }
         }
     }
@@ -72,7 +73,7 @@ class NestedTableViewModel: ObservableObject {
                 }
             }
         } catch {
-
+            print(error)
         }
     }
 
@@ -117,21 +118,9 @@ class NestedTableViewModel: ObservableObject {
 
     func createFolder(with ids: Set<UUID>) async -> UUID? {
         do {
-//            guard let firstId = ids.first else {
-//                return
-//            }
-//            guard let row = items.first(where: { $0.id == firstId }) else {
-//                return
-//            }
             let folder = Folder(id: UUID(), text: "New group", contents: ids)
-//            if let parent = row.parent {
-//                let parentIndex = items.firstIndex(where: { $0.id == parent })
-//            } else {
-//                
-//            }
             try await dm.create(folder: folder)
-//            await removeFromList(ids: ids)
-            try await async_fetch()
+            try await async_fetch(shouldAnimate: false)
             expanded.insert(folder.id)
             expanded = expanded.subtracting(ids)
             selection = [folder.id]
@@ -141,13 +130,6 @@ class NestedTableViewModel: ObservableObject {
             return nil
         }
     }
-
-//    func isGrouped(_ id: UUID) -> Bool {
-//        guard let item = items.first(where: { $0.id == id }) else {
-//            return false
-//        }
-//        return item.parent != nil
-//    }
 
     func isGrouped(_ ids: Set<UUID>) -> Bool {
         items
@@ -186,21 +168,6 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    var renaming: UUID? {
-        didSet {
-            guard 
-                let newValue = renaming,
-                let item = items.first(where: { $0.id == newValue})
-            else {
-                return
-            }
-            newName = item.text
-        }
-    }
-
-    @Published
-    var newName: String = ""
-
     func rename(_ id: UUID) {
         renaming = id
     }
@@ -210,6 +177,7 @@ class NestedTableViewModel: ObservableObject {
             renaming = nil
             try await dm.rename(id, to: newName)
             try await async_fetch(shouldAnimate: false)
+            self.objectWillChange.send()
         } catch {
             print(error)
         }
@@ -227,16 +195,22 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-//    private func removeFromList(ids: Set<UUID>) async {
-//        let remove = items.filter { ids.contains($0.id) }
-//        for item in remove {
-//            if let childFolder = item.folder {
-//                contract(childFolder)
-//            }
-//        }
-//        withAnimation {
-//            items.removeAll(where: { ids.contains($0.id) } )
-//            self.objectWillChange.send()
-//        }
-//    }
+    private func async_fetch(shouldAnimate: Bool = true) async throws {
+        let items = try await dm
+            .fetch()
+            .map { BaseRow($0) }
+        if shouldAnimate {
+            withAnimation {
+                self.items = items
+                self.objectWillChange.send()
+            }
+        } else {
+            self.items = items
+        }
+        for item in items {
+            if let folder = item.folder, expanded.contains(item.id) {
+                await expand(folder, shouldAnimate: shouldAnimate)
+            }
+        }
+    }
 }

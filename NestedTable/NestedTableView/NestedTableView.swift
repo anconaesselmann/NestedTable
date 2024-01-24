@@ -88,8 +88,8 @@ struct NestedTableView: View {
             .contextMenu(forSelectionType: UUID.self) { ids in
                 if ids.count == 1, let id = ids.first {
                     Button("Rename") {
-                        isNameFocused = true
                         vm.rename(id)
+                        isNameFocused = true
                     }
                 }
                 Button("Group") {
@@ -97,8 +97,8 @@ struct NestedTableView: View {
                         guard let id = await vm.createFolder(with: ids) else {
                             return
                         }
-                        isNameFocused = true
                         vm.rename(id)
+                        isNameFocused = true
                     }
                 }
                 if ids.count > 0 {
