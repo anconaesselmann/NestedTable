@@ -26,6 +26,11 @@
 		97108C1C2B61896200A4A021 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C1B2B61896200A4A021 /* View+Extensions.swift */; };
 		97108C1E2B61937D00A4A021 /* NestedTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */; };
 		97108C202B61950100A4A021 /* MockNestedTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */; };
+		97108C232B61B7C500A4A021 /* ItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C222B61B7C500A4A021 /* ItemContextMenu.swift */; };
+		97108C282B61C56900A4A021 /* ContextMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C272B61C56900A4A021 /* ContextMenuManager.swift */; };
+		97108C2A2B61C58500A4A021 /* DefaultContextMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C292B61C58500A4A021 /* DefaultContextMenuManager.swift */; };
+		97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C2B2B61C5E000A4A021 /* ContextMenuItems.swift */; };
+		97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C2D2B61C5EF00A4A021 /* DefaultContextMenuItems.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +74,11 @@
 		97108C1B2B61896200A4A021 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableDataManager.swift; sourceTree = "<group>"; };
 		97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNestedTableManager.swift; sourceTree = "<group>"; };
+		97108C222B61B7C500A4A021 /* ItemContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContextMenu.swift; sourceTree = "<group>"; };
+		97108C272B61C56900A4A021 /* ContextMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuManager.swift; sourceTree = "<group>"; };
+		97108C292B61C58500A4A021 /* DefaultContextMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultContextMenuManager.swift; sourceTree = "<group>"; };
+		97108C2B2B61C5E000A4A021 /* ContextMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuItems.swift; sourceTree = "<group>"; };
+		97108C2D2B61C5EF00A4A021 /* DefaultContextMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultContextMenuItems.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +131,7 @@
 			children = (
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
 				97108C032B60F3E000A4A021 /* ContentView.swift */,
+				97108C262B61C56100A4A021 /* ContextMenuManager */,
 				97108C212B61950400A4A021 /* Mocks */,
 				97108C1A2B61895500A4A021 /* Extensions */,
 				97108C152B61837A00A4A021 /* Transferable */,
@@ -173,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				97108C0B2B60F3E000A4A021 /* NestedTableView.swift */,
+				97108C222B61B7C500A4A021 /* ItemContextMenu.swift */,
 				97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */,
 				97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */,
 			);
@@ -203,6 +215,17 @@
 				97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		97108C262B61C56100A4A021 /* ContextMenuManager */ = {
+			isa = PBXGroup;
+			children = (
+				97108C272B61C56900A4A021 /* ContextMenuManager.swift */,
+				97108C292B61C58500A4A021 /* DefaultContextMenuManager.swift */,
+				97108C2B2B61C5E000A4A021 /* ContextMenuItems.swift */,
+				97108C2D2B61C5EF00A4A021 /* DefaultContextMenuItems.swift */,
+			);
+			path = ContextMenuManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,14 +359,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				97108C1E2B61937D00A4A021 /* NestedTableDataManager.swift in Sources */,
+				97108C2A2B61C58500A4A021 /* DefaultContextMenuManager.swift in Sources */,
 				97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */,
 				97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */,
 				97108C202B61950100A4A021 /* MockNestedTableManager.swift in Sources */,
 				97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */,
+				97108C282B61C56900A4A021 /* ContextMenuManager.swift in Sources */,
 				97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */,
 				97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */,
+				97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,
 				97108C122B60F3E000A4A021 /* DataManager.swift in Sources */,
+				97108C232B61B7C500A4A021 /* ItemContextMenu.swift in Sources */,
+				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,
 				97108BD92B60F37700A4A021 /* NestedTableApp.swift in Sources */,
 				97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */,

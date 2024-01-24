@@ -5,16 +5,25 @@ import SwiftUI
 
 struct NestedTableView: View {
 
-    init(dataManager: NestedTableDataManager, delegate: NestedTableDelegate) {
+    init(
+        dataManager: NestedTableDataManager,
+        delegate: NestedTableDelegate,
+        contextMenuManager: ContextMenuManager
+    ) {
         let vm = NestedTableViewModel(
             dataManager: dataManager,
-            delegate: delegate
+            delegate: delegate, 
+            contextMenuManager: contextMenuManager
         )
         _vm = StateObject(wrappedValue: vm)
     }
 
-    init(manager: (NestedTableDataManager & NestedTableDelegate)) {
-        self.init(dataManager: manager, delegate: manager)
+    init(manager: (NestedTableDataManager & NestedTableDelegate & ContextMenuManager)) {
+        self.init(
+            dataManager: manager,
+            delegate: manager,
+            contextMenuManager: manager
+        )
     }
 
     @StateObject
@@ -22,6 +31,27 @@ struct NestedTableView: View {
 
     @FocusState
     var isNameFocused:Bool
+
+    private var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
+
+    private var elements: [any ContextMenuItems] = DefaultContextMenuItems.allCases
+
+    func contextMenuItem<Element>(elements: [any ContextMenuItems]? = nil, @ViewBuilder builder: @escaping (Element, Set<UUID>) -> some View) -> some View
+        where Element: ContextMenuItems
+    {
+        var copy = self
+        if let elements = elements {
+            copy.elements = elements
+        }
+        copy.contextMenuElementBuilder = { (string: String, selected: Set<UUID>) -> AnyView? in
+            guard let element = Element(rawValue: string) else {
+                return nil
+            }
+            let view = builder(element, selected)
+            return AnyView(view)
+        }
+        return copy
+    }
 
     var body: some View {
         VStack {
@@ -68,13 +98,6 @@ struct NestedTableView: View {
                             Text(item.text)
                                 .padding(.leading, 10)
                                 .padding(.vertical, 2.5)
-//                                .if(vm.isSingleSelection(item.id)) { view in
-//                                    view
-//                                        .onTapGesture(count: 1) {
-//                                            vm.rename(item.id)
-//                                            isNameFocused = true
-//                                        }
-//                                }
                         }
                     }
                     .padding(.leading, CGFloat(item.indent * 32))
@@ -96,11 +119,15 @@ struct NestedTableView: View {
                                 vm.itemProvider(for: item)
                             }
                     }
-
                 }
             }
             .contextMenu(forSelectionType: UUID.self) {
-                contextMenu(for: $0)
+                ItemContextMenu(
+                    vm, 
+                    ids: $0, 
+                    elements: elements,
+                    contextMenuElementBuilder: contextMenuElementBuilder
+                )
             } primaryAction: { items in
                 vm.primaryAction(items)
             }
@@ -108,59 +135,11 @@ struct NestedTableView: View {
         .onAppear {
             vm.fetch()
         }
-    }
-
-    @ViewBuilder
-    func contextMenu(for ids: Set<UUID>) -> some View {
-        if ids.count == 1, let id = ids.first {
-            #if os(macOS)
-
-            #else
-            Button("Select") {
-                vm.selection.insert(id)
-            }
-            #endif
-            Button("Rename") {
-                vm.rename(id)
-                isNameFocused = true
-            }
+        .onChange(of: vm.isNameFocused) {
+            isNameFocused = vm.isNameFocused
         }
-        Button("Group \(ids.count > 1 ? "items" : "item")") {
-            Task {
-                guard let id = await vm.createGroup(with: ids) else {
-                    return
-                }
-                vm.rename(id)
-                isNameFocused = true
-            }
-        }
-        if ids.count > 0 {
-            #if os(macOS)
-
-            #else
-            let folders = vm.foldersOfSameLevel(for: ids)
-            Menu("Move to") {
-                ForEach(folders, id: \.1) { name, id in
-                    Button(name) {
-                        Task {
-                            await vm.move(ids, to: id)
-                        }
-                    }
-                }
-            }
-            #endif
-            if vm.isGrouped(ids) {
-                Button("Remove from group") {
-                    Task {
-                        await vm.removeFromGroup(ids)
-                    }
-                }
-            }
-            Button("Delete") {
-                Task {
-                    await vm.delete(ids)
-                }
-            }
+        .onChange(of: isNameFocused) {
+            vm.isNameFocused = isNameFocused
         }
     }
 }

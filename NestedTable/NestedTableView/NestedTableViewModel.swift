@@ -2,6 +2,7 @@
 //
 
 import SwiftUI
+import Combine
 
 @MainActor
 class NestedTableViewModel: ObservableObject {
@@ -34,12 +35,27 @@ class NestedTableViewModel: ObservableObject {
 
     private var dm: NestedTableDataManager
     private var delegate: NestedTableDelegate
+    internal var contextMenuManager: ContextMenuManager
 
     private var expanded: Set<UUID> = []
 
-    init(dataManager: NestedTableDataManager, delegate: NestedTableDelegate) {
+    private var bag = Set<AnyCancellable>()
+
+    @Published
+    var isNameFocused: Bool = false
+
+    init(
+        dataManager: NestedTableDataManager,
+        delegate: NestedTableDelegate,
+        contextMenuManager: ContextMenuManager
+    ) {
         self.dm = dataManager
         self.delegate = delegate
+        self.contextMenuManager = contextMenuManager
+
+        contextMenuManager.isNameFocused.sink { [weak self] newValue in
+            self?.isNameFocused = newValue
+        }.store(in: &bag)
     }
 
     func fetch() {
@@ -201,6 +217,7 @@ class NestedTableViewModel: ObservableObject {
 
     func rename(_ id: UUID) {
         renaming = id
+        contextMenuManager.focusName(true)
     }
 
     func rename(_ id: UUID, to newName: String) async {
@@ -246,13 +263,8 @@ class NestedTableViewModel: ObservableObject {
         selection.contains(id) && selection.count == 1
     }
 
-    #if os(macOS)
-
-    #else
+    #if !os(macOS)
     func foldersOfSameLevel(for ids: Set<UUID>) -> [(String, UUID?)] {
-        let selected =
-            items
-                .filter { ids.contains($0.id) }
         var names: [UUID: String] = [:]
 
         for item in items {

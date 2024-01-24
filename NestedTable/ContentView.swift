@@ -9,14 +9,40 @@ struct ContentView: View {
         #if os(macOS)
         NestedTableView(
             dataManager: MockDataManager(),
-            delegate: MockNestedTableManager()
+            delegate: MockNestedTableManager(),
+            contextMenuManager: DefaultContextMenuManager()
         )
+        .contextMenuItem(
+            elements: DefaultContextMenuItems.allCases + [Test.hello]
+        ) { (element: Test, selected) in
+            switch element {
+            case .hello:
+                if selected.count > 1 {
+                    Button("Hello world") {
+                        print("Hello world")
+                    }
+                }
+            }
+        }
         #else
         NavigationView {
             NestedTableView(
                 dataManager: MockDataManager(),
-                delegate: MockNestedTableManager()
+                delegate: MockNestedTableManager(), 
+                contextMenuManager: DefaultContextMenuManager()
             )
+            .contextMenuItem(
+                elements: DefaultContextMenuItems.allCases + [Test.hello]
+            ) { (element: Test, selected) in
+                switch element {
+                case .hello:
+                    if selected.count > 1 {
+                        Button("Hello world") {
+                            print("Hello world")
+                        }
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
 
