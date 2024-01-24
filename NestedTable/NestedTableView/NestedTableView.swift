@@ -84,40 +84,45 @@ struct NestedTableView: View {
 
                 }
             }
-            .contextMenu(forSelectionType: UUID.self) { ids in
-                if ids.count == 1, let id = ids.first {
-                    Button("Rename") {
-                        vm.rename(id)
-                        isNameFocused = true
-                    }
-                }
-                Button("Group \(ids.count > 1 ? "items" : "item")") {
-                    Task {
-                        guard let id = await vm.createFolder(with: ids) else {
-                            return
-                        }
-                        vm.rename(id)
-                        isNameFocused = true
-                    }
-                }
-                if ids.count > 0 {
-                    if vm.isGrouped(ids) {
-                        Button("Remove from group") {
-                            Task {
-                                await vm.removeFromGroup(ids)
-                            }
-                        }
-                    }
-                    Button("Delete") {
-                        Task {
-                            await vm.delete(ids)
-                        }
-                    }
-                }
+            .contextMenu(forSelectionType: UUID.self) {
+                contextMenu(for: $0)
             }
         }
         .onAppear {
             vm.fetch()
+        }
+    }
+
+    @ViewBuilder
+    func contextMenu(for ids: Set<UUID>) -> some View {
+        if ids.count == 1, let id = ids.first {
+            Button("Rename") {
+                vm.rename(id)
+                isNameFocused = true
+            }
+        }
+        Button("Group \(ids.count > 1 ? "items" : "item")") {
+            Task {
+                guard let id = await vm.createFolder(with: ids) else {
+                    return
+                }
+                vm.rename(id)
+                isNameFocused = true
+            }
+        }
+        if ids.count > 0 {
+            if vm.isGrouped(ids) {
+                Button("Remove from group") {
+                    Task {
+                        await vm.removeFromGroup(ids)
+                    }
+                }
+            }
+            Button("Delete") {
+                Task {
+                    await vm.delete(ids)
+                }
+            }
         }
     }
 }
