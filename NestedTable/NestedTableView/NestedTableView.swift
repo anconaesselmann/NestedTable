@@ -51,6 +51,12 @@ struct NestedTableView: View {
                             Text(item.text)
                                 .padding(.leading, 10)
                                 .padding(.vertical, 2.5)
+                                .if(vm.isSingleSelection(item.id)) {
+                                    $0.onTapGesture {
+                                        vm.rename(item.id)
+                                        isNameFocused = true
+                                    }
+                                }
                         }
                     }
                     .padding(.leading, CGFloat(item.indent * 32))

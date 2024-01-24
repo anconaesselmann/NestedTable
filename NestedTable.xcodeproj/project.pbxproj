@@ -23,6 +23,7 @@
 		97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */; };
 		97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C162B61838C00A4A021 /* UUID+Transferable.swift */; };
 		97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */; };
+		97108C1C2B61896200A4A021 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C1B2B61896200A4A021 /* View+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewModel.swift; sourceTree = "<group>"; };
 		97108C162B61838C00A4A021 /* UUID+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Transferable.swift"; sourceTree = "<group>"; };
 		97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseRow+Transferable.swift"; sourceTree = "<group>"; };
+		97108C1B2B61896200A4A021 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
 				97108C032B60F3E000A4A021 /* ContentView.swift */,
 				97108C092B60F3E000A4A021 /* DataManager.swift */,
+				97108C1A2B61895500A4A021 /* Extensions */,
 				97108C152B61837A00A4A021 /* Transferable */,
 				97108C0A2B60F3E000A4A021 /* NestedTableView */,
 				97108C042B60F3E000A4A021 /* Table */,
@@ -178,6 +181,14 @@
 				97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */,
 			);
 			path = Transferable;
+			sourceTree = "<group>";
+		};
+		97108C1A2B61895500A4A021 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				97108C1B2B61896200A4A021 /* View+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,6 +331,7 @@
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,
 				97108BD92B60F37700A4A021 /* NestedTableApp.swift in Sources */,
 				97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */,
+				97108C1C2B61896200A4A021 /* View+Extensions.swift in Sources */,
 				97108C112B60F3E000A4A021 /* Group.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

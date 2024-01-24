@@ -219,6 +219,10 @@ class NestedTableViewModel: ObservableObject {
         return provider
     }
 
+    func isSingleSelection(_ id: UUID) -> Bool {
+        selection.contains(id) && selection.count == 1
+    }
+
     private func async_fetch(shouldAnimate: Bool = true) async throws {
         let items = try await dm
             .fetch()
