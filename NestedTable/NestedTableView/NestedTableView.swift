@@ -62,7 +62,7 @@ struct NestedTableView: View {
                         TableRow(item)
                             .itemProvider {
                                 let provider = NSItemProvider()
-                                provider.register(item.generateData())
+                                provider.register(item.uuidAsData())
                                 return provider
                             }
                             .dropDestination(for: Data.self) { items in
@@ -78,7 +78,7 @@ struct NestedTableView: View {
                         TableRow(item)
                             .itemProvider {
                                 let provider = NSItemProvider()
-                                provider.register(item.generateData())
+                                provider.register(item.uuidAsData())
                                 return provider
                             }
                     }
@@ -127,12 +127,13 @@ import UniformTypeIdentifiers
 
 extension BaseRow: Transferable {
 
-    func generateData() -> Data {
+    func uuidAsData() -> Data {
         id.uuidString.data(using: .utf8)!
     }
+
     static var transferRepresentation: some TransferRepresentation {
         DataRepresentation(exportedContentType: .data) { item in
-            item.generateData()
+            item.uuidAsData()
         }
     }
 }
