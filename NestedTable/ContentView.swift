@@ -9,8 +9,7 @@ struct ContentView: View {
         #if os(macOS)
         NestedTableView(
             dataManager: MockDataManager(),
-            delegate: MockNestedTableManager(),
-            contextMenuManager: DefaultContextMenuManager()
+            delegate: MockNestedTableManager()
         )
         .contextMenuItem(
             elements: DefaultContextMenuItems.allCases + [Test.hello]
@@ -28,8 +27,7 @@ struct ContentView: View {
         NavigationView {
             NestedTableView(
                 dataManager: MockDataManager(),
-                delegate: MockNestedTableManager(), 
-                contextMenuManager: DefaultContextMenuManager()
+                delegate: MockNestedTableManager()
             )
             .contextMenuItem(
                 elements: DefaultContextMenuItems.allCases + [Test.hello]

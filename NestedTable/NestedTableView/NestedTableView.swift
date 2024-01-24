@@ -8,12 +8,12 @@ struct NestedTableView: View {
     init(
         dataManager: NestedTableDataManager,
         delegate: NestedTableDelegate,
-        contextMenuManager: ContextMenuManager
+        contextMenuManager: ContextMenuManager? = nil
     ) {
         let vm = NestedTableViewModel(
             dataManager: dataManager,
             delegate: delegate, 
-            contextMenuManager: contextMenuManager
+            contextMenuManager: contextMenuManager ?? DefaultContextMenuManager()
         )
         _vm = StateObject(wrappedValue: vm)
     }
@@ -23,6 +23,17 @@ struct NestedTableView: View {
             dataManager: manager,
             delegate: manager,
             contextMenuManager: manager
+        )
+    }
+
+    init(
+        manager: (NestedTableDataManager & NestedTableDelegate),
+        contextMenuManager: ContextMenuManager? = nil
+    ) {
+        self.init(
+            dataManager: manager,
+            delegate: manager,
+            contextMenuManager: contextMenuManager
         )
     }
 
