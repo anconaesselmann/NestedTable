@@ -23,9 +23,9 @@ struct BaseRow: Identifiable, Codable {
         item.text
     }
 
-    var folder: Folder? {
+    var folder: Group? {
         get {
-            item as? Folder
+            item as? Group
         }
         set {
             guard let newFolder = newValue else {
@@ -35,8 +35,8 @@ struct BaseRow: Identifiable, Codable {
         }
     }
 
-    var isFolder: Bool {
-        type(of: item) == Folder.self
+    var isGroup: Bool {
+        type(of: item) == Group.self
     }
 
     var item: any TableRowItem

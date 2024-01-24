@@ -18,7 +18,7 @@ class DataManager {
         [
 
             UUID(uuidString: "b799469c-8b2f-4e25-b5f6-90e645f7fd3d")!: Item(id: UUID(uuidString: "b799469c-8b2f-4e25-b5f6-90e645f7fd3d")!, text: "A"),
-            UUID(uuidString: "262925e8-59f2-4b98-9880-bf653e0b5423")!: Folder(
+            UUID(uuidString: "262925e8-59f2-4b98-9880-bf653e0b5423")!: Group(
                 id: UUID(uuidString: "262925e8-59f2-4b98-9880-bf653e0b5423")!,
                 text: "B",
                 contents: [
@@ -38,7 +38,7 @@ class DataManager {
 
             UUID(uuidString: "61aa6c3b-dc14-47fa-81bf-fbdf074abe9a")!: Item(id: UUID(uuidString: "61aa6c3b-dc14-47fa-81bf-fbdf074abe9a")!, text: "B_A"),
             UUID(uuidString: "25b97e1a-4ccf-4ee1-95b1-38072bdbc991")!: Item(id: UUID(uuidString: "25b97e1a-4ccf-4ee1-95b1-38072bdbc991")!, text: "B_B"),
-            UUID(uuidString: "a4ba7e44-aaaf-4de1-9e0d-01079c3ec042")!: Folder(
+            UUID(uuidString: "a4ba7e44-aaaf-4de1-9e0d-01079c3ec042")!: Group(
                 id: UUID(uuidString: "a4ba7e44-aaaf-4de1-9e0d-01079c3ec042")!,
                 text: "B_C",
                 contents: [
@@ -73,11 +73,11 @@ class DataManager {
         .sorted(by: { $0.text < $1.text } )
     }
 
-    func create(folder: Folder) async throws {
+    func create(folder: Group) async throws {
         var containers: Set<UUID> = []
         var removed = 0
         for item in itemsById {
-            if var current = item.value as? Folder {
+            if var current = item.value as? Group {
                 let remove = current.contents.intersection(folder.contents)
                 if !remove.isEmpty {
                     current.contents = current.contents.subtracting(folder.contents)
@@ -99,7 +99,7 @@ class DataManager {
             let remove = root.intersection(folder.contents)
             root = root.subtracting(remove)
             root.insert(folder.id)
-        } else if let first = containers.first, var current = itemsById[first] as? Folder  {
+        } else if let first = containers.first, var current = itemsById[first] as? Group  {
             current.contents.insert(folder.id)
             itemsById[first] = current
         } else {
@@ -110,14 +110,14 @@ class DataManager {
     func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
         var deleted = [UUID]()
         let folders = ids.compactMap {
-            itemsById[$0] as? Folder
+            itemsById[$0] as? Group
         }
         for folder in folders {
             deleted += try await delete(folder.contents)
         }
         var removed = 0
         for item in itemsById {
-            if var folder = item.value as? Folder {
+            if var folder = item.value as? Group {
                 let contained = folder.contents.intersection(ids)
                 if !contained.isEmpty {
                     folder.contents = folder.contents.subtracting(contained)
@@ -140,7 +140,7 @@ class DataManager {
 
     func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws {
         for item in itemsById {
-            if var folder = item.value as? Folder, folder.contents.contains(id) {
+            if var folder = item.value as? Group, folder.contents.contains(id) {
                 folder.contents.remove(id)
                 itemsById[folder.id] = folder
                 break
@@ -149,7 +149,7 @@ class DataManager {
         if root.contains(id) {
             root.remove(id)
         }
-        if let groupId = groupId, var copy = itemsById[groupId] as? Folder {
+        if let groupId = groupId, var copy = itemsById[groupId] as? Group {
             copy.contents.insert(id)
             itemsById[groupId] = copy
         } else {

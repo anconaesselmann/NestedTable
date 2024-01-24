@@ -46,7 +46,7 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func expand(_ folder: Folder, shouldAnimate: Bool = true) async {
+    func expand(_ folder: Group, shouldAnimate: Bool = true) async {
         do {
             guard let index = items.firstIndex(where: { row in
                 row.id == folder.id
@@ -76,7 +76,7 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func contract(_ folder: Folder, shouldAnimate: Bool = true) {
+    func contract(_ folder: Group, shouldAnimate: Bool = true) {
         let remove = items.filter { $0.parent == folder.id }
         for item in remove {
             if let childFolder = item.folder {
@@ -93,7 +93,7 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func toggle(_ folder: Folder) async {
+    func toggle(_ folder: Group) async {
         for i in 0..<items.count {
             if items[i].id == folder.id {
                 let current = expanded.contains(folder.id)
@@ -110,13 +110,13 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func isExpanded(_ folder: Folder) -> Bool {
+    func isExpanded(_ folder: Group) -> Bool {
         expanded.contains(folder.id)
     }
 
     func createFolder(with ids: Set<UUID>) async -> UUID? {
         do {
-            let folder = Folder(id: UUID(), text: "New group", contents: ids)
+            let folder = Group(id: UUID(), text: "New group", contents: ids)
             try await dm.create(folder: folder)
             try await async_fetch(shouldAnimate: false)
             expanded.insert(folder.id)

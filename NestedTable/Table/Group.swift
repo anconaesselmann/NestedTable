@@ -3,7 +3,7 @@
 
 import Foundation
 
-struct Folder: Identifiable, TableRowItem {
+struct Group: Identifiable, TableRowItem {
     var id: UUID
     var parent: UUID?
     var text: String

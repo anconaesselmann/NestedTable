@@ -17,7 +17,7 @@
 		97108C0E2B60F3E000A4A021 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C052B60F3E000A4A021 /* Item.swift */; };
 		97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C062B60F3E000A4A021 /* TableRowItem.swift */; };
 		97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C072B60F3E000A4A021 /* BaseRow.swift */; };
-		97108C112B60F3E000A4A021 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C082B60F3E000A4A021 /* Folder.swift */; };
+		97108C112B60F3E000A4A021 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C082B60F3E000A4A021 /* Group.swift */; };
 		97108C122B60F3E000A4A021 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C092B60F3E000A4A021 /* DataManager.swift */; };
 		97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0B2B60F3E000A4A021 /* NestedTableView.swift */; };
 		97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */; };
@@ -57,7 +57,7 @@
 		97108C052B60F3E000A4A021 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		97108C062B60F3E000A4A021 /* TableRowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRowItem.swift; sourceTree = "<group>"; };
 		97108C072B60F3E000A4A021 /* BaseRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRow.swift; sourceTree = "<group>"; };
-		97108C082B60F3E000A4A021 /* Folder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
+		97108C082B60F3E000A4A021 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		97108C092B60F3E000A4A021 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		97108C0B2B60F3E000A4A021 /* NestedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableView.swift; sourceTree = "<group>"; };
 		97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewModel.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 				97108C052B60F3E000A4A021 /* Item.swift */,
 				97108C062B60F3E000A4A021 /* TableRowItem.swift */,
 				97108C072B60F3E000A4A021 /* BaseRow.swift */,
-				97108C082B60F3E000A4A021 /* Folder.swift */,
+				97108C082B60F3E000A4A021 /* Group.swift */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -320,7 +320,7 @@
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,
 				97108BD92B60F37700A4A021 /* NestedTableApp.swift in Sources */,
 				97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */,
-				97108C112B60F3E000A4A021 /* Folder.swift in Sources */,
+				97108C112B60F3E000A4A021 /* Group.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

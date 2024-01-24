@@ -57,7 +57,7 @@ struct NestedTableView: View {
                 }
             } rows: {
                 ForEach(vm.items) { item in
-                    if item.isFolder {
+                    if item.isGroup {
                         TableRow(item)
                             .itemProvider {
                                 vm.itemProvider(for: item)
