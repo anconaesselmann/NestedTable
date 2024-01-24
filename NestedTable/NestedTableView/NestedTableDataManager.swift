@@ -11,3 +11,8 @@ protocol NestedTableDataManager {
     func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws
     func rename(_ id: UUID, to newName: String) async throws
 }
+
+protocol NestedTableDelegate {
+    func performPrimaryAction(for id: UUID)
+    func error(_ error: Error)
+}

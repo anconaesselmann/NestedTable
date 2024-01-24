@@ -4,8 +4,21 @@
 import SwiftUI
 
 struct NestedTableView: View {
+
+    init(dataManager: NestedTableDataManager, delegate: NestedTableDelegate) {
+        let vm = NestedTableViewModel(
+            dataManager: dataManager,
+            delegate: delegate
+        )
+        _vm = StateObject(wrappedValue: vm)
+    }
+
+    init(manager: (NestedTableDataManager & NestedTableDelegate)) {
+        self.init(dataManager: manager, delegate: manager)
+    }
+
     @StateObject
-    var vm = NestedTableViewModel()
+    var vm: NestedTableViewModel
 
     @FocusState
     var isNameFocused:Bool

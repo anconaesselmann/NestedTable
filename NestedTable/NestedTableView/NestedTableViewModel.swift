@@ -32,16 +32,22 @@ class NestedTableViewModel: ObservableObject {
     @Published
     var newName: String = ""
 
-    private let dm: NestedTableDataManager = DataManager()
+    private var dm: NestedTableDataManager
+    private var delegate: NestedTableDelegate
 
     private var expanded: Set<UUID> = []
+
+    init(dataManager: NestedTableDataManager, delegate: NestedTableDelegate) {
+        self.dm = dataManager
+        self.delegate = delegate
+    }
 
     func fetch() {
         Task {
             do {
                 try await async_fetch()
             } catch {
-                print(error)
+                delegate.error(error)
             }
         }
     }
@@ -72,7 +78,7 @@ class NestedTableViewModel: ObservableObject {
                 }
             }
         } catch {
-            print(error)
+            delegate.error(error)
         }
     }
 
@@ -126,7 +132,7 @@ class NestedTableViewModel: ObservableObject {
                 await toggle(group)
             }
         } else {
-            print("Double tapped \(id.uuidString)")
+            delegate.performPrimaryAction(for: id)
         }
     }
 
@@ -141,6 +147,7 @@ class NestedTableViewModel: ObservableObject {
             await expand(group)
             return group.id
         } catch {
+            delegate.error(error)
             return nil
         }
     }
@@ -166,7 +173,7 @@ class NestedTableViewModel: ObservableObject {
             try await async_fetch(shouldAnimate: false)
             selection = ids
         } catch {
-            print(error)
+            delegate.error(error)
         }
     }
 
@@ -188,7 +195,7 @@ class NestedTableViewModel: ObservableObject {
                 selection = visible
             }
         } catch {
-            print(error)
+            delegate.error(error)
         }
     }
 
@@ -203,7 +210,7 @@ class NestedTableViewModel: ObservableObject {
             try await async_fetch(shouldAnimate: false)
             selection = [id]
         } catch {
-            print(error)
+            delegate.error(error)
         }
     }
 
@@ -215,7 +222,7 @@ class NestedTableViewModel: ObservableObject {
                 selection = []
             }
         } catch {
-
+            delegate.error(error)
         }
     }
 
