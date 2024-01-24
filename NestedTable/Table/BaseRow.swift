@@ -23,7 +23,7 @@ struct BaseRow: Identifiable, Codable {
         item.text
     }
 
-    var folder: Group? {
+    var group: Group? {
         get {
             item as? Group
         }

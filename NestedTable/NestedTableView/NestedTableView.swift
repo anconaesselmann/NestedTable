@@ -15,9 +15,9 @@ struct NestedTableView: View {
             Table(of: BaseRow.self, selection: $vm.selection) {
                 TableColumn("text") { item in
                     HStack(spacing: 0) {
-                        if let folder = item.folder {
+                        if let group = item.group {
                             HStack {
-                                if vm.isExpanded(folder) {
+                                if vm.isExpanded(group) {
                                     Image(systemName: "chevron.down")
                                 } else {
                                     Image(systemName: "chevron.right")
@@ -28,7 +28,7 @@ struct NestedTableView: View {
                             .containerShape(Rectangle())
                             .onTapGesture {
                                 Task {
-                                    await vm.toggle(folder)
+                                    await vm.toggle(group)
                                 }
                             }
                             Image(systemName: "folder.fill")
@@ -51,11 +51,12 @@ struct NestedTableView: View {
                             Text(item.text)
                                 .padding(.leading, 10)
                                 .padding(.vertical, 2.5)
-                                .if(vm.isSingleSelection(item.id)) {
-                                    $0.onTapGesture {
-                                        vm.rename(item.id)
-                                        isNameFocused = true
-                                    }
+                                .if(vm.isSingleSelection(item.id)) { view in
+                                    view
+                                        .onTapGesture(count: 1) {
+                                            vm.rename(item.id)
+                                            isNameFocused = true
+                                        }
                                 }
                         }
                     }
@@ -83,6 +84,8 @@ struct NestedTableView: View {
             }
             .contextMenu(forSelectionType: UUID.self) {
                 contextMenu(for: $0)
+            } primaryAction: { items in
+                vm.primaryAction(items)
             }
         }
         .onAppear {
@@ -100,7 +103,7 @@ struct NestedTableView: View {
         }
         Button("Group \(ids.count > 1 ? "items" : "item")") {
             Task {
-                guard let id = await vm.createFolder(with: ids) else {
+                guard let id = await vm.createGroup(with: ids) else {
                     return
                 }
                 vm.rename(id)

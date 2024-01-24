@@ -46,16 +46,16 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func expand(_ folder: Group, shouldAnimate: Bool = true) async {
+    func expand(_ group: Group, shouldAnimate: Bool = true) async {
         do {
             guard let index = items.firstIndex(where: { row in
-                row.id == folder.id
+                row.id == group.id
             }) else {
                 return
             }
             let indent = items[index].indent
-            let children = try await dm.fetch(ids: folder.contents)
-                .map { BaseRow($0, parent: folder.id, indent: indent + 1) }
+            let children = try await dm.fetch(ids: group.contents)
+                .map { BaseRow($0, parent: group.id, indent: indent + 1) }
             if shouldAnimate {
                 withAnimation {
                     items.insert(contentsOf: children, at: index + 1)
@@ -65,9 +65,9 @@ class NestedTableViewModel: ObservableObject {
                 items.insert(contentsOf: children, at: index + 1)
             }
             for child in children {
-                if let childFolder = child.folder {
-                    if expanded.contains(childFolder.id) {
-                        await expand(childFolder, shouldAnimate: shouldAnimate)
+                if let childGroup = child.group {
+                    if expanded.contains(childGroup.id) {
+                        await expand(childGroup, shouldAnimate: shouldAnimate)
                     }
                 }
             }
@@ -76,54 +76,70 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func contract(_ folder: Group, shouldAnimate: Bool = true) {
-        let remove = items.filter { $0.parent == folder.id }
+    func contract(_ group: Group, shouldAnimate: Bool = true) {
+        let remove = items.filter { $0.parent == group.id }
         for item in remove {
-            if let childFolder = item.folder {
-                contract(childFolder)
+            if let childGroup = item.group {
+                contract(childGroup)
             }
         }
         if shouldAnimate {
             withAnimation {
-                items.removeAll(where: { $0.parent == folder.id })
+                items.removeAll(where: { $0.parent == group.id })
                 self.objectWillChange.send()
             }
         } else {
-            items.removeAll(where: { $0.parent == folder.id })
+            items.removeAll(where: { $0.parent == group.id })
         }
     }
 
-    func toggle(_ folder: Group) async {
+    func toggle(_ group: Group) async {
         for i in 0..<items.count {
-            if items[i].id == folder.id {
-                let current = expanded.contains(folder.id)
+            if items[i].id == group.id {
+                let current = expanded.contains(group.id)
                 let new = !current
                 if new {
-                    expanded.insert(folder.id)
-                    await expand(folder)
+                    expanded.insert(group.id)
+                    await expand(group)
                 } else {
-                    expanded.remove(folder.id)
-                    contract(folder)
+                    expanded.remove(group.id)
+                    contract(group)
                 }
                 return
             }
         }
     }
 
-    func isExpanded(_ folder: Group) -> Bool {
-        expanded.contains(folder.id)
+    func isExpanded(_ group: Group) -> Bool {
+        expanded.contains(group.id)
     }
 
-    func createFolder(with ids: Set<UUID>) async -> UUID? {
+    func primaryAction(_ ids: Set<UUID>) {
+        guard let id = ids.first, ids.count == 1 else {
+            return
+        }
+        guard let item = items.first(where: { $0.id == id }) else {
+            return
+        }
+        if let group = item.group {
+            Task {
+                await toggle(group)
+            }
+        } else {
+            print("Double tapped \(id.uuidString)")
+        }
+    }
+
+    func createGroup(with ids: Set<UUID>) async -> UUID? {
         do {
-            let folder = Group(id: UUID(), text: "New group", contents: ids)
-            try await dm.create(folder: folder)
+            let group = Group(id: UUID(), text: "New group", contents: ids)
+            try await dm.create(group: group)
             try await async_fetch(shouldAnimate: false)
-            expanded.insert(folder.id)
+            expanded.insert(group.id)
             expanded = expanded.subtracting(ids)
-            selection = [folder.id]
-            await expand(folder)
-            return folder.id
+            selection = [group.id]
+            await expand(group)
+            return group.id
         } catch {
             return nil
         }
@@ -236,8 +252,8 @@ class NestedTableViewModel: ObservableObject {
             self.items = items
         }
         for item in items {
-            if let folder = item.folder, expanded.contains(item.id) {
-                await expand(folder, shouldAnimate: shouldAnimate)
+            if let group = item.group, expanded.contains(item.id) {
+                await expand(group, shouldAnimate: shouldAnimate)
             }
         }
     }

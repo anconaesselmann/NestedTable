@@ -73,34 +73,34 @@ class DataManager {
         .sorted(by: { $0.text < $1.text } )
     }
 
-    func create(folder: Group) async throws {
+    func create(group: Group) async throws {
         var containers: Set<UUID> = []
         var removed = 0
         for item in itemsById {
             if var current = item.value as? Group {
-                let remove = current.contents.intersection(folder.contents)
+                let remove = current.contents.intersection(group.contents)
                 if !remove.isEmpty {
-                    current.contents = current.contents.subtracting(folder.contents)
+                    current.contents = current.contents.subtracting(group.contents)
                     itemsById[item.key] = current
                     containers.insert(current.id)
                     removed += remove.count
-                    if removed == folder.contents.count {
+                    if removed == group.contents.count {
                         break
                     }
                 }
             }
         }
-        itemsById[folder.id] = folder
+        itemsById[group.id] = group
         if
-            removed != folder.contents.count ||
+            removed != group.contents.count ||
             containers.count != 1 ||
-            !root.intersection(folder.contents).isEmpty
+            !root.intersection(group.contents).isEmpty
         {
-            let remove = root.intersection(folder.contents)
+            let remove = root.intersection(group.contents)
             root = root.subtracting(remove)
-            root.insert(folder.id)
+            root.insert(group.id)
         } else if let first = containers.first, var current = itemsById[first] as? Group  {
-            current.contents.insert(folder.id)
+            current.contents.insert(group.id)
             itemsById[first] = current
         } else {
             assertionFailure()
@@ -109,18 +109,18 @@ class DataManager {
 
     func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
         var deleted = [UUID]()
-        let folders = ids.compactMap {
+        let groups = ids.compactMap {
             itemsById[$0] as? Group
         }
-        for folder in folders {
-            deleted += try await delete(folder.contents)
+        for group in groups {
+            deleted += try await delete(group.contents)
         }
         var removed = 0
         for item in itemsById {
-            if var folder = item.value as? Group {
-                let contained = folder.contents.intersection(ids)
+            if var group = item.value as? Group {
+                let contained = group.contents.intersection(ids)
                 if !contained.isEmpty {
-                    folder.contents = folder.contents.subtracting(contained)
+                    group.contents = group.contents.subtracting(contained)
                     removed += contained.count
                     if removed == ids.count {
                         break
@@ -140,9 +140,9 @@ class DataManager {
 
     func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws {
         for item in itemsById {
-            if var folder = item.value as? Group, folder.contents.contains(id) {
-                folder.contents.remove(id)
-                itemsById[folder.id] = folder
+            if var group = item.value as? Group, group.contents.contains(id) {
+                group.contents.remove(id)
+                itemsById[group.id] = group
                 break
             }
         }
