@@ -46,10 +46,11 @@ struct NestedTableView: View {
                                 }
                                 .focused($isNameFocused)
                                 .textFieldStyle(.squareBorder)
-                                .padding(.leading, 8)
+                                .padding(.leading, 6)
                         } else {
                             Text(item.text)
-                                .padding(.leading, 8)
+                                .padding(.leading, 10)
+                                .padding(.vertical, 2.5)
                         }
                     }
                     .padding(.leading, CGFloat(item.indent * 32))
