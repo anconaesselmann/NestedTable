@@ -135,6 +135,20 @@ struct NestedTableView: View {
             }
         }
         if ids.count > 0 {
+            #if os(macOS)
+
+            #else
+            let folders = vm.foldersOfSameLevel(for: ids)
+            Menu("Move to") {
+                ForEach(folders, id: \.1) { name, id in
+                    Button(name) {
+                        Task {
+                            await vm.move(ids, to: id)
+                        }
+                    }
+                }
+            }
+            #endif
             if vm.isGrouped(ids) {
                 Button("Remove from group") {
                     Task {

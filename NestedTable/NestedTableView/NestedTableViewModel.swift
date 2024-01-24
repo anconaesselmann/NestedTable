@@ -177,7 +177,7 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func move(_ ids: Set<UUID>, to newParent: UUID) async {
+    func move(_ ids: Set<UUID>, to newParent: UUID?) async {
         do {
             let ids = ids.filter { $0 != newParent }
             for id in ids {
@@ -189,7 +189,7 @@ class NestedTableViewModel: ObservableObject {
                     .filter { ids.contains($0.id) }
                     .map { $0.id }
                 )
-            if visible.isEmpty {
+            if visible.isEmpty, let newParent = newParent {
                 selection = [newParent]
             } else {
                 selection = visible
@@ -245,6 +245,30 @@ class NestedTableViewModel: ObservableObject {
     func isSingleSelection(_ id: UUID) -> Bool {
         selection.contains(id) && selection.count == 1
     }
+
+    #if os(macOS)
+
+    #else
+    func foldersOfSameLevel(for ids: Set<UUID>) -> [(String, UUID?)] {
+        let selected =
+            items
+                .filter { ids.contains($0.id) }
+        var names: [UUID: String] = [:]
+
+        for item in items {
+            if item.isGroup {
+                names[item.id] = item.text
+            }
+        }
+        var folders: [(String, UUID?)] = names
+            .map {
+                ($0.value, $0.key)
+            }
+            .sorted { $0.0 < $1.0 }
+        folders.append(("Root", nil))
+        return folders
+    }
+    #endif
 
     private func async_fetch(shouldAnimate: Bool = true) async throws {
         let items = try await dm
