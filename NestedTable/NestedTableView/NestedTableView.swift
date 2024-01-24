@@ -40,7 +40,6 @@ struct NestedTableView: View {
                         if vm.renaming == item.id {
                             TextField("", text: $vm.newName)
                                 .onSubmit {
-                                    isNameFocused = false
                                     Task {
                                         await vm.rename(item.id, to: vm.newName)
                                     }

@@ -63,7 +63,6 @@ class NestedTableViewModel: ObservableObject {
                 }
             } else {
                 items.insert(contentsOf: children, at: index + 1)
-                self.objectWillChange.send()
             }
             for child in children {
                 if let childFolder = child.folder {
@@ -91,7 +90,6 @@ class NestedTableViewModel: ObservableObject {
             }
         } else {
             items.removeAll(where: { $0.parent == folder.id })
-            self.objectWillChange.send()
         }
     }
 
@@ -163,7 +161,16 @@ class NestedTableViewModel: ObservableObject {
                 try await dm.move(itemWithId: id, toGroupWithId: newParent)
             }
             try await async_fetch(shouldAnimate: false)
-            selection = ids
+            let visible = Set(
+                items
+                    .filter { ids.contains($0.id) }
+                    .map { $0.id }
+                )
+            if visible.isEmpty {
+                selection = [newParent]
+            } else {
+                selection = visible
+            }
         } catch {
             print(error)
         }
@@ -178,7 +185,7 @@ class NestedTableViewModel: ObservableObject {
             renaming = nil
             try await dm.rename(id, to: newName)
             try await async_fetch(shouldAnimate: false)
-            self.objectWillChange.send()
+            selection = [id]
         } catch {
             print(error)
         }
