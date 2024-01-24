@@ -21,6 +21,8 @@
 		97108C122B60F3E000A4A021 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C092B60F3E000A4A021 /* DataManager.swift */; };
 		97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0B2B60F3E000A4A021 /* NestedTableView.swift */; };
 		97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */; };
+		97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C162B61838C00A4A021 /* UUID+Transferable.swift */; };
+		97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		97108C092B60F3E000A4A021 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		97108C0B2B60F3E000A4A021 /* NestedTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableView.swift; sourceTree = "<group>"; };
 		97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewModel.swift; sourceTree = "<group>"; };
+		97108C162B61838C00A4A021 /* UUID+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Transferable.swift"; sourceTree = "<group>"; };
+		97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseRow+Transferable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,7 @@
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
 				97108C032B60F3E000A4A021 /* ContentView.swift */,
 				97108C092B60F3E000A4A021 /* DataManager.swift */,
+				97108C152B61837A00A4A021 /* Transferable */,
 				97108C0A2B60F3E000A4A021 /* NestedTableView */,
 				97108C042B60F3E000A4A021 /* Table */,
 				97108BDC2B60F37800A4A021 /* Assets.xcassets */,
@@ -164,6 +169,15 @@
 				97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */,
 			);
 			path = NestedTableView;
+			sourceTree = "<group>";
+		};
+		97108C152B61837A00A4A021 /* Transferable */ = {
+			isa = PBXGroup;
+			children = (
+				97108C162B61838C00A4A021 /* UUID+Transferable.swift */,
+				97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */,
+			);
+			path = Transferable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,8 +311,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */,
+				97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */,
 				97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */,
 				97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */,
+				97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,
 				97108C122B60F3E000A4A021 /* DataManager.swift in Sources */,
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,

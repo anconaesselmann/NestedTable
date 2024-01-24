@@ -91,7 +91,7 @@ struct NestedTableView: View {
                         isNameFocused = true
                     }
                 }
-                Button("Group") {
+                Button("Group \(ids.count > 1 ? "items" : "item")") {
                     Task {
                         guard let id = await vm.createFolder(with: ids) else {
                             return
@@ -118,21 +118,6 @@ struct NestedTableView: View {
         }
         .onAppear {
             vm.fetch()
-        }
-    }
-}
-
-import UniformTypeIdentifiers
-
-extension BaseRow: Transferable {
-
-    func uuidAsData() -> Data {
-        id.uuidString.data(using: .utf8)!
-    }
-
-    static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(exportedContentType: .data) { item in
-            item.uuidAsData()
         }
     }
 }
