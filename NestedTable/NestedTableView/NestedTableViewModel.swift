@@ -35,9 +35,8 @@ class NestedTableViewModel: ObservableObject {
                 self.objectWillChange.send()
             }
         } else {
-
-                self.items = items
-                self.objectWillChange.send()
+            self.items = items
+//            self.objectWillChange.send()
         }
         for item in items {
             if let folder = item.folder, expanded.contains(item.id) {
@@ -68,7 +67,7 @@ class NestedTableViewModel: ObservableObject {
             for child in children {
                 if let childFolder = child.folder {
                     if expanded.contains(childFolder.id) {
-                        await expand(childFolder)
+                        await expand(childFolder, shouldAnimate: shouldAnimate)
                     }
                 }
             }

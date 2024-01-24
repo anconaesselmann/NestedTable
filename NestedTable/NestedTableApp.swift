@@ -1,7 +1,3 @@
-//
-//  NestedTableApp.swift
-//  NestedTable
-//
 //  Created by Axel Ancona Esselmann on 1/23/24.
 //
 
