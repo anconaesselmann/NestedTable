@@ -94,7 +94,11 @@ struct NestedTableView: View {
                 }
                 Button("Group") {
                     Task {
-                        await vm.createFolder(with: ids)
+                        guard let id = await vm.createFolder(with: ids) else {
+                            return
+                        }
+                        isNameFocused = true
+                        vm.rename(id)
                     }
                 }
                 if ids.count > 0 {

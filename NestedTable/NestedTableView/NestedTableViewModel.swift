@@ -116,7 +116,7 @@ class NestedTableViewModel: ObservableObject {
         expanded.contains(folder.id)
     }
 
-    func createFolder(with ids: Set<UUID>) async {
+    func createFolder(with ids: Set<UUID>) async -> UUID? {
         do {
 //            guard let firstId = ids.first else {
 //                return
@@ -137,8 +137,9 @@ class NestedTableViewModel: ObservableObject {
             expanded = expanded.subtracting(ids)
             selection = [folder.id]
             await expand(folder)
+            return folder.id
         } catch {
-
+            return nil
         }
     }
 
