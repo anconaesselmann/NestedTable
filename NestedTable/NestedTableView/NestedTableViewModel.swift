@@ -32,7 +32,7 @@ class NestedTableViewModel: ObservableObject {
     @Published
     var newName: String = ""
 
-    private let dm = DataManager()
+    private let dm: NestedTableDataManager = DataManager()
 
     private var expanded: Set<UUID> = []
 

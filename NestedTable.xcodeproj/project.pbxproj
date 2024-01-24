@@ -24,6 +24,7 @@
 		97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C162B61838C00A4A021 /* UUID+Transferable.swift */; };
 		97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */; };
 		97108C1C2B61896200A4A021 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C1B2B61896200A4A021 /* View+Extensions.swift */; };
+		97108C1E2B61937D00A4A021 /* NestedTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		97108C162B61838C00A4A021 /* UUID+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Transferable.swift"; sourceTree = "<group>"; };
 		97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseRow+Transferable.swift"; sourceTree = "<group>"; };
 		97108C1B2B61896200A4A021 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 			children = (
 				97108C0B2B60F3E000A4A021 /* NestedTableView.swift */,
 				97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */,
+				97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */,
 			);
 			path = NestedTableView;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97108C1E2B61937D00A4A021 /* NestedTableDataManager.swift in Sources */,
 				97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */,
 				97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */,
 				97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */,
