@@ -7,10 +7,7 @@ enum DefaultContextMenuItems: String, ContextMenuItems {
     #if !os(macOS)
     case select
     #endif
-    case rename, group
-    #if !os(macOS)
-    case removeFromGroup
-    #endif
+    case rename, group, removeFromGroup
     case delete
     #if !os(macOS)
     case moveTo
