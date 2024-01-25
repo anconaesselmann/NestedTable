@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol TableRowItem: Identifiable, Codable {
+protocol TableRowItem: Identifiable {
     var id: UUID { get }
     var parent: UUID? { get set }
     var text: String { get set }
