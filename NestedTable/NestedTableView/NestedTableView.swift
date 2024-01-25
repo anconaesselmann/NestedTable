@@ -31,8 +31,8 @@ struct NestedTableView: View {
             }
         } rows: {
             ForEach(vm.items) { item in
-                #if os(macOS)
                 TableRow(item)
+                #if os(macOS)
                     .itemProvider {
                         vm.itemProvider(for: item)
                     }
@@ -41,8 +41,6 @@ struct NestedTableView: View {
                             vm.itemsDropped($0, into: item.id)
                         }
                     }
-                #else
-                TableRow(item)
                 #endif
             }
         }
