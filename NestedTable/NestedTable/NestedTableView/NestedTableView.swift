@@ -26,7 +26,7 @@ struct NestedTableView<Content>: View {
     internal var contextMenuItems: [any ContextMenuItems] = DefaultContextMenuItems.allCases
 
     var body: some View {
-        Table(of: BaseRow<Content>.self, selection: $vm.selection, sortOrder: $vm.sortOrder) {
+        Table(vm) {
             TableColumn("Name", sortUsing: KeyPathComparator(\BaseRow.item.text, comparator: Comparator<String>())) { item in
                 NameColumn(item: item, vm: vm)
             }
