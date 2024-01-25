@@ -31,51 +31,7 @@ struct NestedTableView: View {
         VStack {
             Table(of: BaseRow.self, selection: $vm.selection) {
                 TableColumn("Name") { item in
-                    HStack(spacing: 0) {
-                        if let group = item.group {
-                            HStack {
-                                if vm.isExpanded(group) {
-                                    Image(systemName: "chevron.down")
-                                } else {
-                                    Image(systemName: "chevron.right")
-                                }
-                            }
-                            .frame(width: 25)
-                            .frame(maxHeight: .infinity)
-                            .containerShape(Rectangle())
-                            .onTapGesture {
-                                Task {
-                                    await vm.toggle(group)
-                                }
-                            }
-                            Image(systemName: "folder.fill")
-                        } else {
-                            Spacer()
-                                .frame(width: 25)
-                            Image(systemName: "music.note.list")
-                        }
-                        if vm.renaming == item.id {
-                            TextField("", text: $vm.newName)
-                                .onSubmit {
-                                    Task {
-                                        await vm.rename(item.id, to: vm.newName)
-                                    }
-                                }
-                                .focused($isNameFocused)
-                            #if os(macOS)
-                                .textFieldStyle(.squareBorder)
-                            #else
-                                .textFieldStyle(.roundedBorder)
-                            #endif
-                                .padding(.leading, 6)
-                        } else {
-                            Text(item.text)
-                                .padding(.leading, 10)
-                                .padding(.vertical, 2.5)
-                        }
-                    }
-                    .padding(.leading, CGFloat(item.indent * 32))
-                    .id(item.id)
+                    nameColumnContent(item)
                 }
             } rows: {
                 ForEach(vm.items) { item in
@@ -115,5 +71,54 @@ struct NestedTableView: View {
         .onChange(of: isNameFocused) {
             vm.isNameFocused = isNameFocused
         }
+    }
+
+    @ViewBuilder
+    private func nameColumnContent(_ item: BaseRow) -> some View {
+        HStack(spacing: 0) {
+            if let group = item.group {
+                HStack {
+                    if vm.isExpanded(group) {
+                        Image(systemName: "chevron.down")
+                    } else {
+                        Image(systemName: "chevron.right")
+                    }
+                }
+                .frame(width: 25)
+                .frame(maxHeight: .infinity)
+                .containerShape(Rectangle())
+                .onTapGesture {
+                    Task {
+                        await vm.toggle(group)
+                    }
+                }
+                Image(systemName: "folder.fill")
+            } else {
+                Spacer()
+                    .frame(width: 25)
+                Image(systemName: "music.note.list")
+            }
+            if vm.renaming == item.id {
+                TextField("", text: $vm.newName)
+                    .onSubmit {
+                        Task {
+                            await vm.rename(item.id, to: vm.newName)
+                        }
+                    }
+                    .focused($isNameFocused)
+                #if os(macOS)
+                    .textFieldStyle(.squareBorder)
+                #else
+                    .textFieldStyle(.roundedBorder)
+                #endif
+                    .padding(.leading, 6)
+            } else {
+                Text(item.text)
+                    .padding(.leading, 10)
+                    .padding(.vertical, 2.5)
+            }
+        }
+        .padding(.leading, CGFloat(item.indent * 32))
+        .id(item.id)
     }
 }
