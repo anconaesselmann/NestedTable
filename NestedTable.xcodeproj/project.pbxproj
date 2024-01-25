@@ -35,6 +35,7 @@
 		97108C322B61DB3500A4A021 /* NestedTableView+Modification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */; };
 		97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C332B6221FB00A4A021 /* TextField+Extensions.swift */; };
 		97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */; };
+		97108C382B62E27200A4A021 /* NameColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C372B62E27200A4A021 /* NameColumn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NestedTableView+Modification.swift"; sourceTree = "<group>"; };
 		97108C332B6221FB00A4A021 /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableRow+Extensions.swift"; sourceTree = "<group>"; };
+		97108C372B62E27200A4A021 /* NameColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameColumn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */,
 				97108C222B61B7C500A4A021 /* ItemContextMenu.swift */,
 				97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */,
+				97108C372B62E27200A4A021 /* NameColumn.swift */,
 				97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */,
 			);
 			path = NestedTableView;
@@ -380,6 +383,7 @@
 				97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */,
 				97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */,
 				97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */,
+				97108C382B62E27200A4A021 /* NameColumn.swift in Sources */,
 				97108C322B61DB3500A4A021 /* NestedTableView+Modification.swift in Sources */,
 				97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,

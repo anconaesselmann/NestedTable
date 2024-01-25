@@ -18,20 +18,7 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    var renaming: UUID? {
-        didSet {
-            guard
-                let newValue = renaming,
-                let item = items.first(where: { $0.id == newValue})
-            else {
-                return
-            }
-            newName = item.text
-        }
-    }
-
-    @Published
-    var newName: String = ""
+    var renaming: UUID?
 
     private var dm: NestedTableDataManager
     private var delegate: NestedTableDelegate

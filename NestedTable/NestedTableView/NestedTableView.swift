@@ -21,16 +21,13 @@ struct NestedTableView: View {
     @StateObject
     private var vm: NestedTableViewModel
 
-    @FocusState
-    private var isNameFocused:Bool
-
     internal var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
     internal var contextMenuItems: [any ContextMenuItems] = DefaultContextMenuItems.allCases
 
     var body: some View {
         Table(of: BaseRow.self, selection: $vm.selection) {
             TableColumn("Name") { item in
-                nameColumnContent(item)
+                NameColumn(item: item, vm: vm)
             }
         } rows: {
             ForEach(vm.items) { item in
@@ -62,67 +59,5 @@ struct NestedTableView: View {
         .onAppear {
             vm.fetch()
         }
-        .onChange(of: vm.isNameFocused) {
-            isNameFocused = vm.isNameFocused
-        }
-        .onChange(of: isNameFocused) {
-            vm.isNameFocused = isNameFocused
-        }
-    }
-
-    @ViewBuilder
-    private func nameColumnContent(_ item: BaseRow) -> some View {
-        HStack(spacing: 0) {
-            #if !os(macOS)
-            ForEach(0..<item.indent, id: \.self) { _ in
-                Divider()
-                    .frame(width: 2)
-                    .overlay(.secondary)
-                    .padding(.horizontal, 2)
-                    .ignoresSafeArea()
-            }
-            #endif
-            if let group = item.group {
-                HStack {
-                    if vm.isExpanded(group) {
-                        Image(systemName: "chevron.down")
-                    } else {
-                        Image(systemName: "chevron.right")
-                    }
-                }
-                .frame(width: 25)
-                .frame(maxHeight: .infinity)
-                .containerShape(Rectangle())
-                .onTapGesture {
-                    Task {
-                        await vm.toggle(group)
-                    }
-                }
-                Image(systemName: "folder.fill")
-            } else {
-                Spacer()
-                    .frame(width: 25)
-                Image(systemName: "music.note.list")
-            }
-            if vm.renaming == item.id {
-                TextField("", text: $vm.newName)
-                    .onSubmit {
-                        Task {
-                            await vm.rename(item.id, to: vm.newName)
-                        }
-                    }
-                    .focused($isNameFocused)
-                    .defaultTextFieldStyle()
-                    .padding(.leading, 6)
-            } else {
-                Text(item.text)
-                    .padding(.leading, 10)
-                    .padding(.vertical, 2.5)
-            }
-        }
-        #if os(macOS)
-        .padding(.leading, CGFloat(item.indent * 32))
-        #endif
-        .id(item.id)
     }
 }
