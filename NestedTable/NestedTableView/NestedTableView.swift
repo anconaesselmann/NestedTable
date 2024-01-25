@@ -129,8 +129,6 @@ struct NestedTableView: View {
         }
         #if os(macOS)
         .padding(.leading, CGFloat(item.indent * 32))
-        #else
-
         #endif
         .id(item.id)
     }
