@@ -12,62 +12,25 @@ struct NestedTableView: View {
     ) {
         let vm = NestedTableViewModel(
             dataManager: dataManager,
-            delegate: delegate, 
+            delegate: delegate,
             contextMenuManager: contextMenuManager ?? DefaultContextMenuManager()
         )
         _vm = StateObject(wrappedValue: vm)
     }
 
-    init(manager: (NestedTableDataManager & NestedTableDelegate & ContextMenuManager)) {
-        self.init(
-            dataManager: manager,
-            delegate: manager,
-            contextMenuManager: manager
-        )
-    }
-
-    init(
-        manager: (NestedTableDataManager & NestedTableDelegate),
-        contextMenuManager: ContextMenuManager? = nil
-    ) {
-        self.init(
-            dataManager: manager,
-            delegate: manager,
-            contextMenuManager: contextMenuManager
-        )
-    }
-
     @StateObject
-    var vm: NestedTableViewModel
+    private var vm: NestedTableViewModel
 
     @FocusState
-    var isNameFocused:Bool
+    private var isNameFocused:Bool
 
-    private var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
-
-    private var elements: [any ContextMenuItems] = DefaultContextMenuItems.allCases
-
-    func contextMenuItem<Element>(elements: [any ContextMenuItems]? = nil, @ViewBuilder builder: @escaping (Element, Set<UUID>) -> some View) -> some View
-        where Element: ContextMenuItems
-    {
-        var copy = self
-        if let elements = elements {
-            copy.elements = elements
-        }
-        copy.contextMenuElementBuilder = { (string: String, selected: Set<UUID>) -> AnyView? in
-            guard let element = Element(rawValue: string) else {
-                return nil
-            }
-            let view = builder(element, selected)
-            return AnyView(view)
-        }
-        return copy
-    }
+    internal var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
+    internal var contextMenuItems: [any ContextMenuItems] = DefaultContextMenuItems.allCases
 
     var body: some View {
         VStack {
             Table(of: BaseRow.self, selection: $vm.selection) {
-                TableColumn("text") { item in
+                TableColumn("Name") { item in
                     HStack(spacing: 0) {
                         if let group = item.group {
                             HStack {
@@ -136,7 +99,7 @@ struct NestedTableView: View {
                 ItemContextMenu(
                     vm, 
                     ids: $0, 
-                    elements: elements,
+                    elements: contextMenuItems,
                     contextMenuElementBuilder: contextMenuElementBuilder
                 )
             } primaryAction: { items in

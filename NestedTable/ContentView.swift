@@ -12,9 +12,9 @@ struct ContentView: View {
             delegate: MockNestedTableManager()
         )
         .contextMenuItem(
-            elements: DefaultContextMenuItems.allCases + [Test.hello]
-        ) { (element: Test, selected) in
-            switch element {
+            items: DefaultContextMenuItems.allCases + [Test.hello]
+        ) { (item: Test, selected) in
+            switch item {
             case .hello:
                 if selected.count > 1 {
                     Button("Hello world") {
@@ -30,9 +30,9 @@ struct ContentView: View {
                 delegate: MockNestedTableManager()
             )
             .contextMenuItem(
-                elements: DefaultContextMenuItems.allCases + [Test.hello]
-            ) { (element: Test, selected) in
-                switch element {
+                items: DefaultContextMenuItems.allCases + [Test.hello]
+            ) { (item: Test, selected) in
+                switch item {
                 case .hello:
                     if selected.count > 1 {
                         Button("Hello world") {
