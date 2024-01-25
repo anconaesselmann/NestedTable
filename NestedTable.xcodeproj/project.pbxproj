@@ -141,8 +141,8 @@
 			children = (
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
 				97108C032B60F3E000A4A021 /* ContentView.swift */,
-				97108C262B61C56100A4A021 /* ContextMenuManager */,
 				97108C212B61950400A4A021 /* Mocks */,
+				97108C262B61C56100A4A021 /* ContextMenuManager */,
 				97108C1A2B61895500A4A021 /* Extensions */,
 				97108C152B61837A00A4A021 /* Transferable */,
 				97108C0A2B60F3E000A4A021 /* NestedTableView */,

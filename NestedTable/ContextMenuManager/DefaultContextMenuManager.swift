@@ -4,10 +4,6 @@
 import SwiftUI
 import Combine
 
-enum Test: String, ContextMenuItems {
-    case hello
-}
-
 @MainActor
 class DefaultContextMenuManager: ContextMenuManager {
 

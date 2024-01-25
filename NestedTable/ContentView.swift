@@ -3,6 +3,10 @@
 
 import SwiftUI
 
+enum Test: String, ContextMenuItems {
+    case hello
+}
+
 struct ContentView: View {
 
     var body: some View {
