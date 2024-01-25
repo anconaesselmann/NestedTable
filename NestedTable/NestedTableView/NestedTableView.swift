@@ -35,6 +35,7 @@ struct NestedTableView: View {
                 }
             } rows: {
                 ForEach(vm.items) { item in
+                    #if os(macOS)
                     if item.isGroup {
                         TableRow(item)
                             .itemProvider {
@@ -49,6 +50,9 @@ struct NestedTableView: View {
                                 vm.itemProvider(for: item)
                             }
                     }
+                    #else
+                    TableRow(item)
+                    #endif
                 }
             }
             .contextMenu(forSelectionType: UUID.self) {
