@@ -33,6 +33,7 @@
 		97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C2D2B61C5EF00A4A021 /* DefaultContextMenuItems.swift */; };
 		97108C302B61DADB00A4A021 /* NestedTableView+Initialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C2F2B61DADB00A4A021 /* NestedTableView+Initialization.swift */; };
 		97108C322B61DB3500A4A021 /* NestedTableView+Modification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */; };
+		97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C332B6221FB00A4A021 /* TextField+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		97108C2D2B61C5EF00A4A021 /* DefaultContextMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultContextMenuItems.swift; sourceTree = "<group>"; };
 		97108C2F2B61DADB00A4A021 /* NestedTableView+Initialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NestedTableView+Initialization.swift"; sourceTree = "<group>"; };
 		97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NestedTableView+Modification.swift"; sourceTree = "<group>"; };
+		97108C332B6221FB00A4A021 /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				97108C1B2B61896200A4A021 /* View+Extensions.swift */,
+				97108C332B6221FB00A4A021 /* TextField+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				97108C282B61C56900A4A021 /* ContextMenuManager.swift in Sources */,
 				97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */,
 				97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */,
+				97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */,
 				97108C322B61DB3500A4A021 /* NestedTableView+Modification.swift in Sources */,
 				97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,

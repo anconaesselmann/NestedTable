@@ -119,11 +119,7 @@ struct NestedTableView: View {
                         }
                     }
                     .focused($isNameFocused)
-                #if os(macOS)
-                    .textFieldStyle(.squareBorder)
-                #else
-                    .textFieldStyle(.roundedBorder)
-                #endif
+                    .defaultTextFieldStyle()
                     .padding(.leading, 6)
             } else {
                 Text(item.text)
