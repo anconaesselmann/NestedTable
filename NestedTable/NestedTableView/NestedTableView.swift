@@ -76,6 +76,15 @@ struct NestedTableView: View {
     @ViewBuilder
     private func nameColumnContent(_ item: BaseRow) -> some View {
         HStack(spacing: 0) {
+            #if !os(macOS)
+            ForEach(0..<item.indent, id: \.self) { _ in
+                Divider()
+                    .frame(width: 2)
+                    .overlay(.secondary)
+                    .padding(.horizontal, 2)
+                    .ignoresSafeArea()
+            }
+            #endif
             if let group = item.group {
                 HStack {
                     if vm.isExpanded(group) {
@@ -118,7 +127,11 @@ struct NestedTableView: View {
                     .padding(.vertical, 2.5)
             }
         }
+        #if os(macOS)
         .padding(.leading, CGFloat(item.indent * 32))
+        #else
+
+        #endif
         .id(item.id)
     }
 }
