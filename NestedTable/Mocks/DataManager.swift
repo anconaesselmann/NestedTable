@@ -21,12 +21,6 @@ struct MockContent {
     }
 }
 
-extension BaseRow {
-    var itemContent: MockContent? {
-        (item as? Item<MockContent>)?.content
-    }
-}
-
 typealias MockItem = Item<MockContent>
 
 class MockDataManager: NestedTableDataManager {

@@ -3,12 +3,12 @@
 
 import SwiftUI
 
-struct NameColumn: View {
+struct NameColumn<Content>: View {
 
-    let item: BaseRow
+    let item: BaseRow<Content>
 
     @StateObject
-    var vm: NestedTableViewModel
+    var vm: NestedTableViewModel<Content>
 
     @FocusState
     private var isNameFocused:Bool

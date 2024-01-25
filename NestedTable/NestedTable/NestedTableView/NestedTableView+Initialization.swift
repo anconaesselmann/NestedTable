@@ -4,8 +4,12 @@
 import SwiftUI
 
 extension NestedTableView {
-    init(manager: (NestedTableDataManager & NestedTableDelegate & ContextMenuManager)) {
+    init(
+        of type: Content.Type,
+        manager: (NestedTableDataManager & NestedTableDelegate & ContextMenuManager)
+    ) {
         self.init(
+            of: type,
             dataManager: manager,
             delegate: manager,
             contextMenuManager: manager
@@ -13,10 +17,12 @@ extension NestedTableView {
     }
 
     init(
+        of type: Content.Type,
         manager: (NestedTableDataManager & NestedTableDelegate),
         contextMenuManager: ContextMenuManager? = nil
     ) {
         self.init(
+            of: type, 
             dataManager: manager,
             delegate: manager,
             contextMenuManager: contextMenuManager

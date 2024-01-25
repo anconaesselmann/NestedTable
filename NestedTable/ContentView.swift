@@ -12,6 +12,7 @@ struct ContentView: View {
     var body: some View {
         #if os(macOS)
         NestedTableView(
+            of: MockContent.self,
             dataManager: MockDataManager(),
             delegate: MockNestedTableManager()
         )
@@ -30,6 +31,7 @@ struct ContentView: View {
         #else
         NavigationView {
             NestedTableView(
+                of: MockContent.self,
                 dataManager: MockDataManager(),
                 delegate: MockNestedTableManager()
             )

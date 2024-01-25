@@ -5,9 +5,9 @@ import SwiftUI
 import Combine
 
 @MainActor
-class NestedTableViewModel: ObservableObject {
+class NestedTableViewModel<Content>: ObservableObject {
 
-    var items: [BaseRow] = []
+    var items: [BaseRow<Content>] = []
 
     @Published
     var selection = Set<UUID>() {
@@ -21,7 +21,7 @@ class NestedTableViewModel: ObservableObject {
     var renaming: UUID?
 
     @MainActor
-    var sortOrder: [KeyPathComparator<BaseRow>] = [] {
+    var sortOrder: [KeyPathComparator<BaseRow<Content>>] = [] {
         didSet {
             Task {
                 try await async_fetch(shouldAnimate: false)
@@ -74,7 +74,7 @@ class NestedTableViewModel: ObservableObject {
             }
             let indent = items[index].indent
             let children = try await dm.fetch(ids: group.contents)
-                .map { BaseRow($0, parent: group.id, indent: indent + 1) }
+                .map { BaseRow<Content>($0, parent: group.id, indent: indent + 1) }
                 .sorted(using: sortOrder) // TODO: See if I can pass this into the DM
             if shouldAnimate {
                 withAnimation {
@@ -251,7 +251,7 @@ class NestedTableViewModel: ObservableObject {
         }
     }
 
-    func itemProvider(for item: BaseRow) -> NSItemProvider {
+    func itemProvider(for item: BaseRow<Content>) -> NSItemProvider {
         let provider = NSItemProvider()
         provider.register(item.uuidAsData())
         return provider
@@ -283,7 +283,7 @@ class NestedTableViewModel: ObservableObject {
     private func async_fetch(shouldAnimate: Bool = true) async throws {
         let items = try await dm
             .fetch()
-            .map { BaseRow($0) }
+            .map { BaseRow<Content>($0) }
             .sorted(using: sortOrder) // TODO: See if I can pass this into the DM
         if shouldAnimate {
             withAnimation {

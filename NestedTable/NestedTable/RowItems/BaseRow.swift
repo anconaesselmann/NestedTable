@@ -3,7 +3,7 @@
 
 import Foundation
 
-struct BaseRow: Identifiable, Codable {
+struct BaseRow<Content>: Identifiable, Codable {
 
     init(from decoder: Decoder) throws {
         fatalError()
@@ -33,6 +33,10 @@ struct BaseRow: Identifiable, Codable {
             }
             item = newFolder
         }
+    }
+
+    var content: Content? {
+        (item as? Item<Content>)?.content
     }
 
     var isGroup: Bool {

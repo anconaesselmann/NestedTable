@@ -3,14 +3,15 @@
 
 import SwiftUI
 
-struct NestedTableView: View {
+struct NestedTableView<Content>: View {
 
     init(
+        of type: Content.Type,
         dataManager: NestedTableDataManager,
         delegate: NestedTableDelegate,
         contextMenuManager: ContextMenuManager? = nil
     ) {
-        let vm = NestedTableViewModel(
+        let vm = NestedTableViewModel<Content>(
             dataManager: dataManager,
             delegate: delegate,
             contextMenuManager: contextMenuManager ?? DefaultContextMenuManager()
@@ -19,14 +20,14 @@ struct NestedTableView: View {
     }
 
     @StateObject
-    private var vm: NestedTableViewModel
+    private var vm: NestedTableViewModel<Content>
 
     internal var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
     internal var contextMenuItems: [any ContextMenuItems] = DefaultContextMenuItems.allCases
 
     var body: some View {
         VStack {
-            Table(of: BaseRow.self, selection: $vm.selection, sortOrder: $vm.sortOrder) {
+            Table(of: BaseRow<Content>.self, selection: $vm.selection, sortOrder: $vm.sortOrder) {
                 TableColumn("Name", sortUsing: KeyPathComparator(\BaseRow.item.text, comparator: Comparator<String>())) { item in
                     NameColumn(item: item, vm: vm)
                 }
