@@ -61,7 +61,7 @@ struct NameColumn: View {
         #if os(macOS)
         .padding(.leading, CGFloat(item.indent * 32))
         #endif
-        .id(item.id)
+//        .id(item.id)
         .onChange(of: vm.isNameFocused) {
             isNameFocused = vm.isNameFocused
         }

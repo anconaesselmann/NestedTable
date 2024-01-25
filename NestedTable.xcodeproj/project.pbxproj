@@ -37,6 +37,7 @@
 		97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */; };
 		97108C382B62E27200A4A021 /* NameColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C372B62E27200A4A021 /* NameColumn.swift */; };
 		97108C3B2B62F21600A4A021 /* PaddedTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */; };
+		97108C3E2B6314E700A4A021 /* Comparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3D2B6314E700A4A021 /* Comparator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableRow+Extensions.swift"; sourceTree = "<group>"; };
 		97108C372B62E27200A4A021 /* NameColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameColumn.swift; sourceTree = "<group>"; };
 		97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTapGestureModifier.swift; sourceTree = "<group>"; };
+		97108C3D2B6314E700A4A021 /* Comparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */,
+				97108C3D2B6314E700A4A021 /* Comparator.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */,
 				97108C302B61DADB00A4A021 /* NestedTableView+Initialization.swift in Sources */,
 				97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */,
+				97108C3E2B6314E700A4A021 /* Comparator.swift in Sources */,
 				97108C1C2B61896200A4A021 /* View+Extensions.swift in Sources */,
 				97108C112B60F3E000A4A021 /* Group.swift in Sources */,
 			);

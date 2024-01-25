@@ -20,6 +20,16 @@ class NestedTableViewModel: ObservableObject {
 
     var renaming: UUID?
 
+    @MainActor
+    var sortOrder: [KeyPathComparator<BaseRow>] = [] {
+        didSet {
+            Task {
+                try await async_fetch(shouldAnimate: false)
+                self.objectWillChange.send()
+            }
+        }
+    }
+
     private var dm: NestedTableDataManager
     private var delegate: NestedTableDelegate
     internal var contextMenuManager: ContextMenuManager
@@ -65,6 +75,7 @@ class NestedTableViewModel: ObservableObject {
             let indent = items[index].indent
             let children = try await dm.fetch(ids: group.contents)
                 .map { BaseRow($0, parent: group.id, indent: indent + 1) }
+                .sorted(using: sortOrder) // TODO: See if I can pass this into the DM
             if shouldAnimate {
                 withAnimation {
                     items.insert(contentsOf: children, at: index + 1)
@@ -273,6 +284,7 @@ class NestedTableViewModel: ObservableObject {
         let items = try await dm
             .fetch()
             .map { BaseRow($0) }
+            .sorted(using: sortOrder) // TODO: See if I can pass this into the DM
         if shouldAnimate {
             withAnimation {
                 self.items = items
