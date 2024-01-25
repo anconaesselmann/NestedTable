@@ -28,43 +28,36 @@ struct NestedTableView: View {
     internal var contextMenuItems: [any ContextMenuItems] = DefaultContextMenuItems.allCases
 
     var body: some View {
-        VStack {
-            Table(of: BaseRow.self, selection: $vm.selection) {
-                TableColumn("Name") { item in
-                    nameColumnContent(item)
-                }
-            } rows: {
-                ForEach(vm.items) { item in
-                    #if os(macOS)
-                    if item.isGroup {
-                        TableRow(item)
-                            .itemProvider {
-                                vm.itemProvider(for: item)
-                            }
-                            .dropDestination(for: Data.self) {
-                                vm.itemsDropped($0, into: item.id)
-                            }
-                    } else {
-                        TableRow(item)
-                            .itemProvider {
-                                vm.itemProvider(for: item)
-                            }
+        Table(of: BaseRow.self, selection: $vm.selection) {
+            TableColumn("Name") { item in
+                nameColumnContent(item)
+            }
+        } rows: {
+            ForEach(vm.items) { item in
+                #if os(macOS)
+                TableRow(item)
+                    .itemProvider {
+                        vm.itemProvider(for: item)
                     }
-                    #else
-                    TableRow(item)
-                    #endif
-                }
+                    .if(item.isGroup) {
+                        $0.dropDestination(for: Data.self) {
+                            vm.itemsDropped($0, into: item.id)
+                        }
+                    }
+                #else
+                TableRow(item)
+                #endif
             }
-            .contextMenu(forSelectionType: UUID.self) {
-                ItemContextMenu(
-                    vm, 
-                    ids: $0, 
-                    elements: contextMenuItems,
-                    contextMenuElementBuilder: contextMenuElementBuilder
-                )
-            } primaryAction: { items in
-                vm.primaryAction(items)
-            }
+        }
+        .contextMenu(forSelectionType: UUID.self) {
+            ItemContextMenu(
+                vm,
+                ids: $0,
+                elements: contextMenuItems,
+                contextMenuElementBuilder: contextMenuElementBuilder
+            )
+        } primaryAction: { items in
+            vm.primaryAction(items)
         }
         .onAppear {
             vm.fetch()

@@ -34,6 +34,7 @@
 		97108C302B61DADB00A4A021 /* NestedTableView+Initialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C2F2B61DADB00A4A021 /* NestedTableView+Initialization.swift */; };
 		97108C322B61DB3500A4A021 /* NestedTableView+Modification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */; };
 		97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C332B6221FB00A4A021 /* TextField+Extensions.swift */; };
+		97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		97108C2F2B61DADB00A4A021 /* NestedTableView+Initialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NestedTableView+Initialization.swift"; sourceTree = "<group>"; };
 		97108C312B61DB3500A4A021 /* NestedTableView+Modification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NestedTableView+Modification.swift"; sourceTree = "<group>"; };
 		97108C332B6221FB00A4A021 /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
+		97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableRow+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				97108C1B2B61896200A4A021 /* View+Extensions.swift */,
+				97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */,
 				97108C332B6221FB00A4A021 /* TextField+Extensions.swift */,
 			);
 			path = Extensions;
@@ -385,6 +388,7 @@
 				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,
 				97108BD92B60F37700A4A021 /* NestedTableApp.swift in Sources */,
+				97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */,
 				97108C302B61DADB00A4A021 /* NestedTableView+Initialization.swift in Sources */,
 				97108C132B60F3E000A4A021 /* NestedTableView.swift in Sources */,
 				97108C1C2B61896200A4A021 /* View+Extensions.swift in Sources */,
