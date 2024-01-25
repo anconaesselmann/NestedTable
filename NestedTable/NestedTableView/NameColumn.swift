@@ -27,26 +27,19 @@ struct NameColumn: View {
                     .ignoresSafeArea()
             }
             #endif
-            if let group = item.group {
-                HStack {
-                    if vm.isExpanded(group) {
-                        Image(systemName: "chevron.down")
-                    } else {
-                        Image(systemName: "chevron.right")
-                    }
+            HStack {
+                if let group = item.group {
+                    let imageName = vm.isExpanded(group) ? "chevron.down" : "chevron.right"
+                    Image(systemName: imageName)
+                        .onTapGesture(padding: 8) {
+                            Task { await vm.toggle(group) }
+                        }
                 }
-                .frame(width: 25)
-                .frame(maxHeight: .infinity)
-                .containerShape(Rectangle())
-                .onTapGesture {
-                    Task {
-                        await vm.toggle(group)
-                    }
-                }
+            }
+            .frame(width: 25)
+            if item.isGroup {
                 Image(systemName: "folder.fill")
             } else {
-                Spacer()
-                    .frame(width: 25)
                 Image(systemName: "music.note.list")
             }
             if vm.renaming == item.id {

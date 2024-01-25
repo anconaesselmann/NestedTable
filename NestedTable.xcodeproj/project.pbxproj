@@ -36,6 +36,7 @@
 		97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C332B6221FB00A4A021 /* TextField+Extensions.swift */; };
 		97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */; };
 		97108C382B62E27200A4A021 /* NameColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C372B62E27200A4A021 /* NameColumn.swift */; };
+		97108C3B2B62F21600A4A021 /* PaddedTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		97108C332B6221FB00A4A021 /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		97108C352B62E1BA00A4A021 /* TableRow+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableRow+Extensions.swift"; sourceTree = "<group>"; };
 		97108C372B62E27200A4A021 /* NameColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameColumn.swift; sourceTree = "<group>"; };
+		97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTapGestureModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
 				97108C032B60F3E000A4A021 /* ContentView.swift */,
+				97108C392B62F20D00A4A021 /* Supporting */,
 				97108C212B61950400A4A021 /* Mocks */,
 				97108C262B61C56100A4A021 /* ContextMenuManager */,
 				97108C1A2B61895500A4A021 /* Extensions */,
@@ -241,6 +244,14 @@
 				97108C2D2B61C5EF00A4A021 /* DefaultContextMenuItems.swift */,
 			);
 			path = ContextMenuManager;
+			sourceTree = "<group>";
+		};
+		97108C392B62F20D00A4A021 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */,
+			);
+			path = Supporting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +402,7 @@
 				97108C232B61B7C500A4A021 /* ItemContextMenu.swift in Sources */,
 				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,
+				97108C3B2B62F21600A4A021 /* PaddedTapGestureModifier.swift in Sources */,
 				97108BD92B60F37700A4A021 /* NestedTableApp.swift in Sources */,
 				97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */,
 				97108C302B61DADB00A4A021 /* NestedTableView+Initialization.swift in Sources */,
