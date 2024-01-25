@@ -37,11 +37,7 @@ struct NameColumn<Content>: View {
                 }
             }
             .frame(width: 25)
-            if item.isGroup {
-                Image(systemName: "folder.fill")
-            } else {
-                Image(systemName: "music.note.list")
-            }
+            item.item.image
             if vm.renaming == item.id {
                 TextField("", text: $newName)
                     .onSubmit {
@@ -61,7 +57,7 @@ struct NameColumn<Content>: View {
         #if os(macOS)
         .padding(.leading, CGFloat(item.indent * 32))
         #endif
-//        .id(item.id)
+        .id(item.id)
         .onChange(of: vm.isNameFocused) {
             isNameFocused = vm.isNameFocused
         }

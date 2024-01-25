@@ -23,6 +23,19 @@ struct MockContent {
 
 typealias MockItem = Item<MockContent>
 
+import SwiftUI
+extension MockItem {
+    init(id: UUID, text: String, content: MockContent) {
+        self.init(id: id, text: text, image: Image(systemName: "music.note.list"), content: content)
+    }
+}
+
+extension Group {
+    init(id: UUID, text: String, contents: Set<UUID>) {
+        self.init(id: id, text: text, image: Image(systemName: "folder.fill"), contents: contents)
+    }
+}
+
 class MockDataManager: NestedTableDataManager {
     private var root: Set<UUID> = [
         UUID(uuidString: "b799469c-8b2f-4e25-b5f6-90e645f7fd3d")!,

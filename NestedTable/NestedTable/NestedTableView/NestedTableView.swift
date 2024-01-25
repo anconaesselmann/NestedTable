@@ -27,7 +27,7 @@ struct NestedTableView<Content>: View {
 
     var body: some View {
         Table(vm) {
-            TableColumn("Name", sortUsing: KeyPathComparator(\BaseRow.item.text, comparator: Comparator<String>())) { item in
+            TableColumn("Name", sortUsing: KeyPathComparator(\.item.text, comparator: Comparator<String>())) { item in
                 NameColumn(item: item, vm: vm)
             }
         } rows: {
