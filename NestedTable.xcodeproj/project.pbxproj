@@ -143,15 +143,10 @@
 			children = (
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
 				97108C032B60F3E000A4A021 /* ContentView.swift */,
-				97108C392B62F20D00A4A021 /* Supporting */,
-				97108C212B61950400A4A021 /* Mocks */,
-				97108C262B61C56100A4A021 /* ContextMenuManager */,
-				97108C1A2B61895500A4A021 /* Extensions */,
-				97108C152B61837A00A4A021 /* Transferable */,
-				97108C0A2B60F3E000A4A021 /* NestedTableView */,
-				97108C042B60F3E000A4A021 /* Table */,
+				97108C3C2B62F5A800A4A021 /* NestedTable */,
 				97108BDC2B60F37800A4A021 /* Assets.xcassets */,
 				97108BDE2B60F37800A4A021 /* NestedTable.entitlements */,
+				97108C212B61950400A4A021 /* Mocks */,
 				97108BDF2B60F37800A4A021 /* Preview Content */,
 			);
 			path = NestedTable;
@@ -182,7 +177,7 @@
 			path = NestedTableUITests;
 			sourceTree = "<group>";
 		};
-		97108C042B60F3E000A4A021 /* Table */ = {
+		97108C042B60F3E000A4A021 /* RowItems */ = {
 			isa = PBXGroup;
 			children = (
 				97108C052B60F3E000A4A021 /* Item.swift */,
@@ -190,7 +185,7 @@
 				97108C072B60F3E000A4A021 /* BaseRow.swift */,
 				97108C082B60F3E000A4A021 /* Group.swift */,
 			);
-			path = Table;
+			path = RowItems;
 			sourceTree = "<group>";
 		};
 		97108C0A2B60F3E000A4A021 /* NestedTableView */ = {
@@ -252,6 +247,19 @@
 				97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */,
 			);
 			path = Supporting;
+			sourceTree = "<group>";
+		};
+		97108C3C2B62F5A800A4A021 /* NestedTable */ = {
+			isa = PBXGroup;
+			children = (
+				97108C392B62F20D00A4A021 /* Supporting */,
+				97108C262B61C56100A4A021 /* ContextMenuManager */,
+				97108C1A2B61895500A4A021 /* Extensions */,
+				97108C152B61837A00A4A021 /* Transferable */,
+				97108C0A2B60F3E000A4A021 /* NestedTableView */,
+				97108C042B60F3E000A4A021 /* RowItems */,
+			);
+			path = NestedTable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
