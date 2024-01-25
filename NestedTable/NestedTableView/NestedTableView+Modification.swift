@@ -4,7 +4,7 @@
 import SwiftUI
 
 extension NestedTableView {
-    func contextMenuItem<Element>(items: [any ContextMenuItems]? = nil, @ViewBuilder builder: @escaping (Element, Set<UUID>) -> some View) -> some View
+    func contextMenu<Element>(items: [any ContextMenuItems]? = nil, @ViewBuilder builder: @escaping (Element, Set<UUID>) -> some View) -> some View
         where Element: ContextMenuItems
     {
         var copy = self

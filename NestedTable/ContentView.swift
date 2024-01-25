@@ -11,7 +11,7 @@ struct ContentView: View {
             dataManager: MockDataManager(),
             delegate: MockNestedTableManager()
         )
-        .contextMenuItem(
+        .contextMenu(
             items: DefaultContextMenuItems.allCases + [Test.hello]
         ) { (item: Test, selected) in
             switch item {
@@ -29,7 +29,7 @@ struct ContentView: View {
                 dataManager: MockDataManager(),
                 delegate: MockNestedTableManager()
             )
-            .contextMenuItem(
+            .contextMenu(
                 items: DefaultContextMenuItems.allCases + [Test.hello]
             ) { (item: Test, selected) in
                 switch item {
