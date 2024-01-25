@@ -3,8 +3,9 @@
 
 import Foundation
 
-struct Item: Identifiable, TableRowItem {
+struct Item<Content>: Identifiable, TableRowItem {
     var id: UUID
     var parent: UUID?
     var text: String
+    var content: Content
 }

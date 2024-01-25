@@ -32,3 +32,22 @@ struct Comparator<Element>: SortComparator where Element: Comparable {
         return order == .forward ? result : result.reversed
     }
 }
+
+struct OptionalComparator<Element>: SortComparator where Element: Comparable {
+    var order: SortOrder = .forward
+
+    func compare(_ lhs: Element?, _ rhs: Element?) -> ComparisonResult {
+        let result: ComparisonResult
+        switch (lhs, rhs) {
+        case (nil, nil):
+            result = .orderedSame
+        case (.some, nil):
+            result = .orderedDescending
+        case (nil, .some):
+            result = .orderedAscending
+        case let (lhs?, rhs?):
+            result = lhs.compare(rhs)
+        }
+        return order == .forward ? result : result.reversed
+    }
+}
