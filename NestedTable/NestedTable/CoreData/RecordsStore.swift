@@ -9,19 +9,19 @@ import Combine
 @globalActor
 actor RecordsStore {
 
-    enum Error: Swift.Error {
-        case missingContentId
-    }
-
     static let shared = RecordsStore()
 
     @RecordsStore
     private var container: CoreDataContainer!
 
+    @RecordsStore
+    private var _contentStore: ContentStore!
+
     private init() { }
 
     @RecordsStore
-    func initialize(subdirectory: String? = nil) async throws {
+    func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws {
+        self._contentStore = contentStore
         self.container = try NSPersistentContainer(
             model: "Records",
             subdirectory: subdirectory,
@@ -65,29 +65,8 @@ import SwiftUI
 
 extension RecordsStore: NestedTableDataManager {
 
-    func rowItems(for records: [Record]) throws -> [any TableRowItem] {
-        try records.map { record in
-            if record.isGroup {
-                return Group(
-                    id: record.id,
-                    parent: record.parent,
-                    text: record.text,
-                    image: Image(systemName: "folder.fill"),
-                    contents: record.content
-                )
-            } else {
-                guard let contentId = record.content.first else {
-                    throw Error.missingContentId
-                }
-                return Item<MockContent>(
-                    id: record.id,
-                    parent: record.parent,
-                    text: record.text,
-                    image: Image(systemName: "music.note.list"),
-                    content: MockContent(test: contentId.uuidString)
-                )
-            }
-        }
+    func contentStore() async -> ContentStore {
+        await _contentStore
     }
 
     func fetch() async throws -> [any TableRowItem] {
@@ -95,13 +74,13 @@ extension RecordsStore: NestedTableDataManager {
             in: backgroundContext,
             where: (keyPath: \.parent, equal: NSNull())
         )
-        return try rowItems(for: records)
+        return try await contentStore().rowItems(for: records)
     }
     
     func fetch(ids: Set<UUID>) async throws -> [any TableRowItem] {
         let entities = try await Record.fetchEntities(withIds: ids, in: backgroundContext)
         let records = try entities.map { try Record($0) }
-        return try rowItems(for: records)
+        return try await contentStore().rowItems(for: records)
     }
     
     func create(group: Group) async throws {

@@ -52,8 +52,10 @@ class AppInitializer: ObservableObject {
             return
         }
 
+        let mockContentStore = MockContentStore()
+
         let recordStore = RecordsStore.shared
-        try await recordStore.initialize()
+        try await recordStore.initialize(contentStore: mockContentStore)
 
         AppState.shared = AppState(
             recordStore: recordStore

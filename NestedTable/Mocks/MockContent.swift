@@ -40,3 +40,35 @@ extension Group {
         self.init(id: id, parent: parent, text: text, image: Image(systemName: "folder.fill"), contents: contents)
     }
 }
+
+class MockContentStore: ContentStore {
+
+    enum Error: Swift.Error {
+        case missingContentId
+    }
+    
+    func rowItems(for records: [Record]) async throws -> [any TableRowItem] {
+        try records.map { record in
+            if record.isGroup {
+                return Group(
+                    id: record.id,
+                    parent: record.parent,
+                    text: record.text,
+                    image: Image(systemName: "folder.fill"),
+                    contents: record.content
+                )
+            } else {
+                guard let contentId = record.content.first else {
+                    throw Error.missingContentId
+                }
+                return Item<MockContent>(
+                    id: record.id,
+                    parent: record.parent,
+                    text: record.text,
+                    image: Image(systemName: "music.note.list"),
+                    content: MockContent(test: contentId.uuidString)
+                )
+            }
+        }
+    }
+}
