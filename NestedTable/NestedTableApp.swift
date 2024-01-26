@@ -61,4 +61,3 @@ class AppInitializer: ObservableObject {
         initialized = true
     }
 }
-

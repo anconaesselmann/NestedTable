@@ -173,8 +173,9 @@ class NestedTableViewModel<Content>: ObservableObject {
             )
             try await dm.create(group: group)
             try await async_fetch(shouldAnimate: false)
-            expanded.insert(group.id)
-            expanded = expanded.subtracting(ids)
+            if !ids.isEmpty {
+                expanded.insert(group.id)
+            }
             selection = [group.id]
             await expand(group)
             return group.id
