@@ -139,7 +139,7 @@
 		97108BCC2B60F37700A4A021 = {
 			isa = PBXGroup;
 			children = (
-				97108BD72B60F37700A4A021 /* NestedTable */,
+				97108BD72B60F37700A4A021 /* NestedTableExample */,
 				97108BE92B60F37900A4A021 /* NestedTableTests */,
 				97108BF32B60F37900A4A021 /* NestedTableUITests */,
 				97108BD62B60F37700A4A021 /* Products */,
@@ -156,7 +156,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		97108BD72B60F37700A4A021 /* NestedTable */ = {
+		97108BD72B60F37700A4A021 /* NestedTableExample */ = {
 			isa = PBXGroup;
 			children = (
 				97108BD82B60F37700A4A021 /* NestedTableApp.swift */,
@@ -167,7 +167,7 @@
 				97108C212B61950400A4A021 /* Mocks */,
 				97108BDF2B60F37800A4A021 /* Preview Content */,
 			);
-			path = NestedTable;
+			path = NestedTableExample;
 			sourceTree = "<group>";
 		};
 		97108BDF2B60F37800A4A021 /* Preview Content */ = {
@@ -635,10 +635,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NestedTable/NestedTable.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NestedTableExample/NestedTable.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NestedTable/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NestedTableExample/Preview Content\"";
 				DEVELOPMENT_TEAM = D7MN23CD5F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -673,10 +673,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NestedTable/NestedTable.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NestedTableExample/NestedTable.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NestedTable/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NestedTableExample/Preview Content\"";
 				DEVELOPMENT_TEAM = D7MN23CD5F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
