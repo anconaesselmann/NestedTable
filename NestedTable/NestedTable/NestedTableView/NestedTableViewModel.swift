@@ -104,6 +104,7 @@ class NestedTableViewModel<Content>: ObservableObject {
                     }
                 }
             }
+            expanded.insert(groupId)
         } catch {
             delegate.error(error)
         }
@@ -124,16 +125,15 @@ class NestedTableViewModel<Content>: ObservableObject {
         } else {
             items.removeAll(where: { $0.parent == groupId })
         }
+        expanded.remove(groupId)
     }
 
     func toggle(_ groupId: UUID) async {
         let current = expanded.contains(groupId)
         let new = !current
         if new {
-            expanded.insert(groupId)
             await expand(groupId)
         } else {
-            expanded.remove(groupId)
             contract(groupId)
         }
     }
@@ -169,7 +169,7 @@ class NestedTableViewModel<Content>: ObservableObject {
                 expanded.insert(groupId)
             }
             selection = [groupId]
-            await expand(groupId)
+            await expand(groupId, shouldAnimate: false)
             return groupId
         } catch {
             delegate.error(error)
