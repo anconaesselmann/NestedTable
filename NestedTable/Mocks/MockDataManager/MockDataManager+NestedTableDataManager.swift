@@ -1,32 +1,9 @@
-//  Created by Axel Ancona Esselmann on 1/23/24.
+//  Created by Axel Ancona Esselmann on 1/26/24.
 //
 
 import Foundation
 
-class MockDataManager: NestedTableDataManager {
-
-    static let shared = MockDataManager()
-
-    private var root: Set<UUID> = []
-    private var itemsById: [UUID: any TableRowItem] = [:]
-
-    func create(_ selectedId: UUID?) async throws -> UUID {
-        let id = UUID()
-        itemsById[id] = MockItem(id: id, text: ["A", "B", "C"].shuffled()[0], content: .c)
-        let parent: UUID?
-        if let selectedId = selectedId {
-            let selected = itemsById[selectedId]
-            if (selected as? Group) != nil {
-                parent = selected?.id
-            } else {
-                parent = selected?.parent // TODO: parent is not assigned right now...
-            }
-        } else {
-            parent = nil
-        }
-        try await move(itemWithId: id, toGroupWithId: parent)
-        return id
-    }
+extension MockDataManager: NestedTableDataManager {
 
     func fetch() async throws -> [any TableRowItem] {
 //        try await Task.sleep(nanoseconds: 1_000_000_000)
@@ -123,10 +100,6 @@ class MockDataManager: NestedTableDataManager {
         } else {
             root.insert(id)
         }
-    }
-
-    enum Error: Swift.Error {
-        case internalInconcistency
     }
 
     func rename(_ id: UUID, to newName: String) async throws {

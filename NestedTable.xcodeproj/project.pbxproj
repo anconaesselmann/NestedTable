@@ -39,6 +39,7 @@
 		97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C412B63850100A4A021 /* NestedTableRowContent.swift */; };
 		97108C442B63867C00A4A021 /* Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C432B63867C00A4A021 /* Comparators.swift */; };
 		97108C462B63A17900A4A021 /* MockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C452B63A17900A4A021 /* MockContent.swift */; };
+		97108C482B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C472B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		97108C412B63850100A4A021 /* NestedTableRowContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableRowContent.swift; sourceTree = "<group>"; };
 		97108C432B63867C00A4A021 /* Comparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparators.swift; sourceTree = "<group>"; };
 		97108C452B63A17900A4A021 /* MockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
+		97108C472B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockDataManager+NestedTableDataManager.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,7 +230,7 @@
 		97108C212B61950400A4A021 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				97108C092B60F3E000A4A021 /* MockDataManager.swift */,
+				97108C492B63A25F00A4A021 /* MockDataManager */,
 				97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */,
 				97108C452B63A17900A4A021 /* MockContent.swift */,
 			);
@@ -266,6 +268,15 @@
 				97108C042B60F3E000A4A021 /* RowItems */,
 			);
 			path = NestedTable;
+			sourceTree = "<group>";
+		};
+		97108C492B63A25F00A4A021 /* MockDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				97108C092B60F3E000A4A021 /* MockDataManager.swift */,
+				97108C472B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift */,
+			);
+			path = MockDataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +414,7 @@
 				97108C2A2B61C58500A4A021 /* DefaultContextMenuManager.swift in Sources */,
 				97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */,
 				97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */,
+				97108C482B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift in Sources */,
 				97108C202B61950100A4A021 /* MockNestedTableManager.swift in Sources */,
 				97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */,
 				97108C282B61C56900A4A021 /* ContextMenuManager.swift in Sources */,
