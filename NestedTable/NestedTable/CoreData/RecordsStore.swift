@@ -134,15 +134,32 @@ extension RecordsStore: NestedTableDataManager {
         let context = await backgroundContext
         var deleted = ids
         var toDelete = Set<UUID>()
+        var recordsToDelete: [Record] = []
         try await context.perform {
-            for id in ids {
-                let record = try Record(id: id, in: context)
-                if record.isGroup {
+            recordsToDelete = try Record.fetchEntities(withIds: ids, in: context)
+                .map { try Record($0) }
+            for record in recordsToDelete {
+                let isGroup = record.isGroup
+                if isGroup {
                     toDelete = record.content
                 }
-                try Record.delete(id: id, in: context)
+                try Record.delete(id: record.id, in: context)
             }
             try context.save()
+        }
+        let groups = recordsToDelete
+            .filter { $0.isGroup }
+            .map { $0.id }
+
+        let contentStore = await contentStore()
+        if !groups.isEmpty {
+            try await contentStore.deleteGroups(Set(groups))
+        }
+        let items = recordsToDelete
+            .filter { !$0.isGroup }
+            .map { $0.id }
+        if !items.isEmpty {
+            try await contentStore.deleteItems(Set(items))
         }
         deleted = deleted.union(try await delete(toDelete))
         return deleted
@@ -170,11 +187,19 @@ extension RecordsStore: NestedTableDataManager {
     
     func rename(_ id: UUID, to newName: String) async throws {
         let context = await backgroundContext
+        var isGroup: Bool = false
         try await context.perform {
             var record = try Record(id: id, in: context)
+            isGroup = record.isGroup
             record.text = newName
             try record.update(in: context)
             try context.save()
+        }
+        let contentStore = await contentStore()
+        if isGroup {
+            try await contentStore.renameGroup(id, to: newName)
+        } else {
+            try await contentStore.renameItem(id, to: newName)
         }
     }
 }

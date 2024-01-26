@@ -48,4 +48,20 @@ extension MockContentStore: ContentStore {
     func createGroup(_ groupRecord: Record) async throws {
         print("Content store is creating group")
     }
+
+    func deleteGroups(_ ids: Set<UUID>) async throws {
+        print("deleting groups with ids \(ids.map { $0.uuidString })")
+    }
+
+    func deleteItems(_ ids: Set<UUID>) async throws {
+        print("deleting items with ids \(ids.map { $0.uuidString })")
+    }
+
+    func renameGroup(_ id: UUID, to newName: String) async throws {
+        print("renaming group with id \(id.uuidString) to \(newName)")
+    }
+
+    func renameItem(_ id: UUID, to newName: String) async throws {
+        print("renaming item with id \(id.uuidString) to \(newName)")
+    }
 }

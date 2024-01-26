@@ -24,11 +24,30 @@ protocol NestedTableDelegate {
 protocol ContentStore {
     func rowItems(for records: [Record]) async throws -> [any TableRowItem]
     func createGroup(_ groupRecord: Record) async throws
-    // TODO: Implement rename and delete
+    func deleteGroups(_ ids: Set<UUID>) async throws
+    func deleteItems(_ ids: Set<UUID>) async throws
+    func renameGroup(_ id: UUID, to newName: String) async throws
+    func renameItem(_ id: UUID, to newName: String) async throws
 }
 
 extension ContentStore {
     func createGroup(_ groupRecord: Record) async throws {
         // Implement to track group creation
+    }
+
+    func deleteGroups(_ ids: Set<UUID>) async throws {
+        // Implement to track
+    }
+
+    func deleteItems(_ ids: Set<UUID>) async throws {
+        // Implement to track item deletion
+    }
+
+    func renameGroup(_ id: UUID, to newName: String) async throws {
+        // Implement to track group renaming
+    }
+
+    func renameItem(_ id: UUID, to newName: String) async throws {
+        // Implement to track item renaming
     }
 }
