@@ -42,8 +42,9 @@
 		97108C532B63A3EF00A4A021 /* Records.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97108C512B63A3EF00A4A021 /* Records.xcdatamodeld */; };
 		97108C562B63A87E00A4A021 /* CoreDataStored in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C552B63A87E00A4A021 /* CoreDataStored */; };
 		97108C582B63A9B500A4A021 /* Record+CoreDataStored.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C572B63A9B500A4A021 /* Record+CoreDataStored.swift */; };
-		97108C5B2B63ABBB00A4A021 /* CoreDataContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C5A2B63ABBB00A4A021 /* CoreDataContainer */; };
 		97108C5D2B63ABCD00A4A021 /* RecordsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C5C2B63ABCD00A4A021 /* RecordsStore.swift */; };
+		97108C602B641F6800A4A021 /* CoreDataContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C5F2B641F6800A4A021 /* CoreDataContainer */; };
+		97108C632B6426CF00A4A021 /* CoreDataContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C622B6426CF00A4A021 /* CoreDataContainer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,8 +111,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97108C632B6426CF00A4A021 /* CoreDataContainer in Frameworks */,
 				97108C562B63A87E00A4A021 /* CoreDataStored in Frameworks */,
-				97108C5B2B63ABBB00A4A021 /* CoreDataContainer in Frameworks */,
+				97108C602B641F6800A4A021 /* CoreDataContainer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +325,8 @@
 			name = NestedTable;
 			packageProductDependencies = (
 				97108C552B63A87E00A4A021 /* CoreDataStored */,
-				97108C5A2B63ABBB00A4A021 /* CoreDataContainer */,
+				97108C5F2B641F6800A4A021 /* CoreDataContainer */,
+				97108C622B6426CF00A4A021 /* CoreDataContainer */,
 			);
 			productName = NestedTable;
 			productReference = 97108BD52B60F37700A4A021 /* NestedTable.app */;
@@ -399,7 +402,7 @@
 			mainGroup = 97108BCC2B60F37700A4A021;
 			packageReferences = (
 				97108C542B63A87E00A4A021 /* XCRemoteSwiftPackageReference "CoreDataStored" */,
-				97108C592B63ABBB00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */,
+				97108C612B6426CF00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */,
 			);
 			productRefGroup = 97108BD62B60F37700A4A021 /* Products */;
 			projectDirPath = "";
@@ -839,12 +842,12 @@
 				minimumVersion = 0.0.4;
 			};
 		};
-		97108C592B63ABBB00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */ = {
+		97108C612B6426CF00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/anconaesselmann/CoreDataContainer";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -855,9 +858,13 @@
 			package = 97108C542B63A87E00A4A021 /* XCRemoteSwiftPackageReference "CoreDataStored" */;
 			productName = CoreDataStored;
 		};
-		97108C5A2B63ABBB00A4A021 /* CoreDataContainer */ = {
+		97108C5F2B641F6800A4A021 /* CoreDataContainer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 97108C592B63ABBB00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */;
+			productName = CoreDataContainer;
+		};
+		97108C622B6426CF00A4A021 /* CoreDataContainer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97108C612B6426CF00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */;
 			productName = CoreDataContainer;
 		};
 /* End XCSwiftPackageProductDependency section */

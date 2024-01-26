@@ -15,13 +15,18 @@ actor RecordsStore {
 
     static let shared = RecordsStore()
 
-    private let container: CoreDataContainer
+    @RecordsStore
+    private var container: CoreDataContainer!
 
-    private init() {
-        self.container = try! NSPersistentContainer(model: "Records", type: .local(name: "Records"))
-    }
+    private init() { }
 
-    func initialize() async throws {
+    @RecordsStore
+    func initialize(subdirectory: String? = nil) async throws {
+        self.container = try NSPersistentContainer(
+            model: "Records",
+            subdirectory: subdirectory,
+            type: .local(name: "Records")
+        )
         try await container.loadPersistentStores()
     }
 
@@ -29,11 +34,6 @@ actor RecordsStore {
     lazy var backgroundContext: NSManagedObjectContext = {
         container.newBackgroundContext()
     }()
-
-    @MainActor
-    var viewContext: NSManagedObjectContext {
-        container.viewContext
-    }
 
     func create(_ selectedId: UUID?) async throws -> UUID {
         let id = UUID()

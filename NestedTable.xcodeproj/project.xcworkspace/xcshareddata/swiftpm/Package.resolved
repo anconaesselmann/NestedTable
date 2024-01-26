@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/anconaesselmann/CoreDataContainer",
       "state" : {
-        "branch" : "main",
-        "revision" : "47a2fea4ab64bd290f036051842980e2ba9435a9"
+        "revision" : "7d17cb24e85ea54c1300a4b025f0825d4e2577f2",
+        "version" : "0.0.1"
       }
     },
     {
