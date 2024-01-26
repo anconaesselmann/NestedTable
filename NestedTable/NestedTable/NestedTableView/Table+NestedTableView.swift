@@ -11,7 +11,7 @@ extension Table {
         elements: [any ContextMenuItems],
         contextMenuElementBuilder: ((NestedTableViewModel<Content>, String, Set<UUID>) -> AnyView?)?
     ) -> some View {
-        var copy = self
+        let copy = self
         return copy.contextMenu(forSelectionType: UUID.self) { ids in
             ItemContextMenu(
                 vm,

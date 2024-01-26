@@ -39,6 +39,8 @@
 		97108C3B2B62F21600A4A021 /* PaddedTapGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */; };
 		97108C3E2B6314E700A4A021 /* Comparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3D2B6314E700A4A021 /* Comparator.swift */; };
 		97108C402B63747E00A4A021 /* Table+NestedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */; };
+		97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C412B63850100A4A021 /* NestedTableRowContent.swift */; };
+		97108C442B63867C00A4A021 /* Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C432B63867C00A4A021 /* Comparators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		97108C3A2B62F21600A4A021 /* PaddedTapGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTapGestureModifier.swift; sourceTree = "<group>"; };
 		97108C3D2B6314E700A4A021 /* Comparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparator.swift; sourceTree = "<group>"; };
 		97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Table+NestedTableView.swift"; sourceTree = "<group>"; };
+		97108C412B63850100A4A021 /* NestedTableRowContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableRowContent.swift; sourceTree = "<group>"; };
+		97108C432B63867C00A4A021 /* Comparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +207,8 @@
 				97108C372B62E27200A4A021 /* NameColumn.swift */,
 				97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */,
 				97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */,
+				97108C412B63850100A4A021 /* NestedTableRowContent.swift */,
+				97108C432B63867C00A4A021 /* Comparators.swift */,
 			);
 			path = NestedTableView;
 			sourceTree = "<group>";
@@ -410,10 +416,12 @@
 				97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */,
 				97108C342B6221FB00A4A021 /* TextField+Extensions.swift in Sources */,
 				97108C382B62E27200A4A021 /* NameColumn.swift in Sources */,
+				97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */,
 				97108C322B61DB3500A4A021 /* NestedTableView+Modification.swift in Sources */,
 				97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,
 				97108C122B60F3E000A4A021 /* DataManager.swift in Sources */,
+				97108C442B63867C00A4A021 /* Comparators.swift in Sources */,
 				97108C232B61B7C500A4A021 /* ItemContextMenu.swift in Sources */,
 				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,

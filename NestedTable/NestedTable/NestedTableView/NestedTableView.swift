@@ -17,22 +17,12 @@ struct NestedTableView<Content>: View {
 
     var body: some View {
         Table(vm) {
-            TableColumn("Name", sortUsing: KeyPathComparator(\.item.text, comparator: Comparator<String>())) { item in
-                NameColumn(item: item, vm: vm)
+            TableColumn("Name", sortUsing: Comparators<Content>.text) {
+                NameColumn(item: $0, vm: vm)
             }
         } rows: {
-            ForEach(vm.items) { item in
-                TableRow(item)
-#if os(macOS)
-                    .itemProvider {
-                        vm.itemProvider(for: item)
-                    }
-                    .if(item.isGroup) {
-                        $0.dropDestination(for: Data.self) {
-                            vm.itemsDropped($0, into: item.id)
-                        }
-                    }
-#endif
+            ForEach(vm.items) {
+                NestedTableRowContent(vm: vm, item: $0)
             }
         }
         .nestedTableView(
