@@ -13,8 +13,7 @@ struct ContentView: View {
     @StateObject
     var vm = NestedTableViewModel<MockContent>(
         dataManager: MockDataManager.shared,
-        delegate: MockNestedTableManager(),
-        contextMenuManager: DefaultContextMenuManager()
+        delegate: MockNestedTableManager()
     )
 
     @ViewBuilder

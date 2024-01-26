@@ -45,13 +45,13 @@ class NestedTableViewModel<Content>: ObservableObject {
     init(
         dataManager: NestedTableDataManager,
         delegate: NestedTableDelegate,
-        contextMenuManager: ContextMenuManager
+        contextMenuManager: ContextMenuManager? = nil
     ) {
         self.dm = dataManager
         self.delegate = delegate
-        self.contextMenuManager = contextMenuManager
+        self.contextMenuManager = contextMenuManager ?? DefaultContextMenuManager()
 
-        contextMenuManager.isNameFocused.sink { [weak self] newValue in
+        self.contextMenuManager.isNameFocused.sink { [weak self] newValue in
             self?.isNameFocused = newValue
         }.store(in: &bag)
     }
