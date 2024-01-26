@@ -12,7 +12,7 @@ struct ContentView: View {
 
     @StateObject
     var vm = NestedTableViewModel<MockContent>(
-        dataManager: MockDataManager.shared,
+        dataManager: AppState.shared.recordStore,
         delegate: MockNestedTableManager()
     )
 
@@ -45,7 +45,7 @@ struct ContentView: View {
             case .create where selected.count <= 1:
                 Button("Create") {
                     Task {
-                        let id = try await MockDataManager.shared.create(selected.first)
+                        let id = try await AppState.shared.recordStore.create(selected.first)
                         await vm.refresh()
                         await MainActor.run {
                             vm.selection = [id]

@@ -163,7 +163,14 @@ class NestedTableViewModel<Content>: ObservableObject {
 
     func createGroup(with ids: Set<UUID>) async -> UUID? {
         do {
-            let group = Group(id: UUID(), text: "New group", contents: ids)
+            let items = self.items.filter { ids.contains($0.id) }
+                .sorted { $0.indent < $1.indent }
+            let group = Group(
+                id: UUID(),
+                parent: items.first?.parent,
+                text: "New group",
+                contents: ids
+            )
             try await dm.create(group: group)
             try await async_fetch(shouldAnimate: false)
             expanded.insert(group.id)
@@ -245,7 +252,11 @@ class NestedTableViewModel<Content>: ObservableObject {
             let deleted = try await dm.delete(ids)
             withAnimation {
                 items.removeAll { deleted.contains($0.id) }
-                selection = []
+                if !selection.isEmpty {
+                    selection = []
+                } else {
+                    self.objectWillChange.send()
+                }
             }
         } catch {
             delegate.error(error)

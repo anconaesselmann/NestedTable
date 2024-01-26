@@ -18,7 +18,6 @@
 		97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C062B60F3E000A4A021 /* TableRowItem.swift */; };
 		97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C072B60F3E000A4A021 /* BaseRow.swift */; };
 		97108C112B60F3E000A4A021 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C082B60F3E000A4A021 /* Group.swift */; };
-		97108C122B60F3E000A4A021 /* MockDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C092B60F3E000A4A021 /* MockDataManager.swift */; };
 		97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */; };
 		97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C162B61838C00A4A021 /* UUID+Transferable.swift */; };
 		97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */; };
@@ -39,7 +38,12 @@
 		97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C412B63850100A4A021 /* NestedTableRowContent.swift */; };
 		97108C442B63867C00A4A021 /* Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C432B63867C00A4A021 /* Comparators.swift */; };
 		97108C462B63A17900A4A021 /* MockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C452B63A17900A4A021 /* MockContent.swift */; };
-		97108C482B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C472B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift */; };
+		97108C4E2B63A38E00A4A021 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C4D2B63A38E00A4A021 /* Record.swift */; };
+		97108C532B63A3EF00A4A021 /* Records.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97108C512B63A3EF00A4A021 /* Records.xcdatamodeld */; };
+		97108C562B63A87E00A4A021 /* CoreDataStored in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C552B63A87E00A4A021 /* CoreDataStored */; };
+		97108C582B63A9B500A4A021 /* Record+CoreDataStored.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C572B63A9B500A4A021 /* Record+CoreDataStored.swift */; };
+		97108C5B2B63ABBB00A4A021 /* CoreDataContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C5A2B63ABBB00A4A021 /* CoreDataContainer */; };
+		97108C5D2B63ABCD00A4A021 /* RecordsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C5C2B63ABCD00A4A021 /* RecordsStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +79,6 @@
 		97108C062B60F3E000A4A021 /* TableRowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRowItem.swift; sourceTree = "<group>"; };
 		97108C072B60F3E000A4A021 /* BaseRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRow.swift; sourceTree = "<group>"; };
 		97108C082B60F3E000A4A021 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		97108C092B60F3E000A4A021 /* MockDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataManager.swift; sourceTree = "<group>"; };
 		97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewModel.swift; sourceTree = "<group>"; };
 		97108C162B61838C00A4A021 /* UUID+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Transferable.swift"; sourceTree = "<group>"; };
 		97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseRow+Transferable.swift"; sourceTree = "<group>"; };
@@ -96,7 +99,10 @@
 		97108C412B63850100A4A021 /* NestedTableRowContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableRowContent.swift; sourceTree = "<group>"; };
 		97108C432B63867C00A4A021 /* Comparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparators.swift; sourceTree = "<group>"; };
 		97108C452B63A17900A4A021 /* MockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
-		97108C472B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockDataManager+NestedTableDataManager.swift"; sourceTree = "<group>"; };
+		97108C4D2B63A38E00A4A021 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		97108C522B63A3EF00A4A021 /* Records.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Records.xcdatamodel; sourceTree = "<group>"; };
+		97108C572B63A9B500A4A021 /* Record+CoreDataStored.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataStored.swift"; sourceTree = "<group>"; };
+		97108C5C2B63ABCD00A4A021 /* RecordsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97108C562B63A87E00A4A021 /* CoreDataStored in Frameworks */,
+				97108C5B2B63ABBB00A4A021 /* CoreDataContainer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,15 +191,14 @@
 			path = NestedTableUITests;
 			sourceTree = "<group>";
 		};
-		97108C042B60F3E000A4A021 /* RowItems */ = {
+		97108C042B60F3E000A4A021 /* TableRowItem */ = {
 			isa = PBXGroup;
 			children = (
-				97108C052B60F3E000A4A021 /* Item.swift */,
 				97108C062B60F3E000A4A021 /* TableRowItem.swift */,
-				97108C072B60F3E000A4A021 /* BaseRow.swift */,
+				97108C052B60F3E000A4A021 /* Item.swift */,
 				97108C082B60F3E000A4A021 /* Group.swift */,
 			);
-			path = RowItems;
+			path = TableRowItem;
 			sourceTree = "<group>";
 		};
 		97108C0A2B60F3E000A4A021 /* NestedTableView */ = {
@@ -230,7 +237,6 @@
 		97108C212B61950400A4A021 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				97108C492B63A25F00A4A021 /* MockDataManager */,
 				97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */,
 				97108C452B63A17900A4A021 /* MockContent.swift */,
 			);
@@ -265,18 +271,38 @@
 				97108C1A2B61895500A4A021 /* Extensions */,
 				97108C152B61837A00A4A021 /* Transferable */,
 				97108C0A2B60F3E000A4A021 /* NestedTableView */,
-				97108C042B60F3E000A4A021 /* RowItems */,
+				97108C4B2B63A35700A4A021 /* Models */,
+				97108C4A2B63A30500A4A021 /* CoreData */,
 			);
 			path = NestedTable;
 			sourceTree = "<group>";
 		};
-		97108C492B63A25F00A4A021 /* MockDataManager */ = {
+		97108C4A2B63A30500A4A021 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				97108C092B60F3E000A4A021 /* MockDataManager.swift */,
-				97108C472B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift */,
+				97108C512B63A3EF00A4A021 /* Records.xcdatamodeld */,
+				97108C572B63A9B500A4A021 /* Record+CoreDataStored.swift */,
+				97108C5C2B63ABCD00A4A021 /* RecordsStore.swift */,
 			);
-			path = MockDataManager;
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		97108C4B2B63A35700A4A021 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				97108C072B60F3E000A4A021 /* BaseRow.swift */,
+				97108C4C2B63A37500A4A021 /* Records */,
+				97108C042B60F3E000A4A021 /* TableRowItem */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		97108C4C2B63A37500A4A021 /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				97108C4D2B63A38E00A4A021 /* Record.swift */,
+			);
+			path = Records;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +321,10 @@
 			dependencies = (
 			);
 			name = NestedTable;
+			packageProductDependencies = (
+				97108C552B63A87E00A4A021 /* CoreDataStored */,
+				97108C5A2B63ABBB00A4A021 /* CoreDataContainer */,
+			);
 			productName = NestedTable;
 			productReference = 97108BD52B60F37700A4A021 /* NestedTable.app */;
 			productType = "com.apple.product-type.application";
@@ -367,6 +397,10 @@
 				Base,
 			);
 			mainGroup = 97108BCC2B60F37700A4A021;
+			packageReferences = (
+				97108C542B63A87E00A4A021 /* XCRemoteSwiftPackageReference "CoreDataStored" */,
+				97108C592B63ABBB00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */,
+			);
 			productRefGroup = 97108BD62B60F37700A4A021 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -409,15 +443,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97108C582B63A9B500A4A021 /* Record+CoreDataStored.swift in Sources */,
 				97108C1E2B61937D00A4A021 /* NestedTableDataManager.swift in Sources */,
 				97108C462B63A17900A4A021 /* MockContent.swift in Sources */,
 				97108C2A2B61C58500A4A021 /* DefaultContextMenuManager.swift in Sources */,
+				97108C4E2B63A38E00A4A021 /* Record.swift in Sources */,
 				97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */,
+				97108C532B63A3EF00A4A021 /* Records.xcdatamodeld in Sources */,
 				97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */,
-				97108C482B63A23000A4A021 /* MockDataManager+NestedTableDataManager.swift in Sources */,
 				97108C202B61950100A4A021 /* MockNestedTableManager.swift in Sources */,
 				97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */,
 				97108C282B61C56900A4A021 /* ContextMenuManager.swift in Sources */,
+				97108C5D2B63ABCD00A4A021 /* RecordsStore.swift in Sources */,
 				97108C402B63747E00A4A021 /* Table+NestedTableView.swift in Sources */,
 				97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */,
 				97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */,
@@ -426,7 +463,6 @@
 				97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */,
 				97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,
-				97108C122B60F3E000A4A021 /* MockDataManager.swift in Sources */,
 				97108C442B63867C00A4A021 /* Comparators.swift in Sources */,
 				97108C232B61B7C500A4A021 /* ItemContextMenu.swift in Sources */,
 				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
@@ -793,6 +829,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		97108C542B63A87E00A4A021 /* XCRemoteSwiftPackageReference "CoreDataStored" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/anconaesselmann/CoreDataStored";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.4;
+			};
+		};
+		97108C592B63ABBB00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/anconaesselmann/CoreDataContainer";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		97108C552B63A87E00A4A021 /* CoreDataStored */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97108C542B63A87E00A4A021 /* XCRemoteSwiftPackageReference "CoreDataStored" */;
+			productName = CoreDataStored;
+		};
+		97108C5A2B63ABBB00A4A021 /* CoreDataContainer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97108C592B63ABBB00A4A021 /* XCRemoteSwiftPackageReference "CoreDataContainer" */;
+			productName = CoreDataContainer;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		97108C512B63A3EF00A4A021 /* Records.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				97108C522B63A3EF00A4A021 /* Records.xcdatamodel */,
+			);
+			currentVersion = 97108C522B63A3EF00A4A021 /* Records.xcdatamodel */;
+			path = Records.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 97108BCD2B60F37700A4A021 /* Project object */;
 }
