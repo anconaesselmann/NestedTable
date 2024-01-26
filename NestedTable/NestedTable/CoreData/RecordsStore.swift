@@ -34,31 +34,6 @@ actor RecordsStore {
     lazy var backgroundContext: NSManagedObjectContext = {
         container.newBackgroundContext()
     }()
-
-    func create(_ selectedId: UUID?) async throws -> UUID {
-        let id = UUID()
-        let text = ["A", "B", "C"].shuffled()[0]
-        let item = MockItem(id: id, text: text, content: .shuffled)
-        let record = Record(id: id, isGroup: false, text: text, content: [item.content.id])
-        let context = await backgroundContext
-        var parent: UUID?
-        try await context.perform {
-            record.entity(in: context)
-            if let selectedId = selectedId {
-                let selected = try Record(id: selectedId, in: context)
-                try context.save()
-                if selected.isGroup {
-                    parent = selected.id
-                } else {
-                    parent = selected.parent
-                }
-            } else {
-                parent = nil
-            }
-        }
-        try await move(itemWithId: id, toGroupWithId: parent)
-        return id
-    }
 }
 
 import SwiftUI
@@ -82,7 +57,29 @@ extension RecordsStore: NestedTableDataManager {
         let records = try entities.map { try Record($0) }
         return try await contentStore().rowItems(for: records)
     }
-    
+
+    func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID {
+        let record = Record(id: item.id, isGroup: false, text: item.text, content: [item.id])
+        let context = await backgroundContext
+        var parent: UUID?
+        try await context.perform {
+            record.entity(in: context)
+            if let selectedId = selectedId {
+                let selected = try Record(id: selectedId, in: context)
+                try context.save()
+                if selected.isGroup {
+                    parent = selected.id
+                } else {
+                    parent = selected.parent
+                }
+            } else {
+                parent = nil
+            }
+        }
+        try await move(itemWithId: record.id, toGroupWithId: parent)
+        return record.id
+    }
+
     func create(group: Group) async throws {
         let context = await backgroundContext
         try await context.perform {

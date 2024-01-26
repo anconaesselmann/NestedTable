@@ -36,6 +36,7 @@ struct AppState {
 
     static var shared: AppState!
 
+    let mockContentStore: MockContentStore
     let recordStore: RecordsStore
 }
 
@@ -58,6 +59,7 @@ class AppInitializer: ObservableObject {
         try await recordStore.initialize(contentStore: mockContentStore)
 
         AppState.shared = AppState(
+            mockContentStore: mockContentStore, 
             recordStore: recordStore
         )
         initialized = true

@@ -45,6 +45,7 @@
 		97108C5D2B63ABCD00A4A021 /* RecordsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C5C2B63ABCD00A4A021 /* RecordsStore.swift */; };
 		97108C602B641F6800A4A021 /* CoreDataContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C5F2B641F6800A4A021 /* CoreDataContainer */; };
 		97108C632B6426CF00A4A021 /* CoreDataContainer in Frameworks */ = {isa = PBXBuildFile; productRef = 97108C622B6426CF00A4A021 /* CoreDataContainer */; };
+		97108C652B64402600A4A021 /* MockContentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C642B64402600A4A021 /* MockContentStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		97108C522B63A3EF00A4A021 /* Records.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Records.xcdatamodel; sourceTree = "<group>"; };
 		97108C572B63A9B500A4A021 /* Record+CoreDataStored.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Record+CoreDataStored.swift"; sourceTree = "<group>"; };
 		97108C5C2B63ABCD00A4A021 /* RecordsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsStore.swift; sourceTree = "<group>"; };
+		97108C642B64402600A4A021 /* MockContentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContentStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 			children = (
 				97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */,
 				97108C452B63A17900A4A021 /* MockContent.swift */,
+				97108C642B64402600A4A021 /* MockContentStore.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
 				97108C0E2B60F3E000A4A021 /* Item.swift in Sources */,
 				97108C3B2B62F21600A4A021 /* PaddedTapGestureModifier.swift in Sources */,
+				97108C652B64402600A4A021 /* MockContentStore.swift in Sources */,
 				97108BD92B60F37700A4A021 /* NestedTableApp.swift in Sources */,
 				97108C362B62E1BA00A4A021 /* TableRow+Extensions.swift in Sources */,
 				97108C3E2B6314E700A4A021 /* Comparator.swift in Sources */,

@@ -46,12 +46,7 @@ struct ContentView: View {
             case .create where selected.count <= 1:
                 Button("Create") {
                     Task {
-                        let id = try await AppState.shared.recordStore.create(selected.first)
-                        await vm.refresh()
-                        await MainActor.run {
-                            vm.selection = [id]
-                            vm.rename(id)
-                        }
+                        try await self.create(vm: vm, selected: selected.first)
                     }
                 }
             default: EmptyView()
@@ -72,5 +67,23 @@ struct ContentView: View {
             }
         }
         #endif
+    }
+
+    private func create(vm: NestedTableViewModel<MockContent>, selected: UUID?) async throws {
+        let mockContentId = UUID()
+        let content = MockContent(id: mockContentId, test: mockContentId.uuidString)
+        let item = Item<MockContent>(
+            id: content.id,
+            text: "New item",
+            image: Image(systemName: "music.note.list"), 
+            content: content
+        )
+        AppState.shared.mockContentStore.insert(content)
+        let id = try await AppState.shared.recordStore.create(selected, item: item)
+        await vm.refresh()
+        await MainActor.run {
+            vm.selection = [id]
+            vm.rename(id)
+        }
     }
 }
