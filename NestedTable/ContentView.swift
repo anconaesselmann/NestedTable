@@ -6,6 +6,10 @@ import SwiftUI
 enum ExampleContextMenuItems: String, ContextMenuItems {
     case hello
     case create
+
+    static let combinedElements: [any ContextMenuItems] = {
+        DefaultContextMenuItems.allCases + [ExampleContextMenuItems.hello, ExampleContextMenuItems.create]
+    }()
 }
 
 struct ContentView: View {
@@ -19,14 +23,11 @@ struct ContentView: View {
     @ViewBuilder
     var table: some View {
         Table(vm) {
-            TableColumn("Name", sortUsing: Comparators<MockContent>.text) {
+            TableColumn("Name", sortUsing: .nameColumn()) {
                 NameColumn(item: $0, vm: vm)
             }
-            TableColumn(
-                "Example",
-                sortUsing: KeyPathComparator(\BaseRow.content?.test, comparator: OptionalComparator<String>())
-            ) { item in
-                Text(item.content?.test ?? "")
+            TableColumn("Example", sortUsing: .content(\BaseRow.content?.test)) {
+                Text($0.content?.test ?? "")
             }
         } rows: {
             ForEach(vm.items) {
@@ -35,7 +36,7 @@ struct ContentView: View {
         }
         .contextMenu(
             vm,
-            items: DefaultContextMenuItems.allCases + [ExampleContextMenuItems.hello, ExampleContextMenuItems.create]
+            items: ExampleContextMenuItems.combinedElements
         ) { (vm, item: ExampleContextMenuItems, selected) in
             switch item {
             case .hello where selected.count > 1:

@@ -9,6 +9,8 @@ extension String: Comparable {
     }
 }
 
+// TODO: add conformance for other commont types
+
 protocol Comparable {
     func compare(_ element: Self) -> ComparisonResult
 }
