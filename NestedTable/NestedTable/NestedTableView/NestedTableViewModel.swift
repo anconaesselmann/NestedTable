@@ -110,11 +110,11 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func contract(_ groupId: UUID, shouldAnimate: Bool = true) {
+    func contract(_ groupId: UUID, shouldAnimate: Bool = true, clearState: Bool = true) {
         let remove = items.filter { $0.parent == groupId }
         for item in remove {
             if let childGroup = item.group {
-                contract(childGroup.id)
+                contract(childGroup.id, clearState: false)
             }
         }
         if shouldAnimate {
@@ -125,7 +125,9 @@ class NestedTableViewModel<Content>: ObservableObject {
         } else {
             items.removeAll(where: { $0.parent == groupId })
         }
-        expanded.remove(groupId)
+        if clearState {
+            expanded.remove(groupId)
+        }
     }
 
     func toggle(_ groupId: UUID) async {
