@@ -37,6 +37,9 @@ extension Group {
 }
 
 class MockDataManager: NestedTableDataManager {
+
+    static let shared = MockDataManager()
+
     private var root: Set<UUID> = [
         UUID(uuidString: "b799469c-8b2f-4e25-b5f6-90e645f7fd3d")!,
         UUID(uuidString: "262925e8-59f2-4b98-9880-bf653e0b5423")!,

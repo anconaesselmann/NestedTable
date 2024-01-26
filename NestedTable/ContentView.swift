@@ -3,25 +3,35 @@
 
 import SwiftUI
 
-enum Test: String, ContextMenuItems {
+enum ExampleContextMenuItems: String, ContextMenuItems {
     case hello
     case create
 }
 
 struct ContentView: View {
 
-    let dm = MockDataManager()
+    @StateObject
+    var vm = NestedTableViewModel<MockContent>(
+        dataManager: MockDataManager.shared,
+        delegate: MockNestedTableManager(),
+        contextMenuManager: DefaultContextMenuManager()
+    )
 
-    var body: some View {
-        #if os(macOS)
-        NestedTableView(
-            of: MockContent.self,
-            dataManager: dm,
-            delegate: MockNestedTableManager()
-        )
+    @ViewBuilder
+    var table: some View {
+        Table(vm) {
+            TableColumn("Name", sortUsing: Comparators<MockContent>.text) {
+                NameColumn(item: $0, vm: vm)
+            }
+        } rows: {
+            ForEach(vm.items) {
+                NestedTableRowContent(vm: vm, item: $0)
+            }
+        }
         .contextMenu(
-            items: DefaultContextMenuItems.allCases + [Test.hello, Test.create]
-        ) { (vm, item: Test, selected) in
+            vm,
+            items: DefaultContextMenuItems.allCases + [ExampleContextMenuItems.hello, ExampleContextMenuItems.create]
+        ) { (vm, item: ExampleContextMenuItems, selected) in
             switch item {
             case .hello:
                 if selected.count > 1 {
@@ -33,37 +43,26 @@ struct ContentView: View {
                 if selected.count == 1, let selectedId = selected.first {
                     Button("Create") {
                         Task {
-                            let id = try await dm.create(selectedId)
+                            let id = try await MockDataManager.shared.create(selectedId)
                             await vm.refresh()
-                            vm.selection = [id]
+                            await MainActor.run {
+                                vm.selection = [id]
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    var body: some View {
+        #if os(macOS)
+        table
         #else
         NavigationView {
-            NestedTableView(
-                of: MockContent.self,
-                dataManager: dm,
-                delegate: MockNestedTableManager()
-            )
-            .contextMenu(
-                items: DefaultContextMenuItems.allCases + [Test.hello]
-            ) { (item: Test, selected) in
-                switch item {
-                case .hello:
-                    if selected.count > 1 {
-                        Button("Hello world") {
-                            print("Hello world")
-                        }
-                    }
-                }
-            }
+            table
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-
-
                     EditButton()
                 }
             }

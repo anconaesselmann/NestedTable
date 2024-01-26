@@ -9,6 +9,7 @@ class NestedTableViewModel<Content>: ObservableObject {
 
     var items: [BaseRow<Content>] = []
 
+    @MainActor
     @Published
     var selection = Set<UUID>() {
         didSet {
@@ -65,6 +66,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
+    @MainActor
     func refresh() async {
         do {
             try await async_fetch(shouldAnimate: false)
