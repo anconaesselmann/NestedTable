@@ -35,18 +35,10 @@ struct NestedTableView<Content>: View {
 #endif
             }
         }
-        .contextMenu(forSelectionType: UUID.self) {
-            ItemContextMenu(
-                vm,
-                ids: $0,
-                elements: contextMenuItems,
-                contextMenuElementBuilder: contextMenuElementBuilder
-            )
-        } primaryAction: { items in
-            vm.primaryAction(items)
-        }
-        .onAppear {
-            vm.fetch()
-        }
+        .nestedTableView(
+            vm,
+            elements: contextMenuItems,
+            contextMenuElementBuilder: contextMenuElementBuilder
+        )
     }
 }
