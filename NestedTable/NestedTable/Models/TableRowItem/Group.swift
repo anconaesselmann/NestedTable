@@ -7,6 +7,6 @@ struct Group: Identifiable, TableRowItem {
     var id: UUID
     var parent: UUID?
     var text: String
-    var image: Image
+    var image: Image?
     var contents: Set<UUID> = []
 }

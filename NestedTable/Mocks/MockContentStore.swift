@@ -45,7 +45,7 @@ extension MockContentStore: ContentStore {
     }
 
     // MARK: - Optional implementation
-    func groupCreated(_ group: Group) async throws {
-
+    func createGroup(_ groupRecord: Record) async throws {
+        print("Content store is creating group")
     }
 }

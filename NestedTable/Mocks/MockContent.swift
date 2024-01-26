@@ -25,11 +25,3 @@ struct MockContent {
         [Self.a, Self.b, Self.c].shuffled()[0]
     }
 }
-
-import SwiftUI
-
-extension Group {
-    init(id: UUID, parent: UUID?, text: String, contents: Set<UUID>) {
-        self.init(id: id, parent: parent, text: text, image: Image(systemName: "folder.fill"), contents: contents)
-    }
-}

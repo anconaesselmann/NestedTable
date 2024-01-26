@@ -76,11 +76,13 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func expand(_ group: Group, shouldAnimate: Bool = true) async {
+    func expand(_ groupId: UUID, shouldAnimate: Bool = true) async {
         do {
-            guard let index = items.firstIndex(where: { row in
-                row.id == group.id
-            }) else {
+            guard let index = items.firstIndex(where: { $0.id == groupId }) else {
+                return
+            }
+            let item = items[index]
+            guard let group = item.group else {
                 return
             }
             let indent = items[index].indent
@@ -98,7 +100,7 @@ class NestedTableViewModel<Content>: ObservableObject {
             for child in children {
                 if let childGroup = child.group {
                     if expanded.contains(childGroup.id) {
-                        await expand(childGroup, shouldAnimate: shouldAnimate)
+                        await expand(childGroup.id, shouldAnimate: shouldAnimate)
                     }
                 }
             }
@@ -107,42 +109,37 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func contract(_ group: Group, shouldAnimate: Bool = true) {
-        let remove = items.filter { $0.parent == group.id }
+    func contract(_ groupId: UUID, shouldAnimate: Bool = true) {
+        let remove = items.filter { $0.parent == groupId }
         for item in remove {
             if let childGroup = item.group {
-                contract(childGroup)
+                contract(childGroup.id)
             }
         }
         if shouldAnimate {
             withAnimation {
-                items.removeAll(where: { $0.parent == group.id })
+                items.removeAll(where: { $0.parent == groupId })
                 self.objectWillChange.send()
             }
         } else {
-            items.removeAll(where: { $0.parent == group.id })
+            items.removeAll(where: { $0.parent == groupId })
         }
     }
 
-    func toggle(_ group: Group) async {
-        for i in 0..<items.count {
-            if items[i].id == group.id {
-                let current = expanded.contains(group.id)
-                let new = !current
-                if new {
-                    expanded.insert(group.id)
-                    await expand(group)
-                } else {
-                    expanded.remove(group.id)
-                    contract(group)
-                }
-                return
-            }
+    func toggle(_ groupId: UUID) async {
+        let current = expanded.contains(groupId)
+        let new = !current
+        if new {
+            expanded.insert(groupId)
+            await expand(groupId)
+        } else {
+            expanded.remove(groupId)
+            contract(groupId)
         }
     }
 
-    func isExpanded(_ group: Group) -> Bool {
-        expanded.contains(group.id)
+    func isExpanded(_ groupId: UUID) -> Bool {
+        expanded.contains(groupId)
     }
 
     func primaryAction(_ ids: Set<UUID>) {
@@ -154,7 +151,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
         if let group = item.group {
             Task {
-                await toggle(group)
+                await toggle(group.id)
             }
         } else {
             delegate.performPrimaryAction(for: id)
@@ -165,20 +162,15 @@ class NestedTableViewModel<Content>: ObservableObject {
         do {
             let items = self.items.filter { ids.contains($0.id) }
                 .sorted { $0.indent < $1.indent }
-            let group = Group(
-                id: UUID(),
-                parent: items.first?.parent,
-                text: "New group",
-                contents: ids
-            )
-            try await dm.create(group: group)
+            let parentId = items.first?.parent
+            let groupId = try await dm.createGroup(with: ids, named: "New group", parent: parentId)
             try await async_fetch(shouldAnimate: false)
             if !ids.isEmpty {
-                expanded.insert(group.id)
+                expanded.insert(groupId)
             }
-            selection = [group.id]
-            await expand(group)
-            return group.id
+            selection = [groupId]
+            await expand(groupId)
+            return groupId
         } catch {
             delegate.error(error)
             return nil
@@ -318,7 +310,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
         for item in items {
             if let group = item.group, expanded.contains(item.id) {
-                await expand(group, shouldAnimate: shouldAnimate)
+                await expand(group.id, shouldAnimate: shouldAnimate)
             }
         }
     }

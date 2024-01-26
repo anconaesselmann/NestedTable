@@ -28,16 +28,25 @@ struct NameColumn<Content>: View {
             }
             #endif
             HStack {
-                if let group = item.group {
-                    let imageName = vm.isExpanded(group) ? "chevron.down" : "chevron.right"
+                if let groupId = item.group?.id {
+                    let imageName = vm.isExpanded(groupId) ? "chevron.down" : "chevron.right"
                     Image(systemName: imageName)
                         .onTapGesture(padding: 8) {
-                            Task { await vm.toggle(group) }
+                            Task { await vm.toggle(groupId) }
                         }
                 }
             }
             .frame(width: 25)
-            item.item.image
+            // TODO: Decide what to de when no image is present.
+            // Current state looks awkward when elements with and without are
+            // present in the same level
+            HStack {
+                if let image = item.item.image {
+                    image
+                } else {
+                    Spacer()
+                }
+            }.frame(width: 12)
             if vm.renaming == item.id {
                 TextField("", text: $newName)
                     .onSubmit {

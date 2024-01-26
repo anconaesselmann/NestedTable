@@ -40,6 +40,10 @@ import SwiftUI
 
 extension RecordsStore: NestedTableDataManager {
 
+    enum Error: Swift.Error {
+        case noGroupForRecord
+    }
+
     func contentStore() async -> ContentStore {
         await _contentStore
     }
@@ -80,16 +84,25 @@ extension RecordsStore: NestedTableDataManager {
         return record.id
     }
 
-    func create(group: Group) async throws {
+    func createGroup(with ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
+        let recordId = UUID()
+        let record = Record(
+            id: recordId,
+            isGroup: true,
+            parent: parent,
+            text: name,
+            content: ids
+        )
+        try await contentStore().createGroup(record)
+        guard
+            let item = try await contentStore().rowItems(for: [record]).first,
+            let group = item as? Group else
+        {
+            throw Error.noGroupForRecord
+        }
         let context = await backgroundContext
         try await context.perform {
-            let record = Record(
-                id: group.id,
-                isGroup: true,
-                parent: group.parent,
-                text: group.text,
-                content: group.contents
-            )
+
             if let parentId = group.parent {
                 var parent = try Record(id: parentId, in: context)
                 parent.content.insert(group.id)
@@ -111,6 +124,7 @@ extension RecordsStore: NestedTableDataManager {
             }
             try context.save()
         }
+        return recordId
     }
     
     func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
