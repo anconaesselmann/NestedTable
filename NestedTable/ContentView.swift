@@ -38,24 +38,21 @@ struct ContentView: View {
             items: DefaultContextMenuItems.allCases + [ExampleContextMenuItems.hello, ExampleContextMenuItems.create]
         ) { (vm, item: ExampleContextMenuItems, selected) in
             switch item {
-            case .hello:
-                if selected.count > 1 {
-                    Button("Hello world") {
-                        print("Hello world")
-                    }
+            case .hello where selected.count > 1:
+                Button("Hello world") {
+                    print("Hello world")
                 }
-            case .create:
-                if selected.count <= 1 {
-                    Button("Create") {
-                        Task {
-                            let id = try await MockDataManager.shared.create(selected.first)
-                            await vm.refresh()
-                            await MainActor.run {
-                                vm.selection = [id]
-                            }
+            case .create where selected.count <= 1:
+                Button("Create") {
+                    Task {
+                        let id = try await MockDataManager.shared.create(selected.first)
+                        await vm.refresh()
+                        await MainActor.run {
+                            vm.selection = [id]
                         }
                     }
                 }
+            default: EmptyView()
             }
         }
     }
