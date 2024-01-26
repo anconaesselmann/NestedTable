@@ -38,6 +38,7 @@
 		97108C402B63747E00A4A021 /* Table+NestedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */; };
 		97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C412B63850100A4A021 /* NestedTableRowContent.swift */; };
 		97108C442B63867C00A4A021 /* Comparators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C432B63867C00A4A021 /* Comparators.swift */; };
+		97108C462B63A17900A4A021 /* MockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C452B63A17900A4A021 /* MockContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Table+NestedTableView.swift"; sourceTree = "<group>"; };
 		97108C412B63850100A4A021 /* NestedTableRowContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableRowContent.swift; sourceTree = "<group>"; };
 		97108C432B63867C00A4A021 /* Comparators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparators.swift; sourceTree = "<group>"; };
+		97108C452B63A17900A4A021 /* MockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 			children = (
 				97108C092B60F3E000A4A021 /* MockDataManager.swift */,
 				97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */,
+				97108C452B63A17900A4A021 /* MockContent.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97108C1E2B61937D00A4A021 /* NestedTableDataManager.swift in Sources */,
+				97108C462B63A17900A4A021 /* MockContent.swift in Sources */,
 				97108C2A2B61C58500A4A021 /* DefaultContextMenuManager.swift in Sources */,
 				97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */,
 				97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */,
