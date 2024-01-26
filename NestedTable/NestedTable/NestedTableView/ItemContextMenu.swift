@@ -30,13 +30,13 @@ struct ItemContextMenu<Content>: View {
     private func contextMenu(for ids: Set<UUID>) -> some View {
         ForEach(elements.map { $0.rawValue}, id: \.self) {
             switch $0 {
-            case "rename":
+            case DefaultContextMenuItems.rename.rawValue:
                 if ids.count == 1, let id = ids.first {
                     Button("Rename") {
                         vm.rename(id)
                     }
                 }
-            case "group":
+            case DefaultContextMenuItems.group.rawValue:
                 let text: String = {
                     switch ids.count {
                     case 0: return "Create group"
@@ -52,7 +52,7 @@ struct ItemContextMenu<Content>: View {
                         vm.rename(id)
                     }
                 }
-            case "removeFromGroup":
+            case DefaultContextMenuItems.removeFromGroup.rawValue:
                 if ids.count > 0 {
                     if vm.isGrouped(ids) {
                         Button("Remove from group") {
@@ -62,7 +62,7 @@ struct ItemContextMenu<Content>: View {
                         }
                     }
                 }
-            case "delete":
+            case DefaultContextMenuItems.delete.rawValue:
                 if ids.count > 0 {
                     Button("Delete") {
                         Task {
@@ -71,13 +71,13 @@ struct ItemContextMenu<Content>: View {
                     }
                 }
 #if !os(macOS)
-            case "select":
+            case DefaultContextMenuItems.select.rawValue:
                 if ids.count == 1, let id = ids.first {
                     Button("Select") {
                         vm.selection.insert(id)
                     }
                 }
-            case "moveTo":
+            case DefaultContextMenuItems.moveTo.rawValue:
                 if ids.count > 0 {
                     let folders = vm.foldersOfSameLevel(for: ids)
                     Menu("Move to") {
