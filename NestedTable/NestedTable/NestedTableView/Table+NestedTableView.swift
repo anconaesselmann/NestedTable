@@ -63,6 +63,20 @@ extension Table {
         .onAppear {
             vm.fetch()
         }
+        .contextMenu {
+            ItemContextMenu(
+                vm,
+                ids: [],
+                elements: items ?? DefaultContextMenuItems.allCases,
+                contextMenuElementBuilder: { (vm: NestedTableViewModel<Content>, string: String, selected: Set<UUID>) -> AnyView? in
+                    guard let element = Element(rawValue: string) else {
+                        return nil
+                    }
+                    let view = builder(vm, element, selected)
+                    return AnyView(view)
+                }
+            )
+        }
     }
 
     @MainActor

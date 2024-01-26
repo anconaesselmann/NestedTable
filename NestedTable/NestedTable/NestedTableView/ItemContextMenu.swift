@@ -37,7 +37,14 @@ struct ItemContextMenu<Content>: View {
                     }
                 }
             case "group":
-                Button("Group \(ids.count > 1 ? "items" : "item")") {
+                let text: String = {
+                    switch ids.count {
+                    case 0: return "Create group"
+                    case 1: return "Group item"
+                    default: return "Group items"
+                    }
+                }()
+                Button(text) {
                     Task {
                         guard let id = await vm.createGroup(with: ids) else {
                             return
