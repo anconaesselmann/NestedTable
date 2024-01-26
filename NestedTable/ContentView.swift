@@ -23,6 +23,12 @@ struct ContentView: View {
             TableColumn("Name", sortUsing: Comparators<MockContent>.text) {
                 NameColumn(item: $0, vm: vm)
             }
+            TableColumn(
+                "Example",
+                sortUsing: KeyPathComparator(\BaseRow.content?.test, comparator: OptionalComparator<String>())
+            ) { item in
+                Text(item.content?.test ?? "")
+            }
         } rows: {
             ForEach(vm.items) {
                 NestedTableRowContent(vm: vm, item: $0)
