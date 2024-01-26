@@ -90,14 +90,11 @@ extension RecordsStore: NestedTableDataManager {
         }
     }
 
-    private func fetchAllRecords() async throws -> [Record] {
-        try await Record.fetchAll(in: backgroundContext)
-    }
-
     func fetch() async throws -> [any TableRowItem] {
-        // TODO: Don't fetch all
-        let records = try await fetchAllRecords()
-            .filter { $0.parent == nil }
+        let records = try await Record.fetch(
+            in: backgroundContext,
+            where: (keyPath: \.parent, equal: NSNull())
+        )
         return try rowItems(for: records)
     }
     
