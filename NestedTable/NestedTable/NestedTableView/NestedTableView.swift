@@ -20,9 +20,9 @@ struct NestedTableView<Content>: View {
     }
 
     @StateObject
-    private var vm: NestedTableViewModel<Content>
+    internal var vm: NestedTableViewModel<Content>
 
-    internal var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
+    internal var contextMenuElementBuilder: ((NestedTableViewModel<Content>, String, Set<UUID>) -> AnyView?)?
     internal var contextMenuItems: [any ContextMenuItems] = DefaultContextMenuItems.allCases
 
     var body: some View {

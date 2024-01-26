@@ -7,13 +7,13 @@ struct ItemContextMenu<Content>: View {
     private let vm: NestedTableViewModel<Content>
     private let ids: Set<UUID>
     private var elements: [any ContextMenuItems]
-    private var contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
+    private var contextMenuElementBuilder: ((NestedTableViewModel<Content>, String, Set<UUID>) -> AnyView?)?
 
     init(
         _ vm: NestedTableViewModel<Content>,
         ids: Set<UUID>,
         elements: [any ContextMenuItems],
-        contextMenuElementBuilder: ((String, Set<UUID>) -> AnyView?)?
+        contextMenuElementBuilder: ((NestedTableViewModel<Content>, String, Set<UUID>) -> AnyView?)?
     ) {
         self.vm = vm
         self.elements = elements
@@ -85,7 +85,7 @@ struct ItemContextMenu<Content>: View {
                 }
 #endif
             default:
-                contextMenuElementBuilder?($0, ids)
+                contextMenuElementBuilder?(vm, $0, ids)
             }
         }
     }

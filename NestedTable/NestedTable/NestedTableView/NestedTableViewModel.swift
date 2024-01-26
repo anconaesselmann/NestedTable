@@ -65,6 +65,15 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
+    func refresh() async {
+        do {
+            try await async_fetch(shouldAnimate: false)
+            self.objectWillChange.send()
+        } catch {
+            delegate.error(error)
+        }
+    }
+
     func expand(_ group: Group, shouldAnimate: Bool = true) async {
         do {
             guard let index = items.firstIndex(where: { row in
