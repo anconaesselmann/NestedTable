@@ -193,11 +193,11 @@
 		97108C0A2B60F3E000A4A021 /* NestedTableView */ = {
 			isa = PBXGroup;
 			children = (
-				97108C222B61B7C500A4A021 /* ItemContextMenu.swift */,
+				97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */,
 				97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */,
+				97108C222B61B7C500A4A021 /* ItemContextMenu.swift */,
 				97108C372B62E27200A4A021 /* NameColumn.swift */,
 				97108C1D2B61937D00A4A021 /* NestedTableDataManager.swift */,
-				97108C3F2B63747E00A4A021 /* Table+NestedTableView.swift */,
 				97108C412B63850100A4A021 /* NestedTableRowContent.swift */,
 				97108C432B63867C00A4A021 /* Comparators.swift */,
 			);

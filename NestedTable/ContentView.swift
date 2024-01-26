@@ -49,6 +49,7 @@ struct ContentView: View {
                         await vm.refresh()
                         await MainActor.run {
                             vm.selection = [id]
+                            vm.rename(id)
                         }
                     }
                 }
