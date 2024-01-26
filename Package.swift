@@ -5,19 +5,24 @@ import PackageDescription
 
 let package = Package(
     name: "NestedTable",
+    platforms: [
+        .macOS(.v14),
+        .iOS(.v17)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "NestedTable",
             targets: ["NestedTable"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/anconaesselmann/CoreDataStored", from: "0.0.4"),
+        .package(url: "https://github.com/anconaesselmann/CoreDataContainer", from: "0.0.1"),
+        .package(url: "https://github.com/anconaesselmann/FileUrlExtensions", from: "0.0.2"),
+    ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "NestedTable"),
-        .testTarget(
-            name: "NestedTableTests",
-            dependencies: ["NestedTable"]),
+            name: "NestedTable",
+            dependencies: ["CoreDataStored", "CoreDataContainer", "FileUrlExtensions"]
+        ),
     ]
 )

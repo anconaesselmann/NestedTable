@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "coredatacontainer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/anconaesselmann/CoreDataContainer",
+      "state" : {
+        "revision" : "7d17cb24e85ea54c1300a4b025f0825d4e2577f2",
+        "version" : "0.0.1"
+      }
+    },
+    {
+      "identity" : "coredatastored",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/anconaesselmann/CoreDataStored",
+      "state" : {
+        "revision" : "85ab529ff1f6891e9f1af7d8e3d19c975a16453f",
+        "version" : "0.0.4"
+      }
+    },
+    {
+      "identity" : "fileurlextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/anconaesselmann/FileUrlExtensions",
+      "state" : {
+        "revision" : "aae3ab0e09d6d7f34672dfe4f47afd0b0ec0c973",
+        "version" : "0.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}
