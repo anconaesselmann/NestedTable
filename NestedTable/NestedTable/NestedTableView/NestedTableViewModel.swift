@@ -97,12 +97,17 @@ class NestedTableViewModel<Content>: ObservableObject {
             } else {
                 items.insert(contentsOf: children, at: index + 1)
             }
+            var needsToUpdate = false
             for child in children {
                 if let childGroup = child.group {
                     if expanded.contains(childGroup.id) {
-                        await expand(childGroup.id, shouldAnimate: shouldAnimate)
+                        await expand(childGroup.id, shouldAnimate: false)
+                        needsToUpdate = true
                     }
                 }
+            }
+            if shouldAnimate && needsToUpdate {
+                self.objectWillChange.send()
             }
             expanded.insert(groupId)
         } catch {
