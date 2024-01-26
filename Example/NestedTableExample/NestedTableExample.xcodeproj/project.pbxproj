@@ -66,14 +66,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		97108BD52B60F37700A4A021 /* NestedTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestedTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97108BD52B60F37700A4A021 /* NestedTableExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestedTableExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97108BD82B60F37700A4A021 /* NestedTableApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableApp.swift; sourceTree = "<group>"; };
 		97108BDC2B60F37800A4A021 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97108BDE2B60F37800A4A021 /* NestedTable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestedTable.entitlements; sourceTree = "<group>"; };
 		97108BE02B60F37800A4A021 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		97108BE62B60F37900A4A021 /* NestedTableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		97108BE62B60F37900A4A021 /* NestedTableExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTableExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97108BEA2B60F37900A4A021 /* NestedTableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableTests.swift; sourceTree = "<group>"; };
-		97108BF02B60F37900A4A021 /* NestedTableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		97108BF02B60F37900A4A021 /* NestedTableExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTableExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97108BF42B60F37900A4A021 /* NestedTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableUITests.swift; sourceTree = "<group>"; };
 		97108BF62B60F37900A4A021 /* NestedTableUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTableUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		97108C032B60F3E000A4A021 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,9 +149,9 @@
 		97108BD62B60F37700A4A021 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				97108BD52B60F37700A4A021 /* NestedTable.app */,
-				97108BE62B60F37900A4A021 /* NestedTableTests.xctest */,
-				97108BF02B60F37900A4A021 /* NestedTableUITests.xctest */,
+				97108BD52B60F37700A4A021 /* NestedTableExample.app */,
+				97108BE62B60F37900A4A021 /* NestedTableExampleTests.xctest */,
+				97108BF02B60F37900A4A021 /* NestedTableExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,9 +313,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		97108BD42B60F37700A4A021 /* NestedTable */ = {
+		97108BD42B60F37700A4A021 /* NestedTableExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 97108BFA2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTable" */;
+			buildConfigurationList = 97108BFA2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableExample" */;
 			buildPhases = (
 				97108BD12B60F37700A4A021 /* Sources */,
 				97108BD22B60F37700A4A021 /* Frameworks */,
@@ -325,19 +325,19 @@
 			);
 			dependencies = (
 			);
-			name = NestedTable;
+			name = NestedTableExample;
 			packageProductDependencies = (
 				97108C552B63A87E00A4A021 /* CoreDataStored */,
 				97108C5F2B641F6800A4A021 /* CoreDataContainer */,
 				97108C622B6426CF00A4A021 /* CoreDataContainer */,
 			);
 			productName = NestedTable;
-			productReference = 97108BD52B60F37700A4A021 /* NestedTable.app */;
+			productReference = 97108BD52B60F37700A4A021 /* NestedTableExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		97108BE52B60F37900A4A021 /* NestedTableTests */ = {
+		97108BE52B60F37900A4A021 /* NestedTableExampleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 97108BFD2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableTests" */;
+			buildConfigurationList = 97108BFD2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableExampleTests" */;
 			buildPhases = (
 				97108BE22B60F37900A4A021 /* Sources */,
 				97108BE32B60F37900A4A021 /* Frameworks */,
@@ -348,14 +348,14 @@
 			dependencies = (
 				97108BE82B60F37900A4A021 /* PBXTargetDependency */,
 			);
-			name = NestedTableTests;
+			name = NestedTableExampleTests;
 			productName = NestedTableTests;
-			productReference = 97108BE62B60F37900A4A021 /* NestedTableTests.xctest */;
+			productReference = 97108BE62B60F37900A4A021 /* NestedTableExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		97108BEF2B60F37900A4A021 /* NestedTableUITests */ = {
+		97108BEF2B60F37900A4A021 /* NestedTableExampleUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 97108C002B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableUITests" */;
+			buildConfigurationList = 97108C002B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableExampleUITests" */;
 			buildPhases = (
 				97108BEC2B60F37900A4A021 /* Sources */,
 				97108BED2B60F37900A4A021 /* Frameworks */,
@@ -366,9 +366,9 @@
 			dependencies = (
 				97108BF22B60F37900A4A021 /* PBXTargetDependency */,
 			);
-			name = NestedTableUITests;
+			name = NestedTableExampleUITests;
 			productName = NestedTableUITests;
-			productReference = 97108BF02B60F37900A4A021 /* NestedTableUITests.xctest */;
+			productReference = 97108BF02B60F37900A4A021 /* NestedTableExampleUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -394,7 +394,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 97108BD02B60F37700A4A021 /* Build configuration list for PBXProject "NestedTable" */;
+			buildConfigurationList = 97108BD02B60F37700A4A021 /* Build configuration list for PBXProject "NestedTableExample" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -411,9 +411,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				97108BD42B60F37700A4A021 /* NestedTable */,
-				97108BE52B60F37900A4A021 /* NestedTableTests */,
-				97108BEF2B60F37900A4A021 /* NestedTableUITests */,
+				97108BD42B60F37700A4A021 /* NestedTableExample */,
+				97108BE52B60F37900A4A021 /* NestedTableExampleTests */,
+				97108BEF2B60F37900A4A021 /* NestedTableExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -505,12 +505,12 @@
 /* Begin PBXTargetDependency section */
 		97108BE82B60F37900A4A021 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 97108BD42B60F37700A4A021 /* NestedTable */;
+			target = 97108BD42B60F37700A4A021 /* NestedTableExample */;
 			targetProxy = 97108BE72B60F37900A4A021 /* PBXContainerItemProxy */;
 		};
 		97108BF22B60F37900A4A021 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 97108BD42B60F37700A4A021 /* NestedTable */;
+			target = 97108BD42B60F37700A4A021 /* NestedTableExample */;
 			targetProxy = 97108BF12B60F37900A4A021 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -725,7 +725,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestedTable.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NestedTable";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestedTableExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NestedTableExample";
 			};
 			name = Debug;
 		};
@@ -748,7 +748,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestedTable.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NestedTable";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestedTableExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NestedTableExample";
 			};
 			name = Release;
 		};
@@ -799,7 +799,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		97108BD02B60F37700A4A021 /* Build configuration list for PBXProject "NestedTable" */ = {
+		97108BD02B60F37700A4A021 /* Build configuration list for PBXProject "NestedTableExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97108BF82B60F37900A4A021 /* Debug */,
@@ -808,7 +808,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		97108BFA2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTable" */ = {
+		97108BFA2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97108BFB2B60F37900A4A021 /* Debug */,
@@ -817,7 +817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		97108BFD2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableTests" */ = {
+		97108BFD2B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableExampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97108BFE2B60F37900A4A021 /* Debug */,
@@ -826,7 +826,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		97108C002B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableUITests" */ = {
+		97108C002B60F37900A4A021 /* Build configuration list for PBXNativeTarget "NestedTableExampleUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				97108C012B60F37900A4A021 /* Debug */,
