@@ -96,15 +96,19 @@ class MockDataManager: NestedTableDataManager {
             UUID(uuidString: "aa3a9949-388f-4b95-bfe2-882a067ea298")!: MockItem(id: UUID(uuidString: "aa3a9949-388f-4b95-bfe2-882a067ea298")!, text: "B_C_E", content: .a)
         ]
 
-    func create(_ selectedId: UUID) async throws -> UUID {
+    func create(_ selectedId: UUID?) async throws -> UUID {
         let id = UUID()
         itemsById[id] = MockItem(id: id, text: ["A", "B", "C"].shuffled()[0], content: .c)
         let parent: UUID?
-        let selected = itemsById[selectedId]
-        if (selected as? Group) != nil {
-            parent = selected?.id
+        if let selectedId = selectedId {
+            let selected = itemsById[selectedId]
+            if (selected as? Group) != nil {
+                parent = selected?.id
+            } else {
+                parent = selected?.parent // TODO: parent is not assigned right now...
+            }
         } else {
-            parent = selected?.parent // TODO: parent is not assigned right now...
+            parent = nil
         }
         try await move(itemWithId: id, toGroupWithId: parent)
         return id

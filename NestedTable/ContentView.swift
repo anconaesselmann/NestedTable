@@ -45,10 +45,10 @@ struct ContentView: View {
                     }
                 }
             case .create:
-                if selected.count == 1, let selectedId = selected.first {
+                if selected.count <= 1 {
                     Button("Create") {
                         Task {
-                            let id = try await MockDataManager.shared.create(selectedId)
+                            let id = try await MockDataManager.shared.create(selected.first)
                             await vm.refresh()
                             await MainActor.run {
                                 vm.selection = [id]
