@@ -34,6 +34,21 @@ extension Table {
 }
 
 extension NestedTableView {
+
+    init(
+        of type: Content.Type,
+        dataManager: NestedTableDataManager,
+        delegate: NestedTableDelegate,
+        contextMenuManager: ContextMenuManager? = nil
+    ) {
+        let vm = NestedTableViewModel<Content>(
+            dataManager: dataManager,
+            delegate: delegate,
+            contextMenuManager: contextMenuManager ?? DefaultContextMenuManager()
+        )
+        self.init(vm: vm)
+    }
+
     init(
         of type: Content.Type,
         manager: (NestedTableDataManager & NestedTableDelegate & ContextMenuManager)

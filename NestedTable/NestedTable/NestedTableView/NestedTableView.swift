@@ -5,17 +5,7 @@ import SwiftUI
 
 struct NestedTableView<Content>: View {
 
-    init(
-        of type: Content.Type,
-        dataManager: NestedTableDataManager,
-        delegate: NestedTableDelegate,
-        contextMenuManager: ContextMenuManager? = nil
-    ) {
-        let vm = NestedTableViewModel<Content>(
-            dataManager: dataManager,
-            delegate: delegate,
-            contextMenuManager: contextMenuManager ?? DefaultContextMenuManager()
-        )
+    init(vm: NestedTableViewModel<Content>) {
         _vm = StateObject(wrappedValue: vm)
     }
 
