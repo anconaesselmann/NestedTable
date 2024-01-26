@@ -26,8 +26,6 @@ struct MockContent {
     }
 }
 
-typealias MockItem = Item<MockContent>
-
 import SwiftUI
 
 extension Group {

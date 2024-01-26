@@ -18,6 +18,7 @@ protocol NestedTableDataManager {
 protocol NestedTableDelegate {
     func performPrimaryAction(for id: UUID)
     func error(_ error: Error)
+    // TODO: Update loading state
 }
 
 protocol ContentStore {

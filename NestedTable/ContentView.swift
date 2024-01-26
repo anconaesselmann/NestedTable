@@ -15,27 +15,27 @@ enum ExampleContextMenuItems: String, ContextMenuItems {
 struct ContentView: View {
 
     @StateObject
-    var vm = NestedTableViewModel<MockContent>(
+    var tableViewModel = NestedTableViewModel<MockContent>(
         dataManager: AppState.shared.recordStore,
         delegate: MockNestedTableManager()
     )
 
     @ViewBuilder
     var table: some View {
-        Table(vm) {
+        Table(tableViewModel) {
             TableColumn("Name", sortUsing: .nameColumn()) {
-                NameColumn(item: $0, vm: vm)
+                NameColumn(item: $0, vm: tableViewModel)
             }
             TableColumn("Example", sortUsing: .content(\BaseRow.content?.test)) {
                 Text($0.content?.test ?? "")
             }
         } rows: {
-            ForEach(vm.items) {
-                NestedTableRowContent(vm: vm, item: $0)
+            ForEach(tableViewModel.items) {
+                NestedTableRowContent(vm: tableViewModel, item: $0)
             }
         }
         .contextMenu(
-            vm,
+            tableViewModel,
             items: ExampleContextMenuItems.combinedElements
         ) { (vm, item: ExampleContextMenuItems, selected) in
             switch item {
@@ -46,7 +46,7 @@ struct ContentView: View {
             case .create where selected.count <= 1:
                 Button("Create") {
                     Task {
-                        try await self.create(vm: vm, selected: selected.first)
+                        try await self.create(tableViewModel: vm, selected: selected.first)
                     }
                 }
             default: EmptyView()
@@ -69,7 +69,7 @@ struct ContentView: View {
         #endif
     }
 
-    private func create(vm: NestedTableViewModel<MockContent>, selected: UUID?) async throws {
+    private func create(tableViewModel: NestedTableViewModel<MockContent>, selected: UUID?) async throws {
         let mockContentId = UUID()
         let content = MockContent(id: mockContentId, test: mockContentId.uuidString)
         let item = Item<MockContent>(
@@ -80,10 +80,10 @@ struct ContentView: View {
         )
         AppState.shared.mockContentStore.insert(content)
         let id = try await AppState.shared.recordStore.create(selected, item: item)
-        await vm.refresh()
+        await tableViewModel.refresh()
         await MainActor.run {
-            vm.selection = [id]
-            vm.rename(id)
+            tableViewModel.selection = [id]
+            tableViewModel.rename(id)
         }
     }
 }
