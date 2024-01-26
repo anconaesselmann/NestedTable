@@ -81,6 +81,9 @@ struct ContentView: View {
         AppState.shared.mockContentStore.insert(content)
         let id = try await AppState.shared.recordStore.create(selected, item: item)
         await tableViewModel.refresh()
+        if let selected = selected {
+            await tableViewModel.expand(selected)
+        }
         await MainActor.run {
             tableViewModel.selection = [id]
             tableViewModel.rename(id)
