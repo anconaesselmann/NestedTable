@@ -18,7 +18,7 @@
 		97108C0F2B60F3E000A4A021 /* TableRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C062B60F3E000A4A021 /* TableRowItem.swift */; };
 		97108C102B60F3E000A4A021 /* BaseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C072B60F3E000A4A021 /* BaseRow.swift */; };
 		97108C112B60F3E000A4A021 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C082B60F3E000A4A021 /* Group.swift */; };
-		97108C122B60F3E000A4A021 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C092B60F3E000A4A021 /* DataManager.swift */; };
+		97108C122B60F3E000A4A021 /* MockDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C092B60F3E000A4A021 /* MockDataManager.swift */; };
 		97108C142B60F3E000A4A021 /* NestedTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */; };
 		97108C172B61838C00A4A021 /* UUID+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C162B61838C00A4A021 /* UUID+Transferable.swift */; };
 		97108C192B6183B400A4A021 /* BaseRow+Transferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */; };
@@ -73,7 +73,7 @@
 		97108C062B60F3E000A4A021 /* TableRowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRowItem.swift; sourceTree = "<group>"; };
 		97108C072B60F3E000A4A021 /* BaseRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRow.swift; sourceTree = "<group>"; };
 		97108C082B60F3E000A4A021 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		97108C092B60F3E000A4A021 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		97108C092B60F3E000A4A021 /* MockDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataManager.swift; sourceTree = "<group>"; };
 		97108C0C2B60F3E000A4A021 /* NestedTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NestedTableViewModel.swift; sourceTree = "<group>"; };
 		97108C162B61838C00A4A021 /* UUID+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Transferable.swift"; sourceTree = "<group>"; };
 		97108C182B6183B400A4A021 /* BaseRow+Transferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseRow+Transferable.swift"; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 		97108C212B61950400A4A021 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				97108C092B60F3E000A4A021 /* DataManager.swift */,
+				97108C092B60F3E000A4A021 /* MockDataManager.swift */,
 				97108C1F2B61950100A4A021 /* MockNestedTableManager.swift */,
 			);
 			path = Mocks;
@@ -410,7 +410,7 @@
 				97108C422B63850100A4A021 /* NestedTableRowContent.swift in Sources */,
 				97108C2C2B61C5E000A4A021 /* ContextMenuItems.swift in Sources */,
 				97108C0D2B60F3E000A4A021 /* ContentView.swift in Sources */,
-				97108C122B60F3E000A4A021 /* DataManager.swift in Sources */,
+				97108C122B60F3E000A4A021 /* MockDataManager.swift in Sources */,
 				97108C442B63867C00A4A021 /* Comparators.swift in Sources */,
 				97108C232B61B7C500A4A021 /* ItemContextMenu.swift in Sources */,
 				97108C2E2B61C5EF00A4A021 /* DefaultContextMenuItems.swift in Sources */,
