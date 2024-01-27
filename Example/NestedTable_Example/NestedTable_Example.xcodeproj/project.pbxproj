@@ -10,29 +10,11 @@
 		97CD41E92B6481490036D142 /* NestedTable_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD41E82B6481490036D142 /* NestedTable_ExampleApp.swift */; };
 		97CD41EB2B6481490036D142 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD41EA2B6481490036D142 /* ContentView.swift */; };
 		97CD41ED2B64814A0036D142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97CD41EC2B64814A0036D142 /* Assets.xcassets */; };
-		97CD41F12B64814A0036D142 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97CD41F02B64814A0036D142 /* Preview Assets.xcassets */; };
 		97CD42152B6481840036D142 /* NestedTable in Frameworks */ = {isa = PBXBuildFile; productRef = 97CD42142B6481840036D142 /* NestedTable */; };
 		97CD421A2B6483670036D142 /* MockNestedTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42172B6483670036D142 /* MockNestedTableManager.swift */; };
 		97CD421B2B6483670036D142 /* MockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42182B6483670036D142 /* MockContent.swift */; };
 		97CD421C2B6483670036D142 /* MockContentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42192B6483670036D142 /* MockContentStore.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		97CD41F72B64814B0036D142 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97CD41DD2B6481490036D142 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 97CD41E42B6481490036D142;
-			remoteInfo = NestedTable_Example;
-		};
-		97CD42012B64814B0036D142 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97CD41DD2B6481490036D142 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 97CD41E42B6481490036D142;
-			remoteInfo = NestedTable_Example;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		97CD41E52B6481490036D142 /* NestedTable_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestedTable_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,7 +22,6 @@
 		97CD41EA2B6481490036D142 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		97CD41EC2B64814A0036D142 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97CD41EE2B64814A0036D142 /* NestedTable_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestedTable_Example.entitlements; sourceTree = "<group>"; };
-		97CD41F02B64814A0036D142 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		97CD42172B6483670036D142 /* MockNestedTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNestedTableManager.swift; sourceTree = "<group>"; };
 		97CD42182B6483670036D142 /* MockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
 		97CD42192B6483670036D142 /* MockContentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockContentStore.swift; sourceTree = "<group>"; };
@@ -52,20 +33,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				97CD42152B6481840036D142 /* NestedTable in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		97CD41F32B64814B0036D142 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		97CD41FD2B64814B0036D142 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,17 +63,8 @@
 				97CD42162B6483670036D142 /* Mocks */,
 				97CD41EC2B64814A0036D142 /* Assets.xcassets */,
 				97CD41EE2B64814A0036D142 /* NestedTable_Example.entitlements */,
-				97CD41EF2B64814A0036D142 /* Preview Content */,
 			);
 			path = NestedTable_Example;
-			sourceTree = "<group>";
-		};
-		97CD41EF2B64814A0036D142 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				97CD41F02B64814A0036D142 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		97CD42162B6483670036D142 /* Mocks */ = {
@@ -155,14 +113,6 @@
 					97CD41E42B6481490036D142 = {
 						CreatedOnToolsVersion = 15.0;
 					};
-					97CD41F52B64814B0036D142 = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 97CD41E42B6481490036D142;
-					};
-					97CD41FF2B64814B0036D142 = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 97CD41E42B6481490036D142;
-					};
 				};
 			};
 			buildConfigurationList = 97CD41E02B6481490036D142 /* Build configuration list for PBXProject "NestedTable_Example" */;
@@ -191,22 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97CD41F12B64814A0036D142 /* Preview Assets.xcassets in Resources */,
 				97CD41ED2B64814A0036D142 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		97CD41F42B64814B0036D142 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		97CD41FE2B64814B0036D142 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,34 +160,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		97CD41F22B64814B0036D142 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		97CD41FC2B64814B0036D142 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		97CD41F82B64814B0036D142 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 97CD41E42B6481490036D142 /* NestedTable_Example */;
-			targetProxy = 97CD41F72B64814B0036D142 /* PBXContainerItemProxy */;
-		};
-		97CD42022B64814B0036D142 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 97CD41E42B6481490036D142 /* NestedTable_Example */;
-			targetProxy = 97CD42012B64814B0036D142 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		97CD42082B64814B0036D142 /* Debug */ = {
@@ -324,7 +232,7 @@
 				CODE_SIGN_ENTITLEMENTS = NestedTable_Example/NestedTable_Example.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NestedTable_Example/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = D7MN23CD5F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
