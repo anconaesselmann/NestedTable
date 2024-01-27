@@ -11,9 +11,6 @@
 		97CD41EB2B6481490036D142 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD41EA2B6481490036D142 /* ContentView.swift */; };
 		97CD41ED2B64814A0036D142 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97CD41EC2B64814A0036D142 /* Assets.xcassets */; };
 		97CD41F12B64814A0036D142 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97CD41F02B64814A0036D142 /* Preview Assets.xcassets */; };
-		97CD41FB2B64814B0036D142 /* NestedTable_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD41FA2B64814B0036D142 /* NestedTable_ExampleTests.swift */; };
-		97CD42052B64814B0036D142 /* NestedTable_ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42042B64814B0036D142 /* NestedTable_ExampleUITests.swift */; };
-		97CD42072B64814B0036D142 /* NestedTable_ExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42062B64814B0036D142 /* NestedTable_ExampleUITestsLaunchTests.swift */; };
 		97CD42152B6481840036D142 /* NestedTable in Frameworks */ = {isa = PBXBuildFile; productRef = 97CD42142B6481840036D142 /* NestedTable */; };
 		97CD421A2B6483670036D142 /* MockNestedTableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42172B6483670036D142 /* MockNestedTableManager.swift */; };
 		97CD421B2B6483670036D142 /* MockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD42182B6483670036D142 /* MockContent.swift */; };
@@ -44,11 +41,6 @@
 		97CD41EC2B64814A0036D142 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97CD41EE2B64814A0036D142 /* NestedTable_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestedTable_Example.entitlements; sourceTree = "<group>"; };
 		97CD41F02B64814A0036D142 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		97CD41F62B64814B0036D142 /* NestedTable_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTable_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		97CD41FA2B64814B0036D142 /* NestedTable_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTable_ExampleTests.swift; sourceTree = "<group>"; };
-		97CD42002B64814B0036D142 /* NestedTable_ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestedTable_ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		97CD42042B64814B0036D142 /* NestedTable_ExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTable_ExampleUITests.swift; sourceTree = "<group>"; };
-		97CD42062B64814B0036D142 /* NestedTable_ExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTable_ExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		97CD42172B6483670036D142 /* MockNestedTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNestedTableManager.swift; sourceTree = "<group>"; };
 		97CD42182B6483670036D142 /* MockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
 		97CD42192B6483670036D142 /* MockContentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockContentStore.swift; sourceTree = "<group>"; };
@@ -84,8 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				97CD41E72B6481490036D142 /* NestedTable_Example */,
-				97CD41F92B64814B0036D142 /* NestedTable_ExampleTests */,
-				97CD42032B64814B0036D142 /* NestedTable_ExampleUITests */,
 				97CD41E62B6481490036D142 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,8 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				97CD41E52B6481490036D142 /* NestedTable_Example.app */,
-				97CD41F62B64814B0036D142 /* NestedTable_ExampleTests.xctest */,
-				97CD42002B64814B0036D142 /* NestedTable_ExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,23 +107,6 @@
 				97CD41F02B64814A0036D142 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		97CD41F92B64814B0036D142 /* NestedTable_ExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				97CD41FA2B64814B0036D142 /* NestedTable_ExampleTests.swift */,
-			);
-			path = NestedTable_ExampleTests;
-			sourceTree = "<group>";
-		};
-		97CD42032B64814B0036D142 /* NestedTable_ExampleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				97CD42042B64814B0036D142 /* NestedTable_ExampleUITests.swift */,
-				97CD42062B64814B0036D142 /* NestedTable_ExampleUITestsLaunchTests.swift */,
-			);
-			path = NestedTable_ExampleUITests;
 			sourceTree = "<group>";
 		};
 		97CD42162B6483670036D142 /* Mocks */ = {
@@ -170,42 +141,6 @@
 			productName = NestedTable_Example;
 			productReference = 97CD41E52B6481490036D142 /* NestedTable_Example.app */;
 			productType = "com.apple.product-type.application";
-		};
-		97CD41F52B64814B0036D142 /* NestedTable_ExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 97CD420D2B64814B0036D142 /* Build configuration list for PBXNativeTarget "NestedTable_ExampleTests" */;
-			buildPhases = (
-				97CD41F22B64814B0036D142 /* Sources */,
-				97CD41F32B64814B0036D142 /* Frameworks */,
-				97CD41F42B64814B0036D142 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				97CD41F82B64814B0036D142 /* PBXTargetDependency */,
-			);
-			name = NestedTable_ExampleTests;
-			productName = NestedTable_ExampleTests;
-			productReference = 97CD41F62B64814B0036D142 /* NestedTable_ExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		97CD41FF2B64814B0036D142 /* NestedTable_ExampleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 97CD42102B64814B0036D142 /* Build configuration list for PBXNativeTarget "NestedTable_ExampleUITests" */;
-			buildPhases = (
-				97CD41FC2B64814B0036D142 /* Sources */,
-				97CD41FD2B64814B0036D142 /* Frameworks */,
-				97CD41FE2B64814B0036D142 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				97CD42022B64814B0036D142 /* PBXTargetDependency */,
-			);
-			name = NestedTable_ExampleUITests;
-			productName = NestedTable_ExampleUITests;
-			productReference = 97CD42002B64814B0036D142 /* NestedTable_ExampleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -247,8 +182,6 @@
 			projectRoot = "";
 			targets = (
 				97CD41E42B6481490036D142 /* NestedTable_Example */,
-				97CD41F52B64814B0036D142 /* NestedTable_ExampleTests */,
-				97CD41FF2B64814B0036D142 /* NestedTable_ExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -296,7 +229,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97CD41FB2B64814B0036D142 /* NestedTable_ExampleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,8 +236,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97CD42052B64814B0036D142 /* NestedTable_ExampleUITests.swift in Sources */,
-				97CD42072B64814B0036D142 /* NestedTable_ExampleUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,96 +445,6 @@
 			};
 			name = Release;
 		};
-		97CD420E2B64814B0036D142 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7MN23CD5F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anconaesselmann.NestedTable-ExampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestedTable_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NestedTable_Example";
-			};
-			name = Debug;
-		};
-		97CD420F2B64814B0036D142 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7MN23CD5F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anconaesselmann.NestedTable-ExampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestedTable_Example.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NestedTable_Example";
-			};
-			name = Release;
-		};
-		97CD42112B64814B0036D142 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7MN23CD5F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anconaesselmann.NestedTable-ExampleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = NestedTable_Example;
-			};
-			name = Debug;
-		};
-		97CD42122B64814B0036D142 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7MN23CD5F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anconaesselmann.NestedTable-ExampleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = NestedTable_Example;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -622,24 +462,6 @@
 			buildConfigurations = (
 				97CD420B2B64814B0036D142 /* Debug */,
 				97CD420C2B64814B0036D142 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		97CD420D2B64814B0036D142 /* Build configuration list for PBXNativeTarget "NestedTable_ExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				97CD420E2B64814B0036D142 /* Debug */,
-				97CD420F2B64814B0036D142 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		97CD42102B64814B0036D142 /* Build configuration list for PBXNativeTarget "NestedTable_ExampleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				97CD42112B64814B0036D142 /* Debug */,
-				97CD42122B64814B0036D142 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
