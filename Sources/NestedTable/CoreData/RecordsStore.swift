@@ -3,7 +3,6 @@
 
 import Foundation
 import CoreData
-import CoreDataContainer
 import Combine
 
 @globalActor
@@ -12,7 +11,7 @@ public actor RecordsStore {
     public static let shared = RecordsStore()
 
     @RecordsStore
-    private var container: CoreDataContainer!
+    private var container: NSPersistentContainer!
 
     @RecordsStore
     private var _contentStore: ContentStore!
@@ -22,11 +21,7 @@ public actor RecordsStore {
     @RecordsStore
     public func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws {
         self._contentStore = contentStore
-        self.container = try NSPersistentContainer(
-            model: "Records",
-            subdirectory: subdirectory,
-            type: .local(name: "Records")
-        )
+        self.container = try createContainer(subdirectory: subdirectory)
         try await container.loadPersistentStores()
     }
 
