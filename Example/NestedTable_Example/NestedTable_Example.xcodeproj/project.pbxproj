@@ -21,7 +21,6 @@
 		97CD41E82B6481490036D142 /* NestedTable_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedTable_ExampleApp.swift; sourceTree = "<group>"; };
 		97CD41EA2B6481490036D142 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		97CD41EC2B64814A0036D142 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		97CD41EE2B64814A0036D142 /* NestedTable_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestedTable_Example.entitlements; sourceTree = "<group>"; };
 		97CD42172B6483670036D142 /* MockNestedTableManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNestedTableManager.swift; sourceTree = "<group>"; };
 		97CD42182B6483670036D142 /* MockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
 		97CD42192B6483670036D142 /* MockContentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockContentStore.swift; sourceTree = "<group>"; };
@@ -62,7 +61,6 @@
 				97CD41EA2B6481490036D142 /* ContentView.swift */,
 				97CD42162B6483670036D142 /* Mocks */,
 				97CD41EC2B64814A0036D142 /* Assets.xcassets */,
-				97CD41EE2B64814A0036D142 /* NestedTable_Example.entitlements */,
 			);
 			path = NestedTable_Example;
 			sourceTree = "<group>";
@@ -229,7 +227,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = NestedTable_Example/NestedTable_Example.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
