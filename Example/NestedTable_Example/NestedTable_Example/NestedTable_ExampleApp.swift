@@ -2,9 +2,10 @@
 //
 
 import SwiftUI
+import NestedTable
 
 @main
-struct NestedTableApp: App {
+struct NestedTable_ExampleApp: App {
 
     @StateObject
     private var appInitializer = AppInitializer()
@@ -59,7 +60,7 @@ class AppInitializer: ObservableObject {
         try await recordStore.initialize(contentStore: mockContentStore)
 
         AppState.shared = AppState(
-            mockContentStore: mockContentStore, 
+            mockContentStore: mockContentStore,
             recordStore: recordStore
         )
         initialized = true

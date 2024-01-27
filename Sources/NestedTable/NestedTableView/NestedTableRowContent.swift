@@ -3,13 +3,18 @@
 
 import SwiftUI
 
-struct NestedTableRowContent<Content>: TableRowContent {
+public struct NestedTableRowContent<Content>: TableRowContent {
 
-    let vm: NestedTableViewModel<Content>
-    let item: BaseRow<Content>
+    public let vm: NestedTableViewModel<Content>
+    public let item: BaseRow<Content>
+
+    public init(vm: NestedTableViewModel<Content>, item: BaseRow<Content>) {
+        self.vm = vm
+        self.item = item
+    }
 
     @MainActor
-    var tableRowBody: some TableRowContent<ModifiedContent<TableRow<BaseRow<Content>>, ItemProviderTableRowModifier>.TableRowValue> {
+    public var tableRowBody: some TableRowContent<ModifiedContent<TableRow<BaseRow<Content>>, ItemProviderTableRowModifier>.TableRowValue> {
         TableRow(item)
         #if os(macOS)
             .itemProvider {

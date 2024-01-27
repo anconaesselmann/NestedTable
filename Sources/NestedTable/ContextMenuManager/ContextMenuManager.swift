@@ -5,7 +5,7 @@ import SwiftUI
 import Combine
 
 @MainActor
-protocol ContextMenuManager {
+public protocol ContextMenuManager {
     var isNameFocused: AnyPublisher<Bool, Never> { get }
 
     func focusName(_ isFocused: Bool)

@@ -3,16 +3,16 @@
 
 import SwiftUI
 
-struct PaddedTapGestureModifier: ViewModifier {
-    let padding: CGFloat
-    let onTap: () -> Void
+public struct PaddedTapGestureModifier: ViewModifier {
+    public let padding: CGFloat
+    public let onTap: () -> Void
 
-    init(padding: CGFloat, onTap: @escaping () -> Void) {
+    public init(padding: CGFloat, onTap: @escaping () -> Void) {
         self.padding = padding
         self.onTap = onTap
     }
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .padding(EdgeInsets(top: padding, leading: padding, bottom: padding, trailing: padding))
             .contentShape(Rectangle())
@@ -23,7 +23,7 @@ struct PaddedTapGestureModifier: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     func onTapGesture(padding: CGFloat, onTap: @escaping () -> Void) -> some View {
         self.modifier(PaddedTapGestureModifier(padding: padding, onTap: onTap))
     }

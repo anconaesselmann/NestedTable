@@ -3,27 +3,27 @@
 
 import Foundation
 
-struct BaseRow<Content>: Identifiable, Codable {
+public struct BaseRow<Content>: Identifiable, Codable {
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         fatalError()
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         fatalError()
     }
 
-    var parent: UUID?
+    public var parent: UUID?
 
-    var id: UUID {
+    public var id: UUID {
         item.id
     }
 
-    var text: String {
+    public var text: String {
         item.text
     }
 
-    var group: Group? {
+    public var group: Group? {
         get {
             item as? Group
         }
@@ -35,19 +35,19 @@ struct BaseRow<Content>: Identifiable, Codable {
         }
     }
 
-    var content: Content? {
+    public var content: Content? {
         (item as? Item<Content>)?.content
     }
 
-    var isGroup: Bool {
+    public var isGroup: Bool {
         type(of: item) == Group.self
     }
 
-    var item: any TableRowItem
+    public var item: any TableRowItem
 
-    var indent: Int
+    public var indent: Int
 
-    init(_ item: any TableRowItem, parent: UUID? = nil, indent: Int = 0) {
+    public init(_ item: any TableRowItem, parent: UUID? = nil, indent: Int = 0) {
         self.item = item
         self.indent = indent
         self.parent = parent

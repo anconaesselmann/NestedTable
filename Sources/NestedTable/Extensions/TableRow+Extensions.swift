@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-extension TableRowContent {
+public extension TableRowContent {
     @TableRowBuilder<TableRowValue>
     func `if`<Content>(_ condition: Bool, transform: (Self) -> Content) -> _ConditionalContent<some TableRowContent<TableRowValue>, Self>
         where

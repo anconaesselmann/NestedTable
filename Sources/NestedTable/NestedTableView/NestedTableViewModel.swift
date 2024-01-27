@@ -5,13 +5,13 @@ import SwiftUI
 import Combine
 
 @MainActor
-class NestedTableViewModel<Content>: ObservableObject {
+public class NestedTableViewModel<Content>: ObservableObject {
 
-    var items: [BaseRow<Content>] = []
+    public var items: [BaseRow<Content>] = []
 
     @MainActor
     @Published
-    var selection = Set<UUID>() {
+    public var selection = Set<UUID>() {
         didSet {
             if renaming != nil {
                 renaming = nil
@@ -19,10 +19,10 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    var renaming: UUID?
+    public var renaming: UUID?
 
     @MainActor
-    var sortOrder: [KeyPathComparator<BaseRow<Content>>] = [] {
+    public var sortOrder: [KeyPathComparator<BaseRow<Content>>] = [] {
         didSet {
             Task {
                 try await async_fetch(shouldAnimate: false)
@@ -40,9 +40,9 @@ class NestedTableViewModel<Content>: ObservableObject {
     private var bag = Set<AnyCancellable>()
 
     @Published
-    var isNameFocused: Bool = false
+    public var isNameFocused: Bool = false
 
-    init(
+    public init(
         dataManager: NestedTableDataManager,
         delegate: NestedTableDelegate,
         contextMenuManager: ContextMenuManager? = nil
@@ -56,7 +56,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }.store(in: &bag)
     }
 
-    func fetch() {
+    public func fetch() {
         Task {
             do {
                 try await async_fetch()
@@ -67,7 +67,7 @@ class NestedTableViewModel<Content>: ObservableObject {
     }
 
     @MainActor
-    func refresh() async {
+    public func refresh() async {
         do {
             try await async_fetch(shouldAnimate: false)
             self.objectWillChange.send()
@@ -76,7 +76,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func expand(_ groupId: UUID, shouldAnimate: Bool = true) async {
+    public func expand(_ groupId: UUID, shouldAnimate: Bool = true) async {
         do {
             guard let index = items.firstIndex(where: { $0.id == groupId }) else {
                 return
@@ -115,7 +115,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func contract(_ groupId: UUID, shouldAnimate: Bool = true, clearState: Bool = true) {
+    public func contract(_ groupId: UUID, shouldAnimate: Bool = true, clearState: Bool = true) {
         let remove = items.filter { $0.parent == groupId }
         for item in remove {
             if let childGroup = item.group {
@@ -135,7 +135,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func toggle(_ groupId: UUID) async {
+    public func toggle(_ groupId: UUID) async {
         let current = expanded.contains(groupId)
         let new = !current
         if new {
@@ -145,11 +145,11 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func isExpanded(_ groupId: UUID) -> Bool {
+    public func isExpanded(_ groupId: UUID) -> Bool {
         expanded.contains(groupId)
     }
 
-    func primaryAction(_ ids: Set<UUID>) {
+    public func primaryAction(_ ids: Set<UUID>) {
         guard let id = ids.first, ids.count == 1 else {
             return
         }
@@ -165,7 +165,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func createGroup(with ids: Set<UUID>) async -> UUID? {
+    public func createGroup(with ids: Set<UUID>) async -> UUID? {
         do {
             let items = self.items.filter { ids.contains($0.id) }
                 .sorted { $0.indent < $1.indent }
@@ -184,7 +184,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func isGrouped(_ ids: Set<UUID>) -> Bool {
+    public func isGrouped(_ ids: Set<UUID>) -> Bool {
         items
             .filter { ids.contains($0.id) }
             .map { $0.parent != nil }
@@ -195,7 +195,7 @@ class NestedTableViewModel<Content>: ObservableObject {
             }
     }
 
-    func removeFromGroup(_ ids: Set<UUID>) async {
+    public func removeFromGroup(_ ids: Set<UUID>) async {
         let toRemove = items.filter { ids.contains($0.id) }
         do {
             for item in toRemove {
@@ -209,7 +209,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func move(_ ids: Set<UUID>, to newParent: UUID?) async {
+    public func move(_ ids: Set<UUID>, to newParent: UUID?) async {
         do {
             let ids = ids.filter { $0 != newParent }
             for id in ids {
@@ -231,12 +231,12 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func rename(_ id: UUID) {
+    public func rename(_ id: UUID) {
         renaming = id
         contextMenuManager.focusName(true)
     }
 
-    func rename(_ id: UUID, to newName: String) async {
+    public func rename(_ id: UUID, to newName: String) async {
         do {
             renaming = nil
             try await dm.rename(id, to: newName)
@@ -247,7 +247,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func delete(_ ids: Set<UUID>) async {
+    public func delete(_ ids: Set<UUID>) async {
         do {
             let deleted = try await dm.delete(ids)
             withAnimation {
@@ -263,7 +263,7 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func itemsDropped(_ items: [Data], into groupId: UUID) {
+    public func itemsDropped(_ items: [Data], into groupId: UUID) {
         Task {
             let ids = items.map {
                 let uuidString = String(data: $0, encoding: .utf8)!
@@ -273,18 +273,18 @@ class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    func itemProvider(for item: BaseRow<Content>) -> NSItemProvider {
+    public func itemProvider(for item: BaseRow<Content>) -> NSItemProvider {
         let provider = NSItemProvider()
         provider.register(item.uuidAsData())
         return provider
     }
 
-    func isSingleSelection(_ id: UUID) -> Bool {
+    public func isSingleSelection(_ id: UUID) -> Bool {
         selection.contains(id) && selection.count == 1
     }
 
     #if !os(macOS)
-    func foldersOfSameLevel(for ids: Set<UUID>) -> [(String, UUID?)] {
+    public func foldersOfSameLevel(for ids: Set<UUID>) -> [(String, UUID?)] {
         var names: [UUID: String] = [:]
 
         for item in items {

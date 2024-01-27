@@ -6,11 +6,11 @@ import UniformTypeIdentifiers
 
 extension BaseRow: Transferable {
 
-    func uuidAsData() -> Data {
+    public func uuidAsData() -> Data {
         id.asData()
     }
 
-    static var transferRepresentation: some TransferRepresentation {
+    public static var transferRepresentation: some TransferRepresentation {
         DataRepresentation(exportedContentType: .data) { item in
             item.id.asData()
         }

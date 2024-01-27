@@ -5,7 +5,7 @@ import CoreData
 import CoreDataStored
 
 extension Record: CoreDataStored {
-    init(_ entity: RecordEntity) throws {
+    public init(_ entity: RecordEntity) throws {
         let id = try NotNil(entity.id).unwrapped
         self.id = id
         self.isGroup = entity.isGroup
@@ -14,7 +14,7 @@ extension Record: CoreDataStored {
         self.content = Set((entity.content?.allObjects as? [UUID]) ?? [])
     }
 
-    func entity(existing entity: RecordEntity?, in context: NSManagedObjectContext) -> RecordEntity {
+    public func entity(existing entity: RecordEntity?, in context: NSManagedObjectContext) -> RecordEntity {
         let entity = entity ?? RecordEntity(context: context)
         entity.id = id
         entity.isGroup = isGroup

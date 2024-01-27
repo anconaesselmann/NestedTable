@@ -1,13 +1,13 @@
 //
-//  NestedTableUITestsLaunchTests.swift
-//  NestedTableUITests
+//  NestedTable_ExampleUITestsLaunchTests.swift
+//  NestedTable_ExampleUITests
 //
-//  Created by Axel Ancona Esselmann on 1/23/24.
+//  Created by Axel Ancona Esselmann on 1/26/24.
 //
 
 import XCTest
 
-final class NestedTableUITestsLaunchTests: XCTestCase {
+final class NestedTable_ExampleUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

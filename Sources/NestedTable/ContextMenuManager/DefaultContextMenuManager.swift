@@ -5,15 +5,15 @@ import SwiftUI
 import Combine
 
 @MainActor
-class DefaultContextMenuManager: ContextMenuManager {
+public class DefaultContextMenuManager: ContextMenuManager {
 
-    var isNameFocused: AnyPublisher<Bool, Never> {
+    public var isNameFocused: AnyPublisher<Bool, Never> {
         _isNameFocused.eraseToAnyPublisher()
     }
 
     private let _isNameFocused = PassthroughSubject<Bool, Never>()
 
-    func focusName(_ isFocused: Bool) {
+    public func focusName(_ isFocused: Bool) {
         _isNameFocused.send(isFocused)
     }
 }

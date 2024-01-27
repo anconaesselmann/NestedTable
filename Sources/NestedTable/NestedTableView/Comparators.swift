@@ -3,7 +3,7 @@
 
 import Foundation
 
-extension KeyPathComparator {
+public extension KeyPathComparator {
     static func nameColumn<Content>() -> KeyPathComparator<BaseRow<Content>>
         where Compared == BaseRow<Content>
     {

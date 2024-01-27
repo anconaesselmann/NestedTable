@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol NestedTableDataManager {
+public protocol NestedTableDataManager {
     func fetch() async throws -> [any TableRowItem]
     func fetch(ids: Set<UUID>) async throws -> [any TableRowItem]
     func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID
@@ -15,13 +15,13 @@ protocol NestedTableDataManager {
     func contentStore() async -> ContentStore
 }
 
-protocol NestedTableDelegate {
+public protocol NestedTableDelegate {
     func performPrimaryAction(for id: UUID)
     func error(_ error: Error)
     // TODO: Update loading state
 }
 
-protocol ContentStore {
+public protocol ContentStore {
     func rowItems(for records: [Record]) async throws -> [any TableRowItem]
     func createGroup(_ groupRecord: Record) async throws
     func deleteGroups(_ ids: Set<UUID>) async throws
@@ -30,7 +30,7 @@ protocol ContentStore {
     func renameItem(_ id: UUID, to newName: String) async throws
 }
 
-extension ContentStore {
+public extension ContentStore {
     func createGroup(_ groupRecord: Record) async throws {
         // Implement to track group creation
     }

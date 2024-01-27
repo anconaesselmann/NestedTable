@@ -1,13 +1,13 @@
 //
-//  NestedTableTests.swift
-//  NestedTableTests
+//  NestedTable_ExampleTests.swift
+//  NestedTable_ExampleTests
 //
-//  Created by Axel Ancona Esselmann on 1/23/24.
+//  Created by Axel Ancona Esselmann on 1/26/24.
 //
 
 import XCTest
 
-final class NestedTableTests: XCTestCase {
+final class NestedTable_ExampleTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

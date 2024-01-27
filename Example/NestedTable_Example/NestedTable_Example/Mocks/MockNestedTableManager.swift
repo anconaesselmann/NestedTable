@@ -2,6 +2,7 @@
 //
 
 import Foundation
+import NestedTable
 
 class MockNestedTableManager: NestedTableDelegate {
     func performPrimaryAction(for id: UUID) {

@@ -3,6 +3,6 @@
 
 import Foundation
 
-protocol ContextMenuItems: CaseIterable, RawRepresentable where RawValue == String {
+public protocol ContextMenuItems: CaseIterable, RawRepresentable where RawValue == String {
 
 }

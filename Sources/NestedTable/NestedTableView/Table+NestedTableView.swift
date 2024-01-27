@@ -3,10 +3,10 @@
 
 import SwiftUI
 
-extension Table {
+public extension Table {
 
     @MainActor
-    init<Content>(
+    public init<Content>(
         _ vm: NestedTableViewModel<Content>,
         @TableColumnBuilder<Value, KeyPathComparator<BaseRow<Content>>>
         columns: () -> Columns,
@@ -34,7 +34,7 @@ extension Table {
     }
 
     @MainActor
-    func contextMenu<Element, Content>(
+    public func contextMenu<Element, Content>(
         _ vm: NestedTableViewModel<Content>,
         items: [any ContextMenuItems]? = nil,
         @ViewBuilder
@@ -80,7 +80,7 @@ extension Table {
     }
 
     @MainActor
-    func contextMenu<Element, Content>(
+    public func contextMenu<Element, Content>(
         _ vm: NestedTableViewModel<Content>,
         items: [any ContextMenuItems]? = nil,
         @ViewBuilder

@@ -2,6 +2,7 @@
 //
 
 import SwiftUI
+import NestedTable
 
 enum ExampleContextMenuItems: String, ContextMenuItems {
     case hello
@@ -75,7 +76,7 @@ struct ContentView: View {
         let item = Item<MockContent>(
             id: content.id,
             text: "New item",
-            image: Image(systemName: "music.note.list"), 
+            image: Image(systemName: "music.note.list"),
             content: content
         )
         AppState.shared.mockContentStore.insert(content)

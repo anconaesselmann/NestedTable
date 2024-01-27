@@ -2,6 +2,7 @@
 //
 
 import SwiftUI
+import NestedTable
 
 class MockContentStore {
 

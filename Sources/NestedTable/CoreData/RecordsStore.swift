@@ -7,9 +7,9 @@ import CoreDataContainer
 import Combine
 
 @globalActor
-actor RecordsStore {
+public actor RecordsStore {
 
-    static let shared = RecordsStore()
+    public static let shared = RecordsStore()
 
     @RecordsStore
     private var container: CoreDataContainer!
@@ -20,7 +20,7 @@ actor RecordsStore {
     private init() { }
 
     @RecordsStore
-    func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws {
+    public func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws {
         self._contentStore = contentStore
         self.container = try NSPersistentContainer(
             model: "Records",
@@ -36,19 +36,17 @@ actor RecordsStore {
     }()
 }
 
-import SwiftUI
-
 extension RecordsStore: NestedTableDataManager {
 
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case noGroupForRecord
     }
 
-    func contentStore() async -> ContentStore {
+    public func contentStore() async -> ContentStore {
         await _contentStore
     }
 
-    func fetch() async throws -> [any TableRowItem] {
+    public func fetch() async throws -> [any TableRowItem] {
         let records = try await Record.fetch(
             in: backgroundContext,
             where: (keyPath: \.parent, equal: NSNull())
@@ -56,13 +54,13 @@ extension RecordsStore: NestedTableDataManager {
         return try await contentStore().rowItems(for: records)
     }
     
-    func fetch(ids: Set<UUID>) async throws -> [any TableRowItem] {
+    public func fetch(ids: Set<UUID>) async throws -> [any TableRowItem] {
         let entities = try await Record.fetchEntities(withIds: ids, in: backgroundContext)
         let records = try entities.map { try Record($0) }
         return try await contentStore().rowItems(for: records)
     }
 
-    func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID {
+    public func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID {
         let record = Record(id: item.id, isGroup: false, text: item.text, content: [item.id])
         let context = await backgroundContext
         var parent: UUID?
@@ -84,7 +82,7 @@ extension RecordsStore: NestedTableDataManager {
         return record.id
     }
 
-    func createGroup(with ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
+    public func createGroup(with ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
         let recordId = UUID()
         let record = Record(
             id: recordId,
@@ -127,7 +125,7 @@ extension RecordsStore: NestedTableDataManager {
         return recordId
     }
     
-    func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
+    public func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
         guard !ids.isEmpty else {
             return []
         }
@@ -165,7 +163,7 @@ extension RecordsStore: NestedTableDataManager {
         return deleted
     }
     
-    func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws {
+    public func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws {
         let context = await backgroundContext
         try await context.perform {
             var record = try Record(id: id, in: context)
@@ -185,7 +183,7 @@ extension RecordsStore: NestedTableDataManager {
         }
     }
     
-    func rename(_ id: UUID, to newName: String) async throws {
+    public func rename(_ id: UUID, to newName: String) async throws {
         let context = await backgroundContext
         var isGroup: Bool = false
         try await context.perform {

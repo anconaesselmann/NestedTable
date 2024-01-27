@@ -3,12 +3,12 @@
 
 import SwiftUI
 
-struct NameColumn<Content>: View {
+public struct NameColumn<Content>: View {
 
-    let item: BaseRow<Content>
+    public let item: BaseRow<Content>
 
     @StateObject
-    var vm: NestedTableViewModel<Content>
+    public var vm: NestedTableViewModel<Content>
 
     @FocusState
     private var isNameFocused:Bool
@@ -16,7 +16,14 @@ struct NameColumn<Content>: View {
     @State
     private var newName: String = ""
 
-    var body: some View {
+    public init(item: BaseRow<Content>, vm: NestedTableViewModel<Content>) {
+        self.item = item
+        self._vm = StateObject(wrappedValue: vm)
+        self.isNameFocused = isNameFocused
+        self.newName = newName
+    }
+
+    public var body: some View {
         HStack(spacing: 0) {
             #if !os(macOS)
             ForEach(0..<item.indent, id: \.self) { _ in

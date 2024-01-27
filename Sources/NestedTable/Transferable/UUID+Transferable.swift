@@ -5,7 +5,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 extension UUID: Transferable {
-    func asData() -> Data {
+    public func asData() -> Data {
         uuidString.data(using: .utf8)!
     }
 

@@ -3,13 +3,13 @@
 
 import SwiftUI
 
-struct ItemContextMenu<Content>: View {
+public struct ItemContextMenu<Content>: View {
     private let vm: NestedTableViewModel<Content>
     private let ids: Set<UUID>
     private var elements: [any ContextMenuItems]
     private var contextMenuElementBuilder: ((NestedTableViewModel<Content>, String, Set<UUID>) -> AnyView?)?
 
-    init(
+    public init(
         _ vm: NestedTableViewModel<Content>,
         ids: Set<UUID>,
         elements: [any ContextMenuItems],
@@ -21,7 +21,7 @@ struct ItemContextMenu<Content>: View {
         self.contextMenuElementBuilder = contextMenuElementBuilder
     }
 
-    var body: some View {
+    public var body: some View {
         contextMenu(for: ids)
     }
 

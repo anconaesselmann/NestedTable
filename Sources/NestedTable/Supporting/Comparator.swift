@@ -4,18 +4,18 @@
 import Foundation
 
 extension String: Comparable {
-    func compare(_ element: Self) -> ComparisonResult {
+    public func compare(_ element: Self) -> ComparisonResult {
         self < element ? .orderedDescending : .orderedAscending
     }
 }
 
 // TODO: add conformance for other commont types
 
-protocol Comparable {
+public protocol Comparable {
     func compare(_ element: Self) -> ComparisonResult
 }
 
-extension ComparisonResult {
+public extension ComparisonResult {
     var reversed: ComparisonResult {
         switch self {
         case .orderedAscending: return .orderedDescending
@@ -25,20 +25,20 @@ extension ComparisonResult {
     }
 }
 
-struct Comparator<Element>: SortComparator where Element: Comparable {
-    var order: SortOrder = .forward
+public struct Comparator<Element>: SortComparator where Element: Comparable {
+    public var order: SortOrder = .forward
 
-    func compare(_ lhs: Element, _ rhs: Element) -> ComparisonResult {
+    public func compare(_ lhs: Element, _ rhs: Element) -> ComparisonResult {
         let result: ComparisonResult
         result = lhs.compare(rhs)
         return order == .forward ? result : result.reversed
     }
 }
 
-struct OptionalComparator<Element>: SortComparator where Element: Comparable {
-    var order: SortOrder = .forward
+public struct OptionalComparator<Element>: SortComparator where Element: Comparable {
+    public var order: SortOrder = .forward
 
-    func compare(_ lhs: Element?, _ rhs: Element?) -> ComparisonResult {
+    public func compare(_ lhs: Element?, _ rhs: Element?) -> ComparisonResult {
         let result: ComparisonResult
         switch (lhs, rhs) {
         case (nil, nil):

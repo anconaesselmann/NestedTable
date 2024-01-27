@@ -3,7 +3,7 @@
 
 import Foundation
 
-enum DefaultContextMenuItems: String, ContextMenuItems {
+public enum DefaultContextMenuItems: String, ContextMenuItems {
     #if !os(macOS)
     case select
     #endif
