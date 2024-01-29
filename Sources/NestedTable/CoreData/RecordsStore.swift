@@ -8,6 +8,10 @@ import Combine
 @globalActor
 public actor RecordsStore {
 
+    enum Error: Swift.Error {
+        case alreadyInitialized, notInitialized, noGroupForRecord
+    }
+
     public static let shared = RecordsStore()
 
     @RecordsStore
@@ -21,23 +25,33 @@ public actor RecordsStore {
         container.newBackgroundContext()
     }()
 
+    @RecordsStore
+    var initialized: Bool {
+        _contentStore != nil
+    }
+
     private init() { }
 
     @RecordsStore
     @discardableResult
-    public func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws -> NestedTableDataManager {
-        guard _contentStore == nil else {
-            return self
-        }
-        let container = try createContainer(subdirectory: subdirectory)
-        return try await self.initialize(contentStore: contentStore, container: container)
+    public func initialize(
+        contentStore: ContentStore,
+        subdirectory: String? = nil
+    ) async throws -> Self {
+        try await self.initialize(
+            contentStore: contentStore,
+            container: try createContainer(subdirectory: subdirectory)
+        )
     }
 
     @RecordsStore
     @discardableResult
-    public func initialize(contentStore: ContentStore, container: NSPersistentContainer) async throws -> NestedTableDataManager {
-        guard _contentStore == nil else {
-            return self
+    public func initialize(
+        contentStore: ContentStore,
+        container: NSPersistentContainer
+    ) async throws -> Self {
+        guard !initialized else {
+            throw Error.alreadyInitialized
         }
         self._contentStore = contentStore
         self.container = container
@@ -46,16 +60,15 @@ public actor RecordsStore {
     }
 
     @RecordsStore
-    public func namespaced(_ namespace: UUID) -> NestedTableDataManager {
-        NamespacedRecordsStore(namespace, store: self)
+    public func namespaced(_ namespace: UUID) throws -> NestedTableDataManager {
+        guard initialized else {
+            throw Error.notInitialized
+        }
+        return NamespacedRecordsStore(namespace, store: self)
     }
 }
 
 extension RecordsStore: NestedTableDataManager {
-
-    public enum Error: Swift.Error {
-        case noGroupForRecord
-    }
 
     public func contentStore() async -> ContentStore {
         await _contentStore

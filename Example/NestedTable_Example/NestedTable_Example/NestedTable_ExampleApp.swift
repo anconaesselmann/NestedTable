@@ -56,11 +56,9 @@ class AppInitializer: ObservableObject {
 
         let mockContentStore = MockContentStore()
 
-        let singletonRecordsStore = RecordsStore.shared
-        try await singletonRecordsStore.initialize(contentStore: mockContentStore)
-
-//        let recordsStore = singletonRecordsStore
-        let recordsStore = await singletonRecordsStore.namespaced(UUID(uuidString: "e154fbe2-49ba-43cd-b1f0-960b64847e99")!)
+        let recordsStore = try await RecordsStore.shared
+            .initialize(contentStore: mockContentStore)
+            .namespaced(UUID(uuidString: "e154fbe2-49ba-43cd-b1f0-960b64847e99")!)
 
         AppState.shared = AppState(
             mockContentStore: mockContentStore,
