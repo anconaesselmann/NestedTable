@@ -16,26 +16,34 @@ public actor RecordsStore {
     @RecordsStore
     private var _contentStore: ContentStore!
 
-    private init() { }
-
-    @RecordsStore
-    public func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws {
-        self._contentStore = contentStore
-        self.container = try createContainer(subdirectory: subdirectory)
-        try await container.loadPersistentStores()
-    }
-
-    @RecordsStore
-    public func initialize(contentStore: ContentStore, container: NSPersistentContainer) async throws {
-        self._contentStore = contentStore
-        self.container = container
-        try await container.loadPersistentStores()
-    }
-
     @RecordsStore
     internal lazy var backgroundContext: NSManagedObjectContext = {
         container.newBackgroundContext()
     }()
+
+    private init() { }
+
+    @RecordsStore
+    @discardableResult
+    public func initialize(contentStore: ContentStore, subdirectory: String? = nil) async throws -> NestedTableDataManager {
+        guard _contentStore == nil else {
+            return self
+        }
+        let container = try createContainer(subdirectory: subdirectory)
+        return try await self.initialize(contentStore: contentStore, container: container)
+    }
+
+    @RecordsStore
+    @discardableResult
+    public func initialize(contentStore: ContentStore, container: NSPersistentContainer) async throws -> NestedTableDataManager {
+        guard _contentStore == nil else {
+            return self
+        }
+        self._contentStore = contentStore
+        self.container = container
+        try await container.loadPersistentStores()
+        return self
+    }
 
     @RecordsStore
     public func namespaced(_ namespace: UUID) -> NestedTableDataManager {
