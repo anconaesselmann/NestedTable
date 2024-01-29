@@ -16,7 +16,7 @@ extension RecordsStore {
     }
 
     @RecordsStore
-    private func dbModel() -> NSManagedObjectModel {
+    func recordEntityDescription() -> NSEntityDescription {
         let recordEntity = NSEntityDescription()
         recordEntity.name = "RecordEntity"
         recordEntity.managedObjectClassName = NSStringFromClass(RecordEntity.self)
@@ -49,6 +49,13 @@ extension RecordsStore {
             recordText,
             recordContent
         ]
+        return recordEntity
+    }
+
+
+    @RecordsStore
+    private func dbModel() -> NSManagedObjectModel {
+        let recordEntity = recordEntityDescription()
 
         var model = NSManagedObjectModel()
         model.entities = [ recordEntity ]
