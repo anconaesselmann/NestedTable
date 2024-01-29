@@ -5,6 +5,7 @@ import Foundation
 
 public struct Record: Identifiable {
     public var id: UUID
+    internal var namespace: UUID?
     public var isGroup: Bool
     public var parent: UUID?
     public var text: String

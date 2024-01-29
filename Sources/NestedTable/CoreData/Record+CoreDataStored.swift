@@ -7,6 +7,7 @@ import CoreDataStored
 extension Record: CoreDataStored {
     public init(_ entity: RecordEntity) throws {
         self.id = entity.id
+        self.namespace = entity.namespace
         self.isGroup = entity.isGroup
         self.parent = entity.parent
         self.text = entity.text
@@ -16,6 +17,7 @@ extension Record: CoreDataStored {
     public func entity(existing entity: RecordEntity?, in context: NSManagedObjectContext) -> RecordEntity {
         let entity = entity ?? RecordEntity(context: context)
         entity.id = id
+        entity.namespace = namespace
         entity.isGroup = isGroup
         entity.parent = parent
         entity.text = text

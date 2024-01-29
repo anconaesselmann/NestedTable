@@ -17,7 +17,7 @@ struct ContentView: View {
 
     @StateObject
     var tableViewModel = NestedTableViewModel<MockContent>(
-        dataManager: AppState.shared.recordStore,
+        dataManager: AppState.shared.recordsStore,
         delegate: MockNestedTableManager()
     )
 
@@ -80,7 +80,7 @@ struct ContentView: View {
             content: content
         )
         AppState.shared.mockContentStore.insert(content)
-        let id = try await AppState.shared.recordStore.create(selected, item: item)
+        let id = try await AppState.shared.recordsStore.create(selected, item: item)
         if let selected = selected {
             await tableViewModel.expand(selected, shouldAnimate: false)
         }

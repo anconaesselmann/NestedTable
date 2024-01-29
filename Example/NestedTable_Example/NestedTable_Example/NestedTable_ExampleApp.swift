@@ -38,7 +38,7 @@ struct AppState {
     static var shared: AppState!
 
     let mockContentStore: MockContentStore
-    let recordStore: RecordsStore
+    let recordsStore: NestedTableDataManager
 }
 
 
@@ -56,12 +56,15 @@ class AppInitializer: ObservableObject {
 
         let mockContentStore = MockContentStore()
 
-        let recordStore = RecordsStore.shared
-        try await recordStore.initialize(contentStore: mockContentStore)
+        let singletonRecordsStore = RecordsStore.shared
+        try await singletonRecordsStore.initialize(contentStore: mockContentStore)
+
+//        let recordsStore = singletonRecordsStore
+        let recordsStore = await singletonRecordsStore.namespaced(UUID(uuidString: "e154fbe2-49ba-43cd-b1f0-960b64847e99")!)
 
         AppState.shared = AppState(
             mockContentStore: mockContentStore,
-            recordStore: recordStore
+            recordsStore: recordsStore
         )
         initialized = true
     }

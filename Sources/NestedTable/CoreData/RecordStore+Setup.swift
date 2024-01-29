@@ -25,6 +25,10 @@ extension RecordsStore {
         recordId.name = "id"
         recordId.attributeType = .UUIDAttributeType
 
+        let recordNamespace = NSAttributeDescription()
+        recordNamespace.name = "namespace"
+        recordNamespace.attributeType = .UUIDAttributeType
+
         let recordIsGroup = NSAttributeDescription()
         recordIsGroup.name = "isGroup"
         recordIsGroup.attributeType = .booleanAttributeType
@@ -44,6 +48,7 @@ extension RecordsStore {
 
         recordEntity.properties = [
             recordId,
+            recordNamespace,
             recordIsGroup,
             recordParent,
             recordText,

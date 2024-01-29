@@ -31,6 +31,11 @@ public protocol ContentStore {
 }
 
 public extension ContentStore {
+
+    func createGroup(_ groupRecord: Record, namespace: UUID) async throws {
+        try await createGroup(groupRecord)
+    }
+
     func createGroup(_ groupRecord: Record) async throws {
         // Implement to track group creation
     }

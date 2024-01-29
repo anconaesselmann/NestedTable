@@ -33,9 +33,14 @@ public actor RecordsStore {
     }
 
     @RecordsStore
-    lazy var backgroundContext: NSManagedObjectContext = {
+    internal lazy var backgroundContext: NSManagedObjectContext = {
         container.newBackgroundContext()
     }()
+
+    @RecordsStore
+    public func namespaced(_ namespace: UUID) -> NestedTableDataManager {
+        NamespacedRecordsStore(namespace, store: self)
+    }
 }
 
 extension RecordsStore: NestedTableDataManager {
@@ -49,25 +54,42 @@ extension RecordsStore: NestedTableDataManager {
     }
 
     public func fetch() async throws -> [any TableRowItem] {
+        try await fetch(namespace: nil)
+    }
+
+    internal func fetch(namespace: UUID?) async throws -> [any TableRowItem] {
         let records = try await Record.fetch(
             in: backgroundContext,
-            where: (keyPath: \.parent, equal: NSNull())
+            where: 
+                (keyPath: \.parent, equal: NSNull()),
+                (keyPath: \.namespace, equal: namespace ?? NSNull())
         )
         return try await contentStore().rowItems(for: records)
     }
-    
+
     public func fetch(ids: Set<UUID>) async throws -> [any TableRowItem] {
+        try await fetch(ids: ids, namespace: nil)
+    }
+
+    internal func fetch(ids: Set<UUID>, namespace: UUID?) async throws -> [any TableRowItem] {
         let entities = try await Record.fetchEntities(withIds: ids, in: backgroundContext)
+            .filter { $0.namespace == namespace } // TODO: filter when fetching
         let records = try entities.map { try Record($0) }
         return try await contentStore().rowItems(for: records)
     }
 
+
     public func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID {
+        try await create(selectedId, item: item, namespace: nil)
+    }
+
+    internal func create(_ selectedId: UUID?, item: any TableRowItem, namespace: UUID?) async throws -> UUID {
         let record = Record(id: item.id, isGroup: false, text: item.text, content: [item.id])
         let context = await backgroundContext
         var parent: UUID?
         try await context.perform {
-            record.entity(in: context)
+            let entity = record.entity(in: context)
+            entity.namespace = namespace
             if let selectedId = selectedId {
                 let selected = try Record(id: selectedId, in: context)
                 try context.save()
@@ -85,6 +107,10 @@ extension RecordsStore: NestedTableDataManager {
     }
 
     public func createGroup(with ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
+        try await createGroup(with: ids, namespace: nil, named: name, parent: parent)
+    }
+
+    internal func createGroup(with ids: Set<UUID>, namespace: UUID?, named name: String, parent: UUID?) async throws -> UUID {
         let recordId = UUID()
         let record = Record(
             id: recordId,
@@ -93,7 +119,11 @@ extension RecordsStore: NestedTableDataManager {
             text: name,
             content: ids
         )
-        try await contentStore().createGroup(record)
+        if let namespace = namespace {
+            try await contentStore().createGroup(record, namespace: namespace)
+        } else {
+            try await contentStore().createGroup(record)
+        }
         guard
             let item = try await contentStore().rowItems(for: [record]).first,
             let group = item as? Group else
@@ -108,7 +138,8 @@ extension RecordsStore: NestedTableDataManager {
                 parent.content.insert(group.id)
                 try parent.update(in: context)
             }
-            record.entity(in: context)
+            let entity = record.entity(in: context)
+            entity.namespace = namespace
             let contentRecordEntities = try Record.fetchEntities(withIds: group.contents, in: context)
             let contentRecords = try contentRecordEntities.map { try Record($0) }
             let contentParentIds = Set(contentRecords.compactMap { $0.parent })

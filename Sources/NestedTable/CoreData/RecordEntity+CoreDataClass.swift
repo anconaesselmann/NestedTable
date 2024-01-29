@@ -11,10 +11,11 @@ final public class RecordEntity: NSManagedObject, Identifiable {
         NSFetchRequest<RecordEntity>(entityName: "RecordEntity")
     }
 
-    @NSManaged public var content: NSSet
     @NSManaged public var id: UUID
+    @NSManaged public var namespace: UUID?
     @NSManaged public var isGroup: Bool
     @NSManaged public var parent: UUID?
     @NSManaged public var text: String
+    @NSManaged public var content: NSSet
 
 }
