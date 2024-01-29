@@ -16,7 +16,7 @@ extension RecordsStore {
     }
 
     @RecordsStore
-    func recordEntityDescription() -> NSEntityDescription {
+    public func recordEntityDescription() -> NSEntityDescription {
         let recordEntity = NSEntityDescription()
         recordEntity.name = "RecordEntity"
         recordEntity.managedObjectClassName = NSStringFromClass(RecordEntity.self)
