@@ -5,16 +5,16 @@ import Foundation
 import CoreData
 
 @objc(RecordEntity)
-public class RecordEntity: NSManagedObject, Identifiable {
+final public class RecordEntity: NSManagedObject, Identifiable {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<RecordEntity> {
-        return NSFetchRequest<RecordEntity>(entityName: "RecordEntity")
+        NSFetchRequest<RecordEntity>(entityName: "RecordEntity")
     }
 
-    @NSManaged public var content: NSSet?
-    @NSManaged public var id: UUID?
+    @NSManaged public var content: NSSet
+    @NSManaged public var id: UUID
     @NSManaged public var isGroup: Bool
     @NSManaged public var parent: UUID?
-    @NSManaged public var text: String?
+    @NSManaged public var text: String
 
 }

@@ -6,12 +6,11 @@ import CoreDataStored
 
 extension Record: CoreDataStored {
     public init(_ entity: RecordEntity) throws {
-        let id = try NotNil(entity.id).unwrapped
-        self.id = id
+        self.id = entity.id
         self.isGroup = entity.isGroup
         self.parent = entity.parent
-        self.text = try NotNil(entity.text).unwrapped
-        self.content = Set((entity.content?.allObjects as? [UUID]) ?? [])
+        self.text = entity.text
+        self.content = try Set(entity.content)
     }
 
     public func entity(existing entity: RecordEntity?, in context: NSManagedObjectContext) -> RecordEntity {
