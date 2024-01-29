@@ -27,7 +27,7 @@ struct ContentView: View {
             TableColumn("Name", sortUsing: .nameColumn()) {
                 NameColumn(item: $0, vm: tableViewModel)
             }
-            TableColumn("Example", sortUsing: .content(\BaseRow.content?.test)) {
+            TableColumn("Example", sortUsing: .content(\.content?.test)) {
                 Text($0.content?.test ?? "")
             }
         } rows: {

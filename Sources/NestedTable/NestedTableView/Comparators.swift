@@ -15,8 +15,6 @@ public extension KeyPathComparator {
             Compared == BaseRow<Content>,
             T: Comparable
     {
-        KeyPathComparator(keyPath, comparator: Comparator<T>())
+        KeyPathComparator(keyPath, comparator: OptionalComparator<T>())
     }
-
-    // TODO: Create implementation for OptionalComparator
 }
