@@ -26,6 +26,13 @@ public actor RecordsStore {
     }
 
     @RecordsStore
+    public func initialize(contentStore: ContentStore, container: NSPersistentContainer) async throws {
+        self._contentStore = contentStore
+        self.container = container
+        try await container.loadPersistentStores()
+    }
+
+    @RecordsStore
     lazy var backgroundContext: NSManagedObjectContext = {
         container.newBackgroundContext()
     }()
