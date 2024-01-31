@@ -9,6 +9,32 @@ extension String: Comparable {
     }
 }
 
+extension Int: Comparable {
+    public func compare(_ element: Self) -> ComparisonResult {
+        self < element ? .orderedDescending : .orderedAscending
+    }
+}
+
+extension Double: Comparable {
+    public func compare(_ element: Self) -> ComparisonResult {
+        self < element ? .orderedDescending : .orderedAscending
+    }
+}
+
+extension Date: Comparable {
+    public func compare(_ element: Self) -> ComparisonResult {
+        self < element ? .orderedDescending : .orderedAscending
+    }
+}
+
+extension Bool: Comparable {
+    public func compare(_ element: Self) -> ComparisonResult {
+        let lhs = self ? 1 : 0
+        let rhs = element ? 1 : 0
+        return lhs < rhs ? .orderedDescending : .orderedAscending
+    }
+}
+
 // TODO: add conformance for other commont types
 
 public protocol Comparable {
@@ -49,6 +75,55 @@ public struct OptionalComparator<Element>: SortComparator where Element: Compara
             result = .orderedAscending
         case let (lhs?, rhs?):
             result = lhs.compare(rhs)
+        }
+        return order == .forward ? result : result.reversed
+    }
+}
+
+public struct CustomComparator<Element>: SortComparator {
+    public var order: SortOrder = .forward
+
+    let comparison: (Element?, Element?) -> ComparisonResult
+
+    public static func == (lhs: CustomComparator<Element>, rhs: CustomComparator<Element>) -> Bool {
+        lhs.order == rhs.order
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(order)
+    }
+
+    public func compare(_ lhs: Element, _ rhs: Element) -> ComparisonResult {
+        let result: ComparisonResult
+        result = comparison(lhs, rhs)
+        return order == .forward ? result : result.reversed
+    }
+}
+
+public struct OptionalCustomComparator<Element>: SortComparator {
+    public var order: SortOrder = .forward
+
+    let comparison: (Element, Element) -> ComparisonResult
+
+    public static func == (lhs: OptionalCustomComparator<Element>, rhs: OptionalCustomComparator<Element>) -> Bool {
+        lhs.order == rhs.order
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(order)
+    }
+
+    public func compare(_ lhs: Element?, _ rhs: Element?) -> ComparisonResult {
+        let result: ComparisonResult
+        switch (lhs, rhs) {
+        case (nil, nil):
+            result = .orderedSame
+        case (.some, nil):
+            result = .orderedDescending
+        case (nil, .some):
+            result = .orderedAscending
+        case let (lhs?, rhs?):
+            result = comparison(lhs, rhs)
         }
         return order == .forward ? result : result.reversed
     }

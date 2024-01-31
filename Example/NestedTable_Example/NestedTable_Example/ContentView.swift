@@ -27,8 +27,29 @@ struct ContentView: View {
             TableColumn("Name", sortUsing: .nameColumn()) {
                 NameColumn(item: $0, vm: tableViewModel)
             }
-            TableColumn("Example", sortUsing: .content(\.content?.test)) {
-                Text($0.content?.test ?? "")
+            TableColumn("String", sortUsing: .content(\.content?.string)) {
+                Text($0.content?.string ?? "")
+            }
+            TableColumn("OptionalString", sortUsing: .content(\.content?.optionalString)) {
+                Text($0.content?.optionalString ?? "")
+            }
+            TableColumn("Custom", sortUsing: .content(\.content?.custom, comparison: {
+                let lhs = $0.double
+                let rhs = $1.double
+                if lhs == rhs {
+                    return .orderedSame
+                } else {
+                    return lhs > rhs ? .orderedAscending : .orderedDescending
+                }
+            })) {
+                if let double = $0.content?.custom.double {
+                    Text("\(double)")
+                }
+            }
+            TableColumn("OptionalInt", sortUsing: .content(\.content?.optionalInt)) {
+                if let int = $0.content?.int {
+                    Text("\(int)")
+                }
             }
         } rows: {
             ForEach(tableViewModel.items) {
@@ -72,7 +93,11 @@ struct ContentView: View {
 
     private func create(tableViewModel: NestedTableViewModel<MockContent>, selected: UUID?) async throws {
         let mockContentId = UUID()
-        let content = MockContent(id: mockContentId, test: mockContentId.uuidString)
+        let content = MockContent(
+            id: mockContentId,
+            string: mockContentId.uuidString,
+            optionalString: mockContentId.uuidString
+        )
         let item = Item<MockContent>(
             id: content.id,
             text: "New item",

@@ -33,7 +33,10 @@ extension MockContentStore: ContentStore {
                 guard let contentId = record.content.first else {
                     throw Error.missingContentId
                 }
-                let content = items[contentId] ?? MockContent(test: contentId.uuidString)
+                let content = items[contentId] ?? MockContent(
+                    string: contentId.uuidString,
+                    optionalString: contentId.uuidString
+                )
                 return Item<MockContent>(
                     id: record.id,
                     parent: record.parent,
