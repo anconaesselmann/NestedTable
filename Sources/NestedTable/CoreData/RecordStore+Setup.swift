@@ -6,7 +6,6 @@ import CoreData
 
 extension RecordsStore {
 
-    @RecordsStore
     public static func recordEntityDescription() -> NSEntityDescription {
         let recordEntity = NSEntityDescription()
         recordEntity.name = "RecordEntity"
@@ -48,7 +47,6 @@ extension RecordsStore {
         return recordEntity
     }
 
-    @RecordsStore
     internal static func createContainer(subdirectory: String? = nil) throws -> NSPersistentContainer {
         let model = Self.dbModel()
         let dbPath = try Self.dbPath(subdirectory: subdirectory)
@@ -58,7 +56,6 @@ extension RecordsStore {
         return container
     }
 
-    @RecordsStore
     private static func dbModel() -> NSManagedObjectModel {
         let recordEntity = recordEntityDescription()
 
@@ -67,7 +64,6 @@ extension RecordsStore {
         return model
     }
 
-    @RecordsStore
     private static func dbPath(subdirectory: String?) throws -> URL {
         let fileManager = FileManager.default
 
