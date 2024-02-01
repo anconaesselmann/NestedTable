@@ -3,10 +3,11 @@
 
 import Foundation
 
-public extension Set {
+internal extension Set {
     enum Error: Swift.Error {
         case incompatibleType
     }
+
     init(_ nsSet: NSSet) throws {
         guard let array = nsSet.allObjects as? [Element] else {
             throw Error.incompatibleType

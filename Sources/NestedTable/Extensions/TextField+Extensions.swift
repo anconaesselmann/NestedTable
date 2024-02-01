@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-public extension View {
+internal extension View {
     func defaultTextFieldStyle() -> some View {
         #if os(macOS)
             textFieldStyle(.squareBorder)

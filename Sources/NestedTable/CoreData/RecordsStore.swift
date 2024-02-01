@@ -40,7 +40,7 @@ public actor RecordsStore {
     ) async throws -> Self {
         try await self.initialize(
             contentStore: contentStore,
-            container: try createContainer(subdirectory: subdirectory)
+            container: try Self.createContainer(subdirectory: subdirectory)
         )
     }
 

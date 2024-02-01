@@ -5,18 +5,9 @@ import Foundation
 import CoreData
 
 extension RecordsStore {
-    @RecordsStore
-    internal func createContainer(subdirectory: String? = nil) throws -> NSPersistentContainer {
-        let model = dbModel()
-        let dbPath = try dbPath(subdirectory: subdirectory)
-        let container = NSPersistentContainer(name: "Records", managedObjectModel: model)
-        let description = NSPersistentStoreDescription(url: dbPath)
-        container.persistentStoreDescriptions[0] = description
-        return container
-    }
 
     @RecordsStore
-    public func recordEntityDescription() -> NSEntityDescription {
+    public static func recordEntityDescription() -> NSEntityDescription {
         let recordEntity = NSEntityDescription()
         recordEntity.name = "RecordEntity"
         recordEntity.managedObjectClassName = NSStringFromClass(RecordEntity.self)
@@ -57,9 +48,18 @@ extension RecordsStore {
         return recordEntity
     }
 
+    @RecordsStore
+    internal static func createContainer(subdirectory: String? = nil) throws -> NSPersistentContainer {
+        let model = Self.dbModel()
+        let dbPath = try Self.dbPath(subdirectory: subdirectory)
+        let container = NSPersistentContainer(name: "Records", managedObjectModel: model)
+        let description = NSPersistentStoreDescription(url: dbPath)
+        container.persistentStoreDescriptions[0] = description
+        return container
+    }
 
     @RecordsStore
-    private func dbModel() -> NSManagedObjectModel {
+    private static func dbModel() -> NSManagedObjectModel {
         let recordEntity = recordEntityDescription()
 
         var model = NSManagedObjectModel()
@@ -68,7 +68,7 @@ extension RecordsStore {
     }
 
     @RecordsStore
-    private func dbPath(subdirectory: String?) throws -> URL {
+    private static func dbPath(subdirectory: String?) throws -> URL {
         let fileManager = FileManager.default
 
         let appName = Bundle.main.bundleIdentifier?.components(separatedBy: ".").last ?? ""
@@ -95,19 +95,5 @@ extension RecordsStore {
 
         return dbDir
             .appendingPathComponent("Records" + ".sqlite")
-    }
-}
-
-public extension NSPersistentContainer {
-    func loadPersistentStores() async throws {
-        try await withCheckedThrowingContinuation { [unowned self] (continuation: CheckedContinuation<Void, Error>) in
-            self.loadPersistentStores(completionHandler: { (storeDescription, error) in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume()
-                }
-            })
-        }
     }
 }
