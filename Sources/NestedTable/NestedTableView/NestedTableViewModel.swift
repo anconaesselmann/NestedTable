@@ -294,6 +294,13 @@ public class NestedTableViewModel<Content>: ObservableObject {
         items.first(where: { $0.id == id})?.isGroup ?? false
     }
 
+    public func parent(for id: UUID) async throws -> UUID? {
+        try await dm
+            .fetch(ids: [id])
+            .first?
+            .parent
+    }
+
     public func fetchContentIds(forGroup id: UUID) async -> Set<UUID>? {
         do {
             guard let group = try await dm.fetch(ids: [id]).first as? Group else {
