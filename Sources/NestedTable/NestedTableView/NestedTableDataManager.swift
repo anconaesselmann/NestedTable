@@ -3,6 +3,10 @@
 
 import Foundation
 
+enum NestedTableDataManagerError: Swift.Error {
+    case missingElement
+}
+
 public protocol NestedTableDataManager {
     func fetch() async throws -> [any TableRowItem]
     func fetch(ids: Set<UUID>) async throws -> [any TableRowItem]
@@ -13,6 +17,19 @@ public protocol NestedTableDataManager {
     func rename(_ id: UUID, to newName: String) async throws
 
     func contentStore() async -> ContentStore
+}
+
+public extension NestedTableDataManager {
+
+    func isGroup(_ id: UUID) async throws -> Bool {
+        guard let row = try await fetch(ids: [id]).first else {
+            throw NestedTableDataManagerError.missingElement
+        }
+        guard let group = row as? Group else {
+            return false
+        }
+        return true
+    }
 }
 
 public protocol NestedTableDelegate {

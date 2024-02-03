@@ -283,8 +283,27 @@ public class NestedTableViewModel<Content>: ObservableObject {
         selection.contains(id) && selection.count == 1
     }
 
-    public func currentOrder(for ids: Set<UUID>) -> [BaseRow<Content>] {
-        items.filter { ids.contains($0.id) }
+    public func fetch(ids: Set<UUID>) async throws -> [BaseRow<Content>] {
+        return try await dm
+            .fetch(ids: ids)
+            .map { BaseRow<Content>($0) }
+            .sorted(using: sortOrder)
+    }
+
+    public func isGroup(_ id: UUID) -> Bool {
+        items.first(where: { $0.id == id})?.isGroup ?? false
+    }
+
+    public func fetchContentIds(forGroup id: UUID) async -> Set<UUID>? {
+        do {
+            guard let group = try await dm.fetch(ids: [id]).first as? Group else {
+                throw NestedTableDataManagerError.missingElement
+            }
+            return group.contents
+        } catch {
+            delegate.error(error)
+            return nil
+        }
     }
 
     #if !os(macOS)

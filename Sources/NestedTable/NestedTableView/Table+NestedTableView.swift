@@ -6,7 +6,7 @@ import SwiftUI
 public extension Table {
 
     @MainActor
-    public init<Content>(
+    init<Content>(
         _ vm: NestedTableViewModel<Content>,
         @TableColumnBuilder<Value, KeyPathComparator<BaseRow<Content>>>
         columns: () -> Columns,
@@ -34,7 +34,7 @@ public extension Table {
     }
 
     @MainActor
-    public func contextMenu<Element, Content>(
+    func contextMenu<Element, Content>(
         _ vm: NestedTableViewModel<Content>,
         items: [any ContextMenuItems]? = nil,
         @ViewBuilder
@@ -80,7 +80,7 @@ public extension Table {
     }
 
     @MainActor
-    public func contextMenu<Element, Content>(
+    func contextMenu<Element, Content>(
         _ vm: NestedTableViewModel<Content>,
         items: [any ContextMenuItems]? = nil,
         @ViewBuilder
