@@ -95,6 +95,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
                     self.objectWillChange.send()
                 }
             } else {
+                // TODO: can crash
                 items.insert(contentsOf: children, at: index + 1)
             }
             var needsToUpdate = false
@@ -165,12 +166,12 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    public func createGroup(with ids: Set<UUID>) async -> UUID? {
+    public func createGroup(with ids: Set<UUID>, named name: String? = nil) async -> UUID? {
         do {
             let items = self.items.filter { ids.contains($0.id) }
                 .sorted { $0.indent < $1.indent }
             let parentId = items.first?.parent
-            let groupId = try await dm.createGroup(with: ids, named: "New group", parent: parentId)
+            let groupId = try await dm.createGroup(with: ids, named: name ?? "New group", parent: parentId)
             try await async_fetch(shouldAnimate: false)
             if !ids.isEmpty {
                 expanded.insert(groupId)
