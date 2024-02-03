@@ -190,15 +190,36 @@ extension RecordsStore: NestedTableDataManager {
         try await context.perform {
             recordsToDelete = try Record.fetchEntities(withIds: ids, in: context)
                 .map { try Record($0) }
+            var removeFromParent: [UUID: [UUID]] = [:]
             for record in recordsToDelete {
                 let isGroup = record.isGroup
                 if isGroup {
                     toDelete = record.content
                 }
                 try Record.delete(id: record.id, in: context)
+                if let parentId = record.parent {
+                    removeFromParent[parentId] = (removeFromParent[parentId] ?? []) + [record.id]
+                }
+            }
+            // Remove entry from parents
+            let parentIds = Set(removeFromParent.keys)
+            if !parentIds.isEmpty {
+                let parents = try Record.fetchEntities(withIds: parentIds, in: context)
+                for parent in parents {
+                    guard let children = removeFromParent[parent.id] else {
+                        continue
+                    }
+                    guard let content = parent.content.allObjects as? [UUID] else {
+                        continue
+                    }
+                    let newContent = Set(content).subtracting(Set(children))
+                    print("Previous content size: \(content.count), new content size: \(newContent.count)")
+                    parent.content = newContent as NSSet
+                }
             }
             try context.save()
         }
+        // If groups are removed remove all nested items
         let groups = recordsToDelete
             .filter { $0.isGroup }
             .map { $0.id }

@@ -32,7 +32,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     private var dm: NestedTableDataManager
-    private var delegate: NestedTableDelegate
+    public private(set) var delegate: NestedTableDelegate
     internal var contextMenuManager: ContextMenuManager
 
     private var expanded: Set<UUID> = []
@@ -281,6 +281,10 @@ public class NestedTableViewModel<Content>: ObservableObject {
 
     public func isSingleSelection(_ id: UUID) -> Bool {
         selection.contains(id) && selection.count == 1
+    }
+
+    public func currentOrder(for ids: Set<UUID>) -> [BaseRow<Content>] {
+        items.filter { ids.contains($0.id) }
     }
 
     #if !os(macOS)
