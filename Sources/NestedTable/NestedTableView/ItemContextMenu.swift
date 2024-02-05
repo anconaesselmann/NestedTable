@@ -49,7 +49,6 @@ public struct ItemContextMenu<Content>: View {
                         guard let id = await vm.createGroup(with: ids) else {
                             return
                         }
-                        vm.rename(id)
                     }
                 }
             case DefaultContextMenuItems.removeFromGroup.rawValue:

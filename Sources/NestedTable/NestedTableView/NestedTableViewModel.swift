@@ -176,14 +176,40 @@ public class NestedTableViewModel<Content>: ObservableObject {
             if !ids.isEmpty {
                 expanded.insert(groupId)
             }
-            selection = [groupId]
             await expand(groupId, shouldAnimate: false)
+            selection = [groupId]
+            focusAndRename(groupId)
             return groupId
         } catch {
             delegate.error(error)
             return nil
         }
     }
+
+    private func focusAndRename(_ id: UUID) {
+        Task {
+            try await Task.sleep(nanoseconds: 2_000)
+            await MainActor.run {
+                focus.send(id)
+            }
+            try await Task.sleep(nanoseconds: 1_000)
+            await MainActor.run {
+                rename(id)
+            }
+        }
+    }
+
+    private func focusAndSelect(_ id: UUID) {
+        Task {
+            try await Task.sleep(nanoseconds: 2_000)
+            await MainActor.run {
+                focus.send(id)
+                selection = [id]
+            }
+        }
+    }
+
+    public var focus = PassthroughSubject<UUID, Never>()
 
     public func isGrouped(_ ids: Set<UUID>) -> Bool {
         items
@@ -243,7 +269,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
             renaming = nil
             try await dm.rename(id, to: newName)
             try await async_fetch(shouldAnimate: false)
-            selection = [id]
+            focusAndSelect(id)
         } catch {
             delegate.error(error)
         }
