@@ -38,6 +38,10 @@ public struct NamespacedRecordsStore: NestedTableDataManager {
         try await store.move(itemWithId: id, toGroupWithId: groupId)
     }
 
+    public func move(itemsWithIds ids: Set<UUID>, toGroupWithId groupId: UUID?) async throws {
+        try await store.move(itemsWithIds: ids, toGroupWithId: groupId)
+    }
+
     public func rename(_ id: UUID, to newName: String) async throws {
         try await store.rename(id, to: newName)
     }

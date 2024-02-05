@@ -14,6 +14,7 @@ public protocol NestedTableDataManager {
     func createGroup(with ids: Set<UUID>, named: String, parent: UUID?) async throws -> UUID
     func delete(_ ids: Set<UUID>) async throws -> Set<UUID>
     func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws
+    func move(itemsWithIds ids: Set<UUID>, toGroupWithId groupId: UUID?) async throws
     func rename(_ id: UUID, to newName: String) async throws
 
     func contentStore() async -> ContentStore
@@ -29,6 +30,12 @@ public extension NestedTableDataManager {
             return false
         }
         return true
+    }
+
+    func parent(for id: UUID) async throws -> UUID? {
+        try await fetch(ids: [id])
+            .first?
+            .parent
     }
 }
 

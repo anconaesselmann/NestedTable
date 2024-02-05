@@ -212,23 +212,24 @@ public class NestedTableViewModel<Content>: ObservableObject {
 
     public func move(_ ids: Set<UUID>, to newParent: UUID?) async {
         do {
-            let ids = ids.filter { $0 != newParent }
-            for id in ids {
-                try await dm.move(itemWithId: id, toGroupWithId: newParent)
-            }
+            try await dm.move(itemsWithIds: ids, toGroupWithId: newParent)
             try await async_fetch(shouldAnimate: false)
-            let visible = Set(
-                items
-                    .filter { ids.contains($0.id) }
-                    .map { $0.id }
-                )
-            if visible.isEmpty, let newParent = newParent {
-                selection = [newParent]
-            } else {
-                selection = visible
-            }
+            selectIfVisible(ids, default: newParent)
         } catch {
             delegate.error(error)
+        }
+    }
+
+    private func selectIfVisible(_ ids: Set<UUID>, default fallback: UUID?) {
+        let visible = Set(
+            items
+                .filter { ids.contains($0.id) }
+                .map { $0.id }
+            )
+        if visible.isEmpty, let fallback = fallback {
+            selection = [fallback]
+        } else {
+            selection = visible
         }
     }
 
@@ -296,10 +297,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     public func parent(for id: UUID) async throws -> UUID? {
-        try await dm
-            .fetch(ids: [id])
-            .first?
-            .parent
+        try await dm.parent(for: id)
     }
 
     public func fetchContentIds(forGroup id: UUID) async -> Set<UUID>? {

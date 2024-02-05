@@ -239,6 +239,9 @@ extension RecordsStore: NestedTableDataManager {
     }
     
     public func move(itemWithId id: UUID, toGroupWithId groupId: UUID?) async throws {
+        guard id != groupId else {
+            return
+        }
         let context = await backgroundContext
         try await context.perform {
             var record = try Record(id: id, in: context)
@@ -257,7 +260,13 @@ extension RecordsStore: NestedTableDataManager {
             try context.save()
         }
     }
-    
+
+    public func move(itemsWithIds ids: Set<UUID>, toGroupWithId groupId: UUID?) async throws {
+        for id in ids {
+            try await move(itemWithId: id, toGroupWithId: groupId)
+        }
+    }
+
     public func rename(_ id: UUID, to newName: String) async throws {
         let context = await backgroundContext
         var isGroup: Bool = false
