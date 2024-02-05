@@ -285,7 +285,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
         selection.contains(id) && selection.count == 1
     }
 
-    public func fetch(ids: Set<UUID>) async throws -> [BaseRow<Content>] {
+    public func fetchRowsSorted(ids: Set<UUID>) async throws -> [BaseRow<Content>] {
         return try await dm
             .fetch(ids: ids)
             .map { BaseRow<Content>($0) }
@@ -294,10 +294,6 @@ public class NestedTableViewModel<Content>: ObservableObject {
 
     public func isGroup(_ id: UUID) -> Bool {
         items.first(where: { $0.id == id})?.isGroup ?? false
-    }
-
-    public func parent(for id: UUID) async throws -> UUID? {
-        try await dm.parent(for: id)
     }
 
     public func fetchContentIds(forGroup id: UUID) async -> Set<UUID>? {
