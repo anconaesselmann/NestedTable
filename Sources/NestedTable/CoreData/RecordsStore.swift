@@ -184,7 +184,7 @@ extension RecordsStore: NestedTableDataManager {
             return []
         }
         let context = await backgroundContext
-        var deleted = ids
+        var deleted = Set<UUID>()
         var toDelete = Set<UUID>()
         var recordsToDelete: [Record] = []
         try await context.perform {
@@ -192,13 +192,16 @@ extension RecordsStore: NestedTableDataManager {
                 .map { try Record($0) }
             var removeFromParent: [UUID: [UUID]] = [:]
             for record in recordsToDelete {
+                let recordId = record.id
+                let parentId = record.parent
                 let isGroup = record.isGroup
                 if isGroup {
-                    toDelete = record.content
+                    toDelete = toDelete.union(record.content)
                 }
-                try Record.delete(id: record.id, in: context)
-                if let parentId = record.parent {
-                    removeFromParent[parentId] = (removeFromParent[parentId] ?? []) + [record.id]
+                try Record.delete(id: recordId, in: context)
+                deleted.insert(recordId)
+                if let parentId = parentId {
+                    removeFromParent[parentId] = (removeFromParent[parentId] ?? []) + [recordId]
                 }
             }
             // Remove entry from parents
@@ -223,6 +226,7 @@ extension RecordsStore: NestedTableDataManager {
         let groups = recordsToDelete
             .filter { $0.isGroup }
             .map { $0.id }
+            .filter { deleted.contains($0) }
 
         let contentStore = await contentStore()
         if !groups.isEmpty {
@@ -231,6 +235,7 @@ extension RecordsStore: NestedTableDataManager {
         let items = recordsToDelete
             .filter { !$0.isGroup }
             .map { $0.id }
+            .filter { deleted.contains($0) }
         if !items.isEmpty {
             try await contentStore.deleteItems(Set(items))
         }

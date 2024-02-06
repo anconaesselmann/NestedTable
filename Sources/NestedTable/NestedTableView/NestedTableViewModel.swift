@@ -7,6 +7,7 @@ import Combine
 @MainActor
 public class NestedTableViewModel<Content>: ObservableObject {
 
+    @MainActor
     public var items: [BaseRow<Content>] = []
 
     @MainActor
@@ -89,14 +90,19 @@ public class NestedTableViewModel<Content>: ObservableObject {
             let children = try await dm.fetch(ids: group.contents)
                 .map { BaseRow<Content>($0, parent: group.id, indent: indent + 1) }
                 .sorted(using: sortOrder) // TODO: See if I can pass this into the DM
+
+            // TODO: Could intermittently crash, verify.
+            var newIndex = index + 1
+            if newIndex > items.count {
+                newIndex = items.count
+            }
             if shouldAnimate {
                 withAnimation {
                     items.insert(contentsOf: children, at: index + 1)
                     self.objectWillChange.send()
                 }
             } else {
-                // TODO: can crash
-                items.insert(contentsOf: children, at: index + 1)
+                items.insert(contentsOf: children, at: newIndex)
             }
             var needsToUpdate = false
             for child in children {
