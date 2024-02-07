@@ -38,10 +38,13 @@ public actor RecordsStore {
         contentStore: ContentStore,
         subdirectory: String? = nil
     ) async throws -> Self {
-        try await self.initialize(
+        let container = try Self.createContainer(subdirectory: subdirectory)
+        let initialized = try await self.initialize(
             contentStore: contentStore,
-            container: try Self.createContainer(subdirectory: subdirectory)
+            container: container
         )
+        try await container.loadPersistentStores()
+        return initialized
     }
 
     @RecordsStore
@@ -55,7 +58,6 @@ public actor RecordsStore {
         }
         self._contentStore = contentStore
         self.container = container
-        try await container.loadPersistentStores()
         return self
     }
 
