@@ -43,19 +43,19 @@ public extension Table {
         where Element: ContextMenuItems
     {
         let copy = self
+        let builder = { (vm: NestedTableViewModel<Content>, string: String, selected: Set<UUID>) -> AnyView? in
+            guard let element = Element(rawValue: string) else {
+                return nil
+            }
+            let view = builder(vm, element, selected)
+            return AnyView(view)
+        }
         return copy.contextMenu(forSelectionType: UUID.self) { ids in
             ItemContextMenu(
                 vm,
                 ids: ids,
                 elements: items ?? DefaultContextMenuItems.allCases,
-                contextMenuElementBuilder: { (vm: NestedTableViewModel<Content>, string: String, selected: Set<UUID>) -> AnyView? in
-                    guard let element = Element(rawValue: string) else {
-                        return nil
-                    }
-                    let view = builder(vm, element, selected)
-                    return AnyView(view)
-                }
-
+                contextMenuElementBuilder: builder
             )
         } primaryAction: { items in
             vm.primaryAction(items)
@@ -68,13 +68,7 @@ public extension Table {
                 vm,
                 ids: [],
                 elements: items ?? DefaultContextMenuItems.allCases,
-                contextMenuElementBuilder: { (vm: NestedTableViewModel<Content>, string: String, selected: Set<UUID>) -> AnyView? in
-                    guard let element = Element(rawValue: string) else {
-                        return nil
-                    }
-                    let view = builder(vm, element, selected)
-                    return AnyView(view)
-                }
+                contextMenuElementBuilder: builder
             )
         }
     }
@@ -89,22 +83,30 @@ public extension Table {
         where Element: ContextMenuItems
     {
         let copy = self
+        let builder = { (vm: NestedTableViewModel<Content>, string: String, selected: Set<UUID>) -> AnyView? in
+            guard let element = Element(rawValue: string) else {
+                return nil
+            }
+            let view = builder(element, selected)
+            return AnyView(view)
+        }
         return copy.contextMenu(forSelectionType: UUID.self) { ids in
             ItemContextMenu(
                 vm,
                 ids: ids,
                 elements: items ?? DefaultContextMenuItems.allCases,
-                contextMenuElementBuilder: { (vm: NestedTableViewModel<Content>, string: String, selected: Set<UUID>) -> AnyView? in
-                    guard let element = Element(rawValue: string) else {
-                        return nil
-                    }
-                    let view = builder(element, selected)
-                    return AnyView(view)
-                }
-
+                contextMenuElementBuilder: builder
             )
         } primaryAction: { items in
             vm.primaryAction(items)
+        }
+        .contextMenu {
+            ItemContextMenu(
+                vm,
+                ids: [],
+                elements: items ?? DefaultContextMenuItems.allCases,
+                contextMenuElementBuilder: builder
+            )
         }
         .onAppear {
             vm.fetch()
