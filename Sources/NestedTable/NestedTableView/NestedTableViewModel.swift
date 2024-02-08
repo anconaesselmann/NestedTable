@@ -23,7 +23,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
     public var renaming: UUID?
 
     @MainActor
-    public var sortOrder: [KeyPathComparator<BaseRow<Content>>] = [] {
+    public var sortOrder: [KeyPathComparator<BaseRow<Content>>] {
         didSet {
             Task {
                 try await async_fetch(shouldAnimate: false)
@@ -46,8 +46,10 @@ public class NestedTableViewModel<Content>: ObservableObject {
     public init(
         dataManager: NestedTableDataManager,
         delegate: NestedTableDelegate,
-        contextMenuManager: ContextMenuManager? = nil
+        contextMenuManager: ContextMenuManager? = nil,
+        sortOrder: [KeyPathComparator<BaseRow<Content>>] = []
     ) {
+        self.sortOrder = sortOrder
         self.dm = dataManager
         self.delegate = delegate
         self.contextMenuManager = contextMenuManager ?? DefaultContextMenuManager()

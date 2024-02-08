@@ -20,6 +20,25 @@ public struct CustomNameColumn<Content, Icon, Label>: View
     @State
     private var newName: String = ""
 
+    private let hasImage: Bool
+
+    public init(
+        item: BaseRow<Content>,
+        vm: NestedTableViewModel<Content>,
+        @ViewBuilder
+        label: @escaping (BaseRow<Content>) -> Label
+    )
+        where Icon == EmptyView
+    {
+        self.hasImage = false
+        self.item = item
+        self._vm = StateObject(wrappedValue: vm)
+        self.iconBuilder = { _ in EmptyView() }
+        self.labelBuilder = label
+        self.isNameFocused = isNameFocused
+        self.newName = newName
+    }
+
     public init(
         item: BaseRow<Content>,
         vm: NestedTableViewModel<Content>,
@@ -30,6 +49,7 @@ public struct CustomNameColumn<Content, Icon, Label>: View
     )
         where Icon: View
     {
+        self.hasImage = true
         self.item = item
         self._vm = StateObject(wrappedValue: vm)
         self.iconBuilder = icon
@@ -75,7 +95,7 @@ public struct CustomNameColumn<Content, Icon, Label>: View
                     .padding(.leading, 6)
             } else {
                 labelBuilder(item)
-                    .padding(.leading, 10)
+                    .padding(.leading, hasImage ? 10 : 0)
                     .padding(.vertical, 2.5)
             }
         }
