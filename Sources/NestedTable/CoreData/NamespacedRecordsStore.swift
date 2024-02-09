@@ -4,9 +4,9 @@
 import Foundation
 
 @RecordsStore
-public struct NamespacedRecordsStore: NestedTableDataManager {
+public class NamespacedRecordsStore: NestedTableDataManager {
 
-    private let namespace: UUID
+    private var namespace: UUID
     private let store: RecordsStore
 
     internal init(_ namespace: UUID, store: RecordsStore) {
@@ -48,5 +48,9 @@ public struct NamespacedRecordsStore: NestedTableDataManager {
 
     public func contentStore() async -> ContentStore {
         await store.contentStore()
+    }
+
+    public func switchNamespace(_ uuid: UUID) async {
+        namespace = uuid
     }
 }

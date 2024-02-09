@@ -62,7 +62,7 @@ public actor RecordsStore {
     }
 
     @RecordsStore
-    public func namespaced(_ namespace: UUID) throws -> NestedTableDataManager {
+    public func namespaced(_ namespace: UUID) throws -> NamespacedRecordsStore {
         guard initialized else {
             throw Error.notInitialized
         }
