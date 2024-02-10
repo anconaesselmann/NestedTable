@@ -17,6 +17,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
             if renaming != nil {
                 renaming = nil
             }
+            delegate.selection(selection)
         }
     }
 
@@ -142,6 +143,10 @@ public class NestedTableViewModel<Content>: ObservableObject {
         if clearState {
             expanded.remove(groupId)
         }
+        let visibleSelectedIds = items
+            .filter { selection.contains($0.id) }
+            .map { $0.id }
+        selection = Set(visibleSelectedIds)
     }
 
     public func toggle(_ groupId: UUID) async {
@@ -162,6 +167,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
         guard let id = ids.first, ids.count == 1 else {
             return
         }
+        // TODO: O(N) make O(1)
         guard let item = items.first(where: { $0.id == id }) else {
             return
         }
@@ -191,6 +197,32 @@ public class NestedTableViewModel<Content>: ObservableObject {
         } catch {
             delegate.error(error)
             return nil
+        }
+    }
+
+    public func expand(_ ids: Set<UUID>, shouldAnimate: Bool = true) async {
+        do {
+            let groupIds = try await dm
+                .fetch(ids: ids)
+                .compactMap { ($0 as? Group)?.id }
+            for id in groupIds {
+                await expand(id, shouldAnimate: shouldAnimate)
+            }
+        } catch {
+            delegate.error(error)
+        }
+    }
+
+    public func contract(_ ids: Set<UUID>, shouldAnimate: Bool = true) async {
+        do {
+            let groupIds = try await dm
+                .fetch(ids: ids)
+                .compactMap { ($0 as? Group)?.id }
+            for id in groupIds {
+                await contract(id, shouldAnimate: shouldAnimate)
+            }
+        } catch {
+            delegate.error(error)
         }
     }
 
@@ -327,6 +359,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     public func isGroup(_ id: UUID) -> Bool {
+        // TODO: Make O(1)
         items.first(where: { $0.id == id})?.isGroup ?? false
     }
 

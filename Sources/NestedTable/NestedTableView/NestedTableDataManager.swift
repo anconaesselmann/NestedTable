@@ -40,6 +40,7 @@ public extension NestedTableDataManager {
 }
 
 public protocol NestedTableDelegate {
+    func selection(_ ids: Set<UUID>)
     func performPrimaryAction(for id: UUID)
     func error(_ error: Error)
     // TODO: Update loading state
