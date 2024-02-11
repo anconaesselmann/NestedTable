@@ -99,7 +99,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
             if newIndex > items.count {
                 newIndex = items.count
             }
-            if shouldAnimate {
+            if shouldAnimate, !items.isEmpty {
                 withAnimation {
                     items.insert(contentsOf: children, at: index + 1)
                     self.objectWillChange.send()
@@ -187,9 +187,6 @@ public class NestedTableViewModel<Content>: ObservableObject {
             let parentId = items.first?.parent
             let groupId = try await dm.createGroup(with: ids, named: name ?? "New group", parent: parentId)
             try await async_fetch(shouldAnimate: false)
-            if !ids.isEmpty {
-                expanded.insert(groupId)
-            }
             await expand(groupId, shouldAnimate: false)
             selection = [groupId]
             focusAndRename(groupId)
@@ -250,18 +247,16 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    public func commandShifN(_ ids: Set<UUID>, shouldAnimate: Bool = true) async {
+    @discardableResult
+    public func commandShifN(_ ids: Set<UUID>, shouldAnimate: Bool = true) async -> UUID? {
         switch ids.count {
         case 0:
-            guard let groupId = await createGroup(with: ids) else {
-                return
-            }
-            focusAndSelect(groupId)
+            return await createGroup(with: ids)
         case 1:
             // TODO: add to parent instead of grouping
-            let groupId = await createGroup(with: ids)
+            return await createGroup(with: ids)
         default:
-            let groupId = await createGroup(with: ids)
+            return await createGroup(with: ids)
         }
     }
 
@@ -283,7 +278,10 @@ public class NestedTableViewModel<Content>: ObservableObject {
             try await Task.sleep(nanoseconds: 2_000)
             await MainActor.run {
                 focus.send(id)
-                selection = [id]
+                let newSelection = Set([id])
+                if selection != newSelection {
+                    selection = newSelection
+                }
             }
         }
     }
@@ -349,6 +347,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
             try await dm.rename(id, to: newName)
             try await async_fetch(shouldAnimate: false)
             focusAndSelect(id)
+            isNameFocused = false
         } catch {
             delegate.error(error)
         }
