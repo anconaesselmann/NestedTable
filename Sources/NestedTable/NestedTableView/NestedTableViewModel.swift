@@ -250,6 +250,21 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
+    public func commandShifN(_ ids: Set<UUID>, shouldAnimate: Bool = true) async {
+        switch ids.count {
+        case 0:
+            guard let groupId = await createGroup(with: ids) else {
+                return
+            }
+            focusAndSelect(groupId)
+        case 1:
+            // TODO: add to parent instead of grouping
+            let groupId = await createGroup(with: ids)
+        default:
+            let groupId = await createGroup(with: ids)
+        }
+    }
+
     private func focusAndRename(_ id: UUID) {
         Task {
             try await Task.sleep(nanoseconds: 2_000)
