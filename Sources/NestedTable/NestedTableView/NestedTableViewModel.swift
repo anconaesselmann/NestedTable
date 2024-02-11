@@ -226,6 +226,30 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
+    public func leftArrow(_ ids: Set<UUID>, shouldAnimate: Bool = true) async {
+        guard !ids.isEmpty else {
+            return
+        }
+        if ids.count == 1 {
+            do {
+                let elements = try await dm
+                    .fetch(ids: ids)
+                if let group = elements.compactMap({ ($0 as? Group)?.id }).first {
+                    await contract(ids, shouldAnimate: shouldAnimate)
+                } else if let parentId = elements.compactMap({ ($0 as? Item<Content>)?.parent }).first {
+                    selection = [parentId]
+                    focus.send(parentId)
+                } else {
+                    assertionFailure()
+                }
+            } catch {
+                delegate.error(error)
+            }
+        } else {
+            await contract(ids, shouldAnimate: shouldAnimate)
+        }
+    }
+
     private func focusAndRename(_ id: UUID) {
         Task {
             try await Task.sleep(nanoseconds: 2_000)
