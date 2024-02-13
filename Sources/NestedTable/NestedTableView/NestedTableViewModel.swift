@@ -21,7 +21,13 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    public var renaming: UUID?
+    public let typingInProgress = PassthroughSubject<Bool, Never>()
+
+    public var renaming: UUID? {
+        didSet {
+            typingInProgress.send(renaming != nil)
+        }
+    }
 
     @MainActor
     public var sortOrder: [KeyPathComparator<BaseRow<Content>>] {
