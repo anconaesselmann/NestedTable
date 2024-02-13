@@ -88,6 +88,7 @@ struct ContentView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
         #endif
     }
 

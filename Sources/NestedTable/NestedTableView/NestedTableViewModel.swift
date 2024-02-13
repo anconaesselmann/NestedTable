@@ -26,15 +26,15 @@ public class NestedTableViewModel<Content>: ObservableObject {
     @MainActor
     public var sortOrder: [KeyPathComparator<BaseRow<Content>>] {
         didSet {
-            Task {
-                try await async_fetch(shouldAnimate: false)
-                self.objectWillChange.send()
+            Task { [weak self] in
+                try await self?.async_fetch(shouldAnimate: false)
+                self?.objectWillChange.send()
             }
         }
     }
 
     private var dm: NestedTableDataManager
-    public private(set) var delegate: NestedTableDelegate
+    public private(set) weak var delegate: NestedTableDelegate!
     internal var contextMenuManager: ContextMenuManager
 
     private var expanded: Set<UUID> = []
@@ -61,11 +61,11 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     public func fetch() {
-        Task {
+        Task { [weak self] in
             do {
-                try await async_fetch()
+                try await self?.async_fetch()
             } catch {
-                delegate.error(error)
+                self?.delegate.error(error)
             }
         }
     }
@@ -82,6 +82,9 @@ public class NestedTableViewModel<Content>: ObservableObject {
 
     public func expand(_ groupId: UUID, shouldAnimate: Bool = true) async {
         do {
+            guard !expanded.contains(groupId) else {
+                return
+            }
             guard let index = items.firstIndex(where: { $0.id == groupId }) else {
                 return
             }
@@ -172,8 +175,8 @@ public class NestedTableViewModel<Content>: ObservableObject {
             return
         }
         if let group = item.group {
-            Task {
-                await toggle(group.id)
+            Task { [weak self] in
+                await self?.toggle(group.id)
             }
         } else {
             delegate.performPrimaryAction(for: id)
@@ -227,17 +230,16 @@ public class NestedTableViewModel<Content>: ObservableObject {
         guard !ids.isEmpty else {
             return
         }
-        if ids.count == 1 {
+        if ids.count == 1, let id = ids.first {
             do {
                 let elements = try await dm
                     .fetch(ids: ids)
-                if let group = elements.compactMap({ ($0 as? Group)?.id }).first {
+                let group = elements.compactMap({ ($0 as? Group)?.id }).first
+                if group != nil, expanded.contains(id) {
                     await contract(ids, shouldAnimate: shouldAnimate)
-                } else if let parentId = elements.compactMap({ ($0 as? Item<Content>)?.parent }).first {
+                } else if let parentId = elements.compactMap({ ($0 as? Item<Content>)?.parent ?? ($0 as? Group)?.parent }).first {
                     selection = [parentId]
                     focus.send(parentId)
-                } else {
-                    assertionFailure()
                 }
             } catch {
                 delegate.error(error)
@@ -261,26 +263,26 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     private func focusAndRename(_ id: UUID) {
-        Task {
+        Task { [weak self] in
             try await Task.sleep(nanoseconds: 2_000)
             await MainActor.run {
-                focus.send(id)
+                self?.focus.send(id)
             }
             try await Task.sleep(nanoseconds: 1_000)
             await MainActor.run {
-                rename(id)
+                self?.rename(id)
             }
         }
     }
 
     private func focusAndSelect(_ id: UUID) {
-        Task {
+        Task { [weak self] in
             try await Task.sleep(nanoseconds: 2_000)
             await MainActor.run {
-                focus.send(id)
+                self?.focus.send(id)
                 let newSelection = Set([id])
-                if selection != newSelection {
-                    selection = newSelection
+                if self?.selection != newSelection {
+                    self?.selection = newSelection
                 }
             }
         }
@@ -370,12 +372,12 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     public func itemsDropped(_ items: [Data], into groupId: UUID) {
-        Task {
+        Task { [weak self] in
             let ids = items.map {
                 let uuidString = String(data: $0, encoding: .utf8)!
                 return UUID(uuidString: uuidString)!
             }
-            await move(Set(ids), to: groupId)
+            await self?.move(Set(ids), to: groupId)
         }
     }
 

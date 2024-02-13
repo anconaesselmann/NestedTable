@@ -39,7 +39,7 @@ public extension NestedTableDataManager {
     }
 }
 
-public protocol NestedTableDelegate {
+public protocol NestedTableDelegate: AnyObject {
     func selection(_ ids: Set<UUID>)
     func performPrimaryAction(for id: UUID)
     func error(_ error: Error)
