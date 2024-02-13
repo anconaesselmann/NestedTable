@@ -82,7 +82,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
 
     public func expand(_ groupId: UUID, shouldAnimate: Bool = true) async {
         do {
-            guard !expanded.contains(groupId) else {
+            if shouldAnimate, expanded.contains(groupId) {
                 return
             }
             guard let index = items.firstIndex(where: { $0.id == groupId }) else {
