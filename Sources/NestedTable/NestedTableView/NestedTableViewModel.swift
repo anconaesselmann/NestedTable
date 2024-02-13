@@ -219,7 +219,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
                 .fetch(ids: ids)
                 .compactMap { ($0 as? Group)?.id }
             for id in groupIds {
-                await contract(id, shouldAnimate: shouldAnimate)
+                contract(id, shouldAnimate: shouldAnimate)
             }
         } catch {
             delegate.error(error)
@@ -234,8 +234,8 @@ public class NestedTableViewModel<Content>: ObservableObject {
             do {
                 let elements = try await dm
                     .fetch(ids: ids)
-                let group = elements.compactMap({ ($0 as? Group)?.id }).first
-                if group != nil, expanded.contains(id) {
+                let groupId = elements.compactMap { ($0 as? Group)?.id }.first
+                if groupId != nil, expanded.contains(id) {
                     await contract(ids, shouldAnimate: shouldAnimate)
                 } else if let parentId = elements.compactMap({ ($0 as? Item<Content>)?.parent ?? ($0 as? Group)?.parent }).first {
                     selection = [parentId]
@@ -246,6 +246,38 @@ public class NestedTableViewModel<Content>: ObservableObject {
             }
         } else {
             await contract(ids, shouldAnimate: shouldAnimate)
+        }
+    }
+
+    public func rightArrow(_ ids: Set<UUID>, shouldAnimate: Bool = true) async {
+        guard !ids.isEmpty else {
+            return
+        }
+        if ids.count == 1, let id = ids.first {
+            do {
+                let elements = try await dm
+                    .fetch(ids: ids)
+                let group = elements.compactMap { $0 as? Group }.first
+                if group != nil, !expanded.contains(id) {
+                    await expand(ids, shouldAnimate: shouldAnimate)
+                } else {
+                    let childrenIds = group?.contents ?? Set<UUID>()
+                    let firstChildId = try await dm
+                        .fetch(ids: childrenIds)
+                        .map { BaseRow<Content>($0) }
+                        .sorted(using: sortOrder)
+                        .first?
+                        .id
+                    if let firstChildId = firstChildId {
+                        selection = [firstChildId]
+                        focus.send(firstChildId)
+                    }
+                }
+            } catch {
+                delegate.error(error)
+            }
+        } else {
+            await expand(ids, shouldAnimate: shouldAnimate)
         }
     }
 
