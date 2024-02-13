@@ -181,6 +181,7 @@ extension RecordsStore: NestedTableDataManager {
         return recordId
     }
     
+    @discardableResult
     public func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
         guard !ids.isEmpty else {
             return []

@@ -30,6 +30,7 @@ public class NamespacedRecordsStore: NestedTableDataManager {
         try await store.createGroup(with: ids, namespace: namespace, named: name, parent: parent)
     }
 
+    @discardableResult
     public func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
         try await store.delete(ids)
     }
