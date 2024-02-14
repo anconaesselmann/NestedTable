@@ -86,6 +86,10 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
+    public func contractAll() {
+        expanded = []
+    }
+
     public func expand(_ groupId: UUID, shouldAnimate: Bool = true) async {
         do {
             if shouldAnimate, expanded.contains(groupId) {
