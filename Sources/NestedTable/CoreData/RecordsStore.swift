@@ -180,7 +180,21 @@ extension RecordsStore: NestedTableDataManager {
         }
         return recordId
     }
-    
+
+    private static func removeChildrenFromParents(
+        _ removeFromParent: [UUID: [UUID]],
+        context: NSManagedObjectContext
+    ) throws {
+        let parentIds = Set(removeFromParent.keys)
+        let parents = try Record.fetchEntities(withIds: parentIds, in: context)
+        for parent in parents {
+            guard let children = removeFromParent[parent.id], !children.isEmpty else {
+                continue
+            }
+            try parent.removeChildren(children: Set(children), in: context)
+        }
+    }
+
     @discardableResult
     public func delete(_ ids: Set<UUID>) async throws -> Set<UUID> {
         guard !ids.isEmpty else {
@@ -193,36 +207,19 @@ extension RecordsStore: NestedTableDataManager {
         try await context.perform {
             recordsToDelete = try Record.fetchEntities(withIds: ids, in: context)
                 .map { try Record($0) }
-            var removeFromParent: [UUID: [UUID]] = [:]
+            var children: [UUID: [UUID]] = [:]
             for record in recordsToDelete {
-                let recordId = record.id
-                let parentId = record.parent
-                let isGroup = record.isGroup
-                if isGroup {
+                if record.isGroup {
                     toDelete = toDelete.union(record.content)
                 }
-                try Record.delete(id: recordId, in: context)
-                deleted.insert(recordId)
-                if let parentId = parentId {
-                    removeFromParent[parentId] = (removeFromParent[parentId] ?? []) + [recordId]
+                try Record.delete(id: record.id, in: context)
+                deleted.insert(record.id)
+                if let parentId = record.parent {
+                    children[parentId] = (children[parentId] ?? []) + [record.id]
                 }
             }
             // Remove entry from parents
-            let parentIds = Set(removeFromParent.keys)
-            if !parentIds.isEmpty {
-                let parents = try Record.fetchEntities(withIds: parentIds, in: context)
-                for parent in parents {
-                    guard let children = removeFromParent[parent.id] else {
-                        continue
-                    }
-                    guard let content = parent.content.allObjects as? [UUID] else {
-                        continue
-                    }
-                    let newContent = Set(content).subtracting(Set(children))
-                    print("Previous content size: \(content.count), new content size: \(newContent.count)")
-                    parent.content = newContent as NSSet
-                }
-            }
+            try Self.removeChildrenFromParents(children, context: context)
             try context.save()
         }
         // If groups are removed remove all nested items
