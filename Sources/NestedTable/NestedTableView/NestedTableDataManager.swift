@@ -55,6 +55,8 @@ public protocol ContentStore {
     func deleteItems(_ ids: Set<UUID>) async throws
     func renameGroup(_ id: UUID, to newName: String) async throws
     func renameItem(_ id: UUID, to newName: String) async throws
+
+    func changeNamespace(items ids: Set<UUID>, newNamespace: UUID) async throws
 }
 
 public extension ContentStore {
@@ -81,5 +83,9 @@ public extension ContentStore {
 
     func renameItem(_ id: UUID, to newName: String) async throws {
         // Implement to track item renaming
+    }
+
+    func changeNamespace(items ids: Set<UUID>, newNamespace: UUID) async throws {
+        
     }
 }

@@ -54,4 +54,9 @@ public class NamespacedRecordsStore: NestedTableDataManager {
     public func switchNamespace(_ uuid: UUID) async {
         namespace = uuid
     }
+
+    @discardableResult
+    public func moveNamespace(_ ids: Set<UUID>, to namespaceId: UUID) async throws -> Set<UUID> {
+        try await store.moveNamespace(ids, to: namespaceId)
+    }
 }

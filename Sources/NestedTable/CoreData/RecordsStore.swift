@@ -8,8 +8,9 @@ import Combine
 @globalActor
 public actor RecordsStore {
 
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case alreadyInitialized, notInitialized, noGroupForRecord
+        case changingNamespaceOnGroupNotSuported
     }
 
     public static let shared = RecordsStore()
@@ -179,6 +180,43 @@ extension RecordsStore: NestedTableDataManager {
             try context.save()
         }
         return recordId
+    }
+
+    @discardableResult
+    public func moveNamespace(_ ids: Set<UUID>, to namespaceId: UUID) async throws -> Set<UUID> {
+        guard !ids.isEmpty else {
+            return []
+        }
+        let context = await backgroundContext
+        try await context.perform {
+            let newGroupId = UUID()
+            let newGroup = Record(id: newGroupId, isGroup: true, text: "Moved content", content: ids)
+            let newGroupEntity = newGroup.entity(in: context)
+            newGroupEntity.namespace = namespaceId
+
+            let records = try Record.fetchEntities(withIds: ids, in: context)
+            let hasGroups = records.reduce(into: false) {
+                if $1.isGroup { $0 = true }
+            }
+            // TODO: Suport groups
+            guard !hasGroups else {
+                throw Error.changingNamespaceOnGroupNotSuported
+            }
+            var children: [UUID: [UUID]] = [:]
+            for record in records {
+                record.namespace = namespaceId
+                record.parent = newGroupId
+                if let parentId = record.parent {
+                    children[parentId] = (children[parentId] ?? []) + [record.id]
+                }
+            }
+            try Self.removeChildrenFromParents(children, context: context)
+            newGroupEntity.content = ids as NSSet
+            try context.save()
+        }
+        let contentStore = await contentStore()
+        try await contentStore.changeNamespace(items: ids, newNamespace: namespaceId)
+        return ids
     }
 
     private static func removeChildrenFromParents(
