@@ -64,6 +64,14 @@ public class NestedTableViewModel<Content>: ObservableObject {
         self.contextMenuManager.isNameFocused.sink { [weak self] newValue in
             self?.isNameFocused = newValue
         }.store(in: &bag)
+        self.dm.removed.sink { ids in
+            Task { @MainActor [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.selection = self.selection.subtracting(ids)
+            }
+        }.store(in: &bag)
     }
 
     public func fetch() {

@@ -2,12 +2,17 @@
 //
 
 import Foundation
+import Combine
 
 @RecordsStore
 public class NamespacedRecordsStore: NestedTableDataManager {
 
     private var namespace: UUID
     private let store: RecordsStore
+
+    nonisolated public var removed: PassthroughSubject<Set<UUID>, Never> {
+        store.removed
+    }
 
     internal init(_ namespace: UUID, store: RecordsStore) {
         self.namespace = namespace

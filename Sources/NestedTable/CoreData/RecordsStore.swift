@@ -33,6 +33,8 @@ public actor RecordsStore {
 
     private init() { }
 
+    public let removed = PassthroughSubject<Set<UUID>, Never>()
+
     @RecordsStore
     @discardableResult
     public func initialize(
@@ -194,7 +196,7 @@ extension RecordsStore: NestedTableDataManager {
             let newGroupEntity = newGroup.entity(in: context)
             newGroupEntity.namespace = namespaceId
 
-            let records = try Record.fetchEntities(withIds: ids, in: context)
+            var records = try Record.fetchEntities(withIds: ids, in: context)
             let hasGroups = records.reduce(into: false) {
                 if $1.isGroup { $0 = true }
             }
@@ -204,18 +206,22 @@ extension RecordsStore: NestedTableDataManager {
             }
             var children: [UUID: [UUID]] = [:]
             for record in records {
-                record.namespace = namespaceId
-                record.parent = newGroupId
                 if let parentId = record.parent {
                     children[parentId] = (children[parentId] ?? []) + [record.id]
                 }
             }
             try Self.removeChildrenFromParents(children, context: context)
+            records = try Record.fetchEntities(withIds: ids, in: context)
+            for record in records {
+                record.namespace = namespaceId
+                record.parent = newGroupId
+            }
             newGroupEntity.content = ids as NSSet
             try context.save()
         }
         let contentStore = await contentStore()
         try await contentStore.changeNamespace(items: ids, newNamespace: namespaceId)
+        removed.send(ids)
         return ids
     }
 
@@ -229,7 +235,7 @@ extension RecordsStore: NestedTableDataManager {
             guard let children = removeFromParent[parent.id], !children.isEmpty else {
                 continue
             }
-            try parent.removeChildren(children: Set(children), in: context)
+            parent.removeChildren(children: Set(children), in: context)
         }
     }
 

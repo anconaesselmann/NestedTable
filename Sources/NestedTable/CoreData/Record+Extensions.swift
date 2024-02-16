@@ -9,7 +9,7 @@ extension RecordEntity {
     func removeChildren(
         children: Set<UUID>,
         in context: NSManagedObjectContext
-    ) throws {
+    ) {
         guard let content = content.allObjects as? [UUID] else {
             return
         }

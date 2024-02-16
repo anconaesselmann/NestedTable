@@ -2,12 +2,15 @@
 //
 
 import Foundation
+import Combine
 
 enum NestedTableDataManagerError: Swift.Error {
     case missingElement
 }
 
 public protocol NestedTableDataManager {
+    var removed: PassthroughSubject<Set<UUID>, Never> { get }
+
     func fetch() async throws -> [any TableRowItem]
     func fetch(ids: Set<UUID>) async throws -> [any TableRowItem]
     func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID
