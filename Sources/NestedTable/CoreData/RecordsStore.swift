@@ -34,6 +34,7 @@ public actor RecordsStore {
     private init() { }
 
     public let removed = PassthroughSubject<Set<UUID>, Never>()
+    public let hardRefreshSelection = PassthroughSubject<UUID, Never>()
 
     @RecordsStore
     @discardableResult
@@ -317,6 +318,7 @@ extension RecordsStore: NestedTableDataManager {
     }
 
     public func rename(_ id: UUID, to newName: String) async throws {
+        var isRoot = false
         let context = await backgroundContext
         var isGroup: Bool = false
         try await context.perform {
@@ -325,12 +327,17 @@ extension RecordsStore: NestedTableDataManager {
             record.text = newName
             try record.update(in: context)
             try context.save()
+            isRoot = record.parent == nil
         }
         let contentStore = await contentStore()
         if isGroup {
             try await contentStore.renameGroup(id, to: newName)
         } else {
             try await contentStore.renameItem(id, to: newName)
+        }
+        if isRoot, isGroup {
+            // Todo: See note in NestedTableDataManager
+            hardRefreshSelection.send(id)
         }
     }
 }

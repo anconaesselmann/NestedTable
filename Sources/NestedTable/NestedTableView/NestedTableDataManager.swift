@@ -10,6 +10,10 @@ enum NestedTableDataManagerError: Swift.Error {
 
 public protocol NestedTableDataManager {
     var removed: PassthroughSubject<Set<UUID>, Never> { get }
+    // Todo: When creating root-level groups I am having issues with
+    // selection after renaming. Likely cause is the Binding() in
+    // the custom table view initializer.
+    var hardRefreshSelection: PassthroughSubject<UUID, Never> { get }
 
     func fetch() async throws -> [any TableRowItem]
     func fetch(ids: Set<UUID>) async throws -> [any TableRowItem]

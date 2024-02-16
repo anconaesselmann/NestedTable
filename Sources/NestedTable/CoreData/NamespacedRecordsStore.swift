@@ -13,6 +13,10 @@ public class NamespacedRecordsStore: NestedTableDataManager {
     nonisolated public var removed: PassthroughSubject<Set<UUID>, Never> {
         store.removed
     }
+    
+    nonisolated public var hardRefreshSelection: PassthroughSubject<UUID, Never> {
+        store.hardRefreshSelection
+    }
 
     internal init(_ namespace: UUID, store: RecordsStore) {
         self.namespace = namespace

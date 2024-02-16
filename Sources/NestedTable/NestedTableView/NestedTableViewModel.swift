@@ -72,6 +72,25 @@ public class NestedTableViewModel<Content>: ObservableObject {
                 self.selection = self.selection.subtracting(ids)
             }
         }.store(in: &bag)
+        self.dm.hardRefreshSelection.sink { id in
+            Task { [weak self] in
+                // Todo: See note in NestedTableDataManager
+                guard let self = self else {
+                    return
+                }
+                await MainActor.run {
+                    self.selection = []
+                    delegate.selection([])
+                    self.objectWillChange.send()
+                }
+                try await Task.sleep(nanoseconds: 1_000_000)
+                await MainActor.run {
+                    self.selection = [id]
+                    delegate.selection([id])
+                    self.objectWillChange.send()
+                }
+            }
+        }.store(in: &bag)
     }
 
     public func fetch() {
