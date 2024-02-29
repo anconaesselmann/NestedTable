@@ -52,7 +52,15 @@ public protocol NestedTableDelegate: AnyObject {
     func selection(_ ids: Set<UUID>)
     func performPrimaryAction(for id: UUID)
     func error(_ error: Error)
+    func sortOrderHasChanged<Content>(_ sortOrder: NestedTableViewModel<Content>.SortOrder)
     // TODO: Update loading state
+}
+
+public extension NestedTableDelegate {
+    func selection(_ ids: Set<UUID>) { }
+    func performPrimaryAction(for id: UUID) { }
+    func error(_ error: Error) { }
+    func sortOrderHasChanged<Content>(_ sortOrder: NestedTableViewModel<Content>.SortOrder) { }
 }
 
 public protocol ContentStore {

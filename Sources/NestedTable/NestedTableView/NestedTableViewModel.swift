@@ -7,6 +7,8 @@ import Combine
 @MainActor
 public class NestedTableViewModel<Content>: ObservableObject {
 
+    public typealias SortOrder = [KeyPathComparator<BaseRow<Content>>]
+
     @MainActor
     public var items: [BaseRow<Content>] = []
 
@@ -30,11 +32,15 @@ public class NestedTableViewModel<Content>: ObservableObject {
     }
 
     @MainActor
-    public var sortOrder: [KeyPathComparator<BaseRow<Content>>] {
+    public var sortOrder: SortOrder {
         didSet {
             Task { [weak self] in
-                try await self?.async_fetch(shouldAnimate: false)
-                self?.objectWillChange.send()
+                guard let self = self else {
+                    return
+                }
+                try await self.async_fetch(shouldAnimate: false)
+                self.objectWillChange.send()
+                self.delegate?.sortOrderHasChanged(sortOrder)
             }
         }
     }
@@ -54,7 +60,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
         dataManager: NestedTableDataManager,
         delegate: NestedTableDelegate,
         contextMenuManager: ContextMenuManager? = nil,
-        sortOrder: [KeyPathComparator<BaseRow<Content>>] = []
+        sortOrder: SortOrder = []
     ) {
         self.sortOrder = sortOrder
         self.dm = dataManager
