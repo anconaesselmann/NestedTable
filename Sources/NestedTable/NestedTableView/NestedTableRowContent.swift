@@ -21,8 +21,19 @@ public struct NestedTableRowContent<Content>: TableRowContent {
                 vm.itemProvider(for: item)
             }
             .if(item.isGroup) {
-                $0.dropDestination(for: Data.self) {
-                    vm.itemsDropped($0, into: item.id)
+                $0.dropDestination(for: URL.self) {
+                    // Note: There apears to be a bug in SwiftUI's TableRowContent:
+                    // The documentation states that actions return true of false
+                    // based on the success of the drop operation. The closure
+                    // that actually is part of the function signatrue returns Void
+                    let uuid = $0.compactMap { UUID(nestedTableBaseRowUrl: $0) }
+                    if !uuid.isEmpty {
+                        vm.itemsDropped(uuid, into: item.id)
+                    } else if !$0.isEmpty {
+                        vm.itemsDropped($0, into: item.id)
+                    } else {
+                        
+                    }
                 }
             }
         #endif

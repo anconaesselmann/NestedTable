@@ -5,15 +5,28 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 extension BaseRow: Transferable {
-
-    public func uuidAsData() -> Data {
-        id.asData()
+    var rowUrl: URL {
+        URL(fileURLWithPath: "nested_table_base_row=" + id.uuidString.lowercased())
     }
-
+    
     public static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(exportedContentType: .data) { item in
-            item.id.asData()
-        }
+        CodableRepresentation(contentType: .url)
     }
 }
 
+extension UUID {
+    init?(nestedTableBaseRowUrl url: URL) {
+        let components = url.lastPathComponent
+            .split(separator: "=")
+            .map { String($0) }
+        guard
+            let first = components.first,
+            first == "nested_table_base_row",
+            let last = components.last,
+            let id = UUID(uuidString: last)
+        else {
+            return nil
+        }
+        self = id
+    }
+}

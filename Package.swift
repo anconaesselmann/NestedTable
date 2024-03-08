@@ -15,7 +15,7 @@ let package = Package(
             targets: ["NestedTable"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/anconaesselmann/CoreDataStored", from: "0.0.4")
+        .package(url: "https://github.com/anconaesselmann/CoreDataStored", from: "0.0.7")
     ],
     targets: [
         .target(

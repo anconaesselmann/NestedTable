@@ -446,19 +446,27 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    public func itemsDropped(_ items: [Data], into groupId: UUID) {
+    public func itemsDropped(_ ids: [UUID], into groupId: UUID) -> Bool {
+        guard !ids.isEmpty else {
+            return false
+        }
         Task { [weak self] in
-            let ids = items.map {
-                let uuidString = String(data: $0, encoding: .utf8)!
-                return UUID(uuidString: uuidString)!
-            }
             await self?.move(Set(ids), to: groupId)
         }
+        return true
+    }
+
+    public func itemsDropped(_ urls: [URL], into groupId: UUID) -> Bool {
+        guard !urls.isEmpty else {
+            return false
+        }
+        delegate.dropped(files: urls, into: groupId)
+        return true
     }
 
     public func itemProvider(for item: BaseRow<Content>) -> NSItemProvider {
         let provider = NSItemProvider()
-        provider.register(item.uuidAsData())
+        provider.register(item.rowUrl)
         return provider
     }
 
