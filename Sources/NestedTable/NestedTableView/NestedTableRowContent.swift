@@ -20,6 +20,9 @@ public struct NestedTableRowContent<Content>: TableRowContent {
             .itemProvider {
                 vm.itemProvider(for: item)
             }
+            .onHover {
+                vm.onHover(elementId: item.id, isHovering: $0)
+            }
             .if(item.isGroup) {
                 $0.dropDestination(for: URL.self) {
                     // Note: There apears to be a bug in SwiftUI's TableRowContent:

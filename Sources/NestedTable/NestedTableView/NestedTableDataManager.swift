@@ -53,7 +53,7 @@ public protocol NestedTableDelegate: AnyObject {
     func performPrimaryAction(for id: UUID)
     func error(_ error: Error)
     func sortOrderHasChanged<Content>(_ sortOrder: NestedTableViewModel<Content>.SortOrder)
-    func dropped(files: [URL], into groupId: UUID)
+    func dropped(files: [URL], into groupId: UUID?)
     // TODO: Update loading state
 }
 
@@ -62,7 +62,7 @@ public extension NestedTableDelegate {
     func performPrimaryAction(for id: UUID) { }
     func error(_ error: Error) { }
     func sortOrderHasChanged<Content>(_ sortOrder: NestedTableViewModel<Content>.SortOrder) { }
-    func dropped(files: [URL], into groupId: UUID) {}
+    func dropped(files: [URL], into groupId: UUID?) {}
 }
 
 public protocol ContentStore {

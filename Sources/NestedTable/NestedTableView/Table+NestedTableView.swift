@@ -2,6 +2,7 @@
 //
 
 import SwiftUI
+import Combine
 
 public extension Table {
 
@@ -110,6 +111,26 @@ public extension Table {
         }
         .onAppear {
             vm.fetch()
+        }
+        .addHoverView(vm.hoveringOverElement) { itemProviders, location in
+            vm.onFileDropped(itemProviders)
+        }
+    }
+}
+
+fileprivate extension View {
+    func addHoverView(
+        _ hoveringOverElement: AnyPublisher<UUID?, Never>,
+        perform action: @escaping (_ providers: [NSItemProvider], _ location: CGPoint) -> Bool)
+    -> some View {
+        ZStack {
+            self
+            HoverView(hoveringOverElement: hoveringOverElement)
+                .onDrop(
+                    of: [.fileURL],
+                    isTargeted: nil,
+                    perform: action
+                )
         }
     }
 }

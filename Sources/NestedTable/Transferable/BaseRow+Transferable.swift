@@ -14,7 +14,7 @@ extension BaseRow: Transferable {
     }
 }
 
-extension UUID {
+public extension UUID {
     init?(nestedTableBaseRowUrl url: URL) {
         let components = url.lastPathComponent
             .split(separator: "=")

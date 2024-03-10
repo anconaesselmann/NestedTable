@@ -446,7 +446,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
-    public func itemsDropped(_ ids: [UUID], into groupId: UUID) -> Bool {
+    public func itemsDropped(_ ids: [UUID], into groupId: UUID?) -> Bool {
         guard !ids.isEmpty else {
             return false
         }
@@ -456,7 +456,7 @@ public class NestedTableViewModel<Content>: ObservableObject {
         return true
     }
 
-    public func itemsDropped(_ urls: [URL], into groupId: UUID) -> Bool {
+    public func itemsDropped(_ urls: [URL], into groupId: UUID?) -> Bool {
         guard !urls.isEmpty else {
             return false
         }
@@ -468,6 +468,53 @@ public class NestedTableViewModel<Content>: ObservableObject {
         let provider = NSItemProvider()
         provider.register(item.rowUrl)
         return provider
+    }
+
+    @MainActor
+    func onFileDropped(_ providers: [NSItemProvider]) -> Bool {
+        let dropId = UUID()
+        let filteredProviders = providers
+            .filter { $0.canLoadObject(ofClass: URL.self) }
+        guard !filteredProviders.isEmpty else {
+            return false
+        }
+        Task {
+            var urls: [URL] = []
+            do {
+                for provider in filteredProviders {
+                    let url = try await provider.loadObject(ofClass: URL.self)
+                    urls.append(url)
+                }
+            } catch {
+                assertionFailure()
+            }
+            guard !urls.isEmpty else {
+                return false
+            }
+            let uuids = urls.compactMap { UUID(nestedTableBaseRowUrl: $0) }
+            if !uuids.isEmpty {
+                return itemsDropped(uuids, into: nil)
+            } else {
+                return itemsDropped(urls, into: nil)
+            }
+        }
+        return true
+    }
+
+    private var _hoveringOverElement = CurrentValueSubject<UUID?, Never>(nil)
+
+    public var hoveringOverElement: AnyPublisher<UUID?, Never> {
+        _hoveringOverElement.eraseToAnyPublisher()
+    }
+
+    func onHover(elementId: UUID, isHovering: Bool) {
+        if isHovering {
+            _hoveringOverElement.send(elementId)
+        } else {
+            if _hoveringOverElement.value == elementId {
+                _hoveringOverElement.send(nil)
+            }
+        }
     }
 
     public func isSingleSelection(_ id: UUID) -> Bool {
