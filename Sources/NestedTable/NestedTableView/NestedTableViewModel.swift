@@ -131,27 +131,29 @@ public class NestedTableViewModel<Content>: ObservableObject {
             guard let index = items.firstIndex(where: { $0.id == groupId }) else {
                 return
             }
-            let item = items[index]
+            var currentItems = items
+            let item = currentItems[index]
             guard let group = item.group else {
                 return
             }
-            let indent = items[index].indent
+            let indent = currentItems[index].indent
             let children = try await dm.fetch(ids: group.contents)
                 .map { BaseRow<Content>($0, parent: group.id, indent: indent + 1) }
                 .sorted(using: sortOrder) // TODO: See if I can pass this into the DM
 
             // TODO: Could intermittently crash, verify.
             var newIndex = index + 1
-            if newIndex > items.count {
-                newIndex = items.count
+            if newIndex > currentItems.count {
+                newIndex = currentItems.count
             }
-            if shouldAnimate, !items.isEmpty {
+            currentItems.insert(contentsOf: children, at: newIndex)
+            if shouldAnimate, !currentItems.isEmpty {
                 withAnimation {
-                    items.insert(contentsOf: children, at: index + 1)
+                    self.items = currentItems
                     self.objectWillChange.send()
                 }
             } else {
-                items.insert(contentsOf: children, at: newIndex)
+                self.items = currentItems
             }
             var needsToUpdate = false
             for child in children {
