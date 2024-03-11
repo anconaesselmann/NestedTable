@@ -46,9 +46,7 @@ public struct ItemContextMenu<Content>: View {
                 }()
                 Button(text) {
                     Task {
-                        guard let id = await vm.createGroup(with: ids) else {
-                            return
-                        }
+                        await vm.createGroup(with: UUID(), in: nil, content: ids)
                     }
                 }
             case DefaultContextMenuItems.removeFromGroup.rawValue:

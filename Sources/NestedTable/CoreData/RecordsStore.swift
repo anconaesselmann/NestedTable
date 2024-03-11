@@ -105,40 +105,77 @@ extension RecordsStore: NestedTableDataManager {
         return try await contentStore().rowItems(for: records)
     }
 
-
+    // SelectedId can be a group or an element. If the selected item is a group
+    // the new item gets created inise fo theat group. If the selected item \
+    // is not a group the new item gets creted in the selected item's parent group
     public func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID {
         try await create(selectedId, item: item, namespace: nil)
     }
 
+    public func create(in groupId: UUID, item: any TableRowItem) async throws -> UUID {
+        try await create(in: groupId, item: item, namespace: nil)
+    }
+
     internal func create(_ selectedId: UUID?, item: any TableRowItem, namespace: UUID?) async throws -> UUID {
-        let record = Record(id: item.id, isGroup: false, text: item.text, content: [item.id])
         let context = await backgroundContext
-        var parent: UUID?
-        try await context.perform {
-            let entity = record.entity(in: context)
-            entity.namespace = namespace
+        return try await context.perform {
+            var parentId: UUID?
             if let selectedId = selectedId {
                 let selected = try Record(id: selectedId, in: context)
-                try context.save()
                 if selected.isGroup {
-                    parent = selected.id
+                    parentId = selected.id
                 } else {
-                    parent = selected.parent
+                    parentId = selected.parent
                 }
-            } else {
-                parent = nil
             }
+            let record = Record(id: item.id, isGroup: false, parent: parentId, text: item.text, content: [item.id])
+            if let parentId = parentId {
+                var parent = try Record(id: parentId, in: context)
+                parent.content.insert(record.id)
+                try parent.update(in: context)
+            }
+            let entity = record.entity(in: context)
+            entity.namespace = namespace
+            try context.save()
+            return record.id
         }
-        try await move(itemWithId: record.id, toGroupWithId: parent)
-        return record.id
     }
 
-    public func createGroup(with ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
-        try await createGroup(with: ids, namespace: nil, named: name, parent: parent)
+    internal func create(in groupId: UUID, item: any TableRowItem, namespace: UUID?) async throws -> UUID {
+        let context = await backgroundContext
+        return try await context.perform {
+            let record = Record(id: item.id, isGroup: false, parent: groupId, text: item.text, content: [item.id])
+            var parent = try Record(id: groupId, in: context)
+            parent.content.insert(record.id)
+            try parent.update(in: context)
+            let entity = record.entity(in: context)
+            entity.namespace = namespace
+            try context.save()
+            return record.id
+        }
     }
 
-    internal func createGroup(with ids: Set<UUID>, namespace: UUID?, named name: String, parent: UUID?) async throws -> UUID {
-        let recordId = UUID()
+    public func createGroup(withId recordId: UUID, content ids: Set<UUID>, named name: String, parent: UUID?) async throws {
+        try await createGroup(withId: recordId, content: ids, namespace: nil, named: name, parent: parent)
+    }
+
+    public func createGroup(withId recordId: UUID, content ids: Set<UUID>, named name: String, parent: UUID?, namespace: UUID) async throws {
+        try await createGroup(withId: recordId, content: ids, namespace: namespace, named: name, parent: parent)
+    }
+
+    public func createGroup(withContent ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
+        let newGroupId = UUID()
+        try await createGroup(withId: newGroupId, content: ids, namespace: nil, named: name, parent: parent)
+        return newGroupId
+    }
+
+    public func createGroup(withContent ids: Set<UUID>, named name: String, parent: UUID?, namespace: UUID) async throws -> UUID {
+        let newGroupId = UUID()
+        try await createGroup(withId: newGroupId, content: ids, namespace: namespace, named: name, parent: parent)
+        return newGroupId
+    }
+
+    internal func createGroup(withId recordId: UUID, content ids: Set<UUID>, namespace: UUID?, named name: String, parent: UUID?) async throws {
         let record = Record(
             id: recordId,
             isGroup: true,
@@ -146,11 +183,6 @@ extension RecordsStore: NestedTableDataManager {
             text: name,
             content: ids
         )
-        if let namespace = namespace {
-            try await contentStore().createGroup(record, namespace: namespace)
-        } else {
-            try await contentStore().createGroup(record)
-        }
         guard
             let item = try await contentStore().rowItems(for: [record]).first,
             let group = item as? Group else
@@ -182,7 +214,11 @@ extension RecordsStore: NestedTableDataManager {
             }
             try context.save()
         }
-        return recordId
+        if let namespace = namespace {
+            try await contentStore().createGroup(record, namespace: namespace)
+        } else {
+            try await contentStore().createGroup(record)
+        }
     }
 
     @discardableResult

@@ -228,12 +228,39 @@ public class NestedTableViewModel<Content>: ObservableObject {
         }
     }
 
+    public func createGroup(
+        with groupId: UUID,
+        in parent: UUID?,
+        content ids: Set<UUID>,
+        named name: String? = nil,
+        isActive: Bool = true
+    ) async {
+        do {
+            let items = self.items.filter { ids.contains($0.id) }
+                .sorted { $0.indent < $1.indent }
+            let parentId = parent ?? items.first?.parent
+            try await dm.createGroup(withId: groupId, content: ids, named: name ?? "New group", parent: parentId)
+            try await async_fetch(shouldAnimate: false)
+            if isActive {
+                await expand(groupId, shouldAnimate: false)
+                selection = [groupId]
+                focusAndRename(groupId)
+            }
+        } catch {
+            delegate.error(error)
+        }
+    }
+
+    public func rename(groupWithId groupId: UUID) {
+        focusAndRename(groupId)
+    }
+
     public func createGroup(with ids: Set<UUID>, named name: String? = nil) async -> UUID? {
         do {
             let items = self.items.filter { ids.contains($0.id) }
                 .sorted { $0.indent < $1.indent }
             let parentId = items.first?.parent
-            let groupId = try await dm.createGroup(with: ids, named: name ?? "New group", parent: parentId)
+            let groupId = try await dm.createGroup(withContent: ids, named: name ?? "New group", parent: parentId)
             try await async_fetch(shouldAnimate: false)
             await expand(groupId, shouldAnimate: false)
             selection = [groupId]
@@ -474,7 +501,6 @@ public class NestedTableViewModel<Content>: ObservableObject {
 
     @MainActor
     func onFileDropped(_ providers: [NSItemProvider]) -> Bool {
-        let dropId = UUID()
         let filteredProviders = providers
             .filter { $0.canLoadObject(ofClass: URL.self) }
         guard !filteredProviders.isEmpty else {

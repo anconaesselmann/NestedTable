@@ -35,8 +35,16 @@ public class NamespacedRecordsStore: NestedTableDataManager {
         try await store.create(selectedId, item: item, namespace: namespace)
     }
 
-    public func createGroup(with ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
-        try await store.createGroup(with: ids, namespace: namespace, named: name, parent: parent)
+    public func create(in groupId: UUID, item: any TableRowItem) async throws -> UUID {
+        try await store.create(in: groupId, item: item, namespace: namespace)
+    }
+
+    public func createGroup(withContent ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID {
+        try await store.createGroup(withContent: ids, named: name, parent: parent, namespace: namespace)
+    }
+
+    public func createGroup(withId recordId: UUID, content ids: Set<UUID>, named name: String, parent: UUID?) async throws {
+        try await store.createGroup(withId: recordId, content: ids, named: name, parent: parent, namespace: namespace)
     }
 
     @discardableResult

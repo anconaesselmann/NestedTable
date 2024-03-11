@@ -18,7 +18,10 @@ public protocol NestedTableDataManager {
     func fetch() async throws -> [any TableRowItem]
     func fetch(ids: Set<UUID>) async throws -> [any TableRowItem]
     func create(_ selectedId: UUID?, item: any TableRowItem) async throws -> UUID
-    func createGroup(with ids: Set<UUID>, named: String, parent: UUID?) async throws -> UUID
+    func create(in groupId: UUID, item: any TableRowItem) async throws -> UUID
+    
+    func createGroup(withId recordId: UUID, content ids: Set<UUID>, named name: String, parent: UUID?) async throws
+    func createGroup(withContent ids: Set<UUID>, named name: String, parent: UUID?) async throws -> UUID
 
     @discardableResult
     func delete(_ ids: Set<UUID>) async throws -> Set<UUID>
